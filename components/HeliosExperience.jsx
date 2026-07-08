@@ -455,7 +455,7 @@ export default function HeliosExperience() {
 
       <section className="hero section-shell" aria-labelledby="hero-title">
         <div className="hero-media" aria-hidden="true">
-          <Image src="/helios/assets/hero.png" alt="" width={1792} height={1024} priority />
+          <Image src="/helios/assets/traffic.png" alt="" width={1792} height={1024} priority />
         </div>
 
         <div className="hero-stage">
@@ -469,33 +469,10 @@ export default function HeliosExperience() {
               <a className="btn btn-secondary" href="#engine">查看增长模型</a>
             </div>
           </div>
-
-          <button
-            className={`hero-panel panel-traffic ${activeEngine === "traffic" ? "is-active" : ""}`}
-            type="button"
-            onClick={() => setActiveEngine("traffic")}
-          >
-            <span>Traffic Engine <small>流量引擎</small></span>
-            {heroTrafficItems.map(([icon, item]) => (
-              <strong key={item}><i>{icon}</i>{item}</strong>
-            ))}
-          </button>
-          <button
-            className={`hero-panel panel-revenue ${activeEngine === "revenue" ? "is-active" : ""}`}
-            type="button"
-            onClick={() => setActiveEngine("revenue")}
-          >
-            <span>Revenue Engine <small>收入引擎</small></span>
-            {heroRevenueItems.map(([icon, item]) => (
-              <strong key={item}><i>{icon}</i>{item}</strong>
-            ))}
-          </button>
-
         </div>
       </section>
 
       <section id="fit" className="fit-section section-shell reveal-block" aria-labelledby="fit-title">
-        <SideLabel text="Helios / B2C Growth / Independent Site" />
         <div className="section-center">
           <p className="small-kicker">System Positioning</p>
           <h2 id="fit-title">Helios Growth Engine 是 DTC 独立站的全链路效果增长系统</h2>
@@ -1131,15 +1108,6 @@ export default function HeliosExperience() {
         </div>
       </section>
     </main>
-  );
-}
-
-function SideLabel({ text }) {
-  return (
-    <aside className="side-label" aria-hidden="true">
-      <span />
-      <b>{text}</b>
-    </aside>
   );
 }
 
