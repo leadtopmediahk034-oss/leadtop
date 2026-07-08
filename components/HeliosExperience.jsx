@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
+const withAssetPrefix = (path) => `${assetPrefix}${path}`;
+const assetBackground = (path) => `url(${withAssetPrefix(path)})`;
+
 const metrics = [
   { key: "ROAS", label: "广告效率", value: "4.21", delta: "+18%" },
   { key: "MER", label: "整站效率", value: "3.67", delta: "+14%" },
@@ -513,7 +517,7 @@ export default function HeliosExperience() {
               <div
                 className="fit-media"
                 style={{
-                  "--fit-image": `url(${card.image})`,
+                  "--fit-image": assetBackground(card.image),
                   "--fit-position": card.position,
                 }}
               >
@@ -1159,7 +1163,7 @@ function RevenueCardVisual({ step }) {
 
   return (
     <div className="revenue-card-visual product-visual" aria-hidden="true">
-      <span style={{ "--revenue-image": `url(${step.image})` }} />
+      <span style={{ "--revenue-image": assetBackground(step.image) }} />
       <b>{step.id === "bundle" ? "Cleanser + Toner" : step.id === "welcome" ? "Welcome to Aurora" : "Hydrating Cleanser"}</b>
       <small>{step.id === "bundle" ? "$68.00" : step.id === "welcome" ? "Shop Now" : "$39.00"}</small>
     </div>
@@ -1177,7 +1181,7 @@ function CampaignMedia({ keysList }) {
   return (
     <span className="campaign-media" aria-hidden="true">
       {keysList.map((key) => (
-        <i key={key} style={{ "--campaign-image": `url(${imageMap[key]})` }} />
+        <i key={key} style={{ "--campaign-image": assetBackground(imageMap[key]) }} />
       ))}
     </span>
   );

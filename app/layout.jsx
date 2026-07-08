@@ -1,5 +1,15 @@
 import "./globals.css";
 
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
+const assetUrl = (path) => `url("${assetPrefix}${path}")`;
+const assetStyles = {
+  "--asset-prefix": assetPrefix,
+  "--asset-hero": assetUrl("/helios/assets/hero.png"),
+  "--asset-traffic": assetUrl("/helios/assets/traffic.png"),
+  "--asset-revenue": assetUrl("/helios/assets/revenue.png"),
+  "--asset-diagnosis": assetUrl("/helios/assets/diagnosis.png"),
+};
+
 export const metadata = {
   title: "Leadtop Helios Growth Engine",
   description:
@@ -9,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body style={assetStyles}>{children}</body>
     </html>
   );
 }

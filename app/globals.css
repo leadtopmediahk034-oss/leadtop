@@ -998,25 +998,25 @@ p {
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.18), rgb(255 255 255 / 0.38)),
-    url("/helios/assets/revenue.png") 68% 48% / cover;
+    var(--asset-revenue) 68% 48% / cover;
 }
 
 .leak-visual-creative .creative-thumb-one {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.28)),
-    url("/helios/assets/diagnosis.png") 14% 52% / cover;
+    var(--asset-diagnosis) 14% 52% / cover;
 }
 
 .leak-visual-creative .creative-thumb-two {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.32)),
-    url("/helios/assets/revenue.png") 73% 44% / cover;
+    var(--asset-revenue) 73% 44% / cover;
 }
 
 .leak-visual-creative .creative-thumb-three {
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.32)),
-    url("/helios/assets/traffic.png") 52% 42% / cover;
+    var(--asset-traffic) 52% 42% / cover;
 }
 
 .leak-visual-creative i {
@@ -1843,21 +1843,21 @@ p {
   display: block;
   height: 54px;
   border-radius: var(--radius);
-  background: url("/helios/assets/revenue.png") center / cover;
+  background: var(--asset-revenue) center / cover;
 }
 
 .thumb-2 {
-  background-image: url("/helios/assets/traffic.png");
+  background-image: var(--asset-traffic);
   background-position: 30% 54%;
 }
 
 .thumb-3 {
-  background-image: url("/helios/assets/diagnosis.png");
+  background-image: var(--asset-diagnosis);
   background-position: 43% 58%;
 }
 
 .thumb-4 {
-  background-image: url("/helios/assets/hero.png");
+  background-image: var(--asset-hero);
 }
 
 .creative-list b {
@@ -2090,7 +2090,7 @@ p {
   margin-top: 20px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: url("/helios/assets/revenue.png") 70% 44% / cover;
+  background: var(--asset-revenue) 70% 44% / cover;
   box-shadow: var(--shadow-soft);
 }
 
@@ -2155,14 +2155,14 @@ p {
   aspect-ratio: 1;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: url("/helios/assets/revenue.png") 68% 48% / cover;
+  background: var(--asset-revenue) 68% 48% / cover;
 }
 
 .product-photo {
   min-height: 236px;
   border: 0;
   border-radius: var(--radius);
-  background: url("/helios/assets/revenue.png") 66% 46% / cover;
+  background: var(--asset-revenue) 66% 46% / cover;
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.55);
 }
 
