@@ -341,6 +341,15 @@ const quarters = [
   },
 ];
 
+const campaignFlow = [
+  { key: "insight", title: "Insight", copy: "市场洞察与人群分析" },
+  { key: "creative", title: "Creative", copy: "素材策略与创意制作" },
+  { key: "landing-page", title: "Landing Page", copy: "落地页与转化优化" },
+  { key: "media", title: "Media", copy: "广告投放与预算分配" },
+  { key: "retention", title: "Retention", copy: "复购与会员运营" },
+  { key: "review", title: "Review", copy: "数据复盘与优化迭代" },
+];
+
 const proofRows = [
   {
     industry: "家居生活",
@@ -443,23 +452,6 @@ export default function HeliosExperience() {
   return (
     <main id="top" className="helios-page">
       <div className="scroll-progress" aria-hidden="true" />
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="Leadtop Helios Growth Engine">
-          <span className="brand-sun" aria-hidden="true" />
-          <span>
-            <strong>Leadtop</strong>
-            <small>Helios Growth Engine</small>
-          </span>
-        </a>
-        <nav className="header-nav" aria-label="页面导航">
-          <a href="#fit">适合客户</a>
-          <a href="#engine">三大引擎</a>
-          <a href="#traffic">服务动作</a>
-          <a href="#proof">指标案例</a>
-          <a href="#diagnosis">增长诊断</a>
-        </nav>
-        <a className="header-cta" href="#diagnosis">获取诊断</a>
-      </header>
 
       <section className="hero section-shell" aria-labelledby="hero-title">
         <div className="hero-media" aria-hidden="true">
@@ -700,9 +692,12 @@ export default function HeliosExperience() {
           <div className="traffic-metrics">
             {metrics.slice(0, 3).map((metric) => (
               <button key={metric.key} type="button" onClick={() => setActiveMetric(metric.key)}>
-                <span>{metric.key}</span>
-                <strong>{metric.value}</strong>
-                <small>{metric.delta}</small>
+                <span className="traffic-metric-copy">
+                  <span>{metric.key}</span>
+                  <strong>{metric.value}</strong>
+                  <small>{metric.delta}</small>
+                </span>
+                <MiniLineChart tone="amber" />
               </button>
             ))}
           </div>
@@ -735,13 +730,31 @@ export default function HeliosExperience() {
           <p>优化 PDP、购物车、Checkout、评价、FAQ 与信任模块，让同样流量带来更多加购、支付和收入。</p>
           <a className="btn btn-primary" href="#diagnosis">查看转化引擎动作</a>
           <div className="conversion-photo" aria-hidden="true" />
+          <div className="conversion-side-metrics" aria-label="转化提升示例">
+            <article>
+              <span>CVR 提升</span>
+              <strong>2.35%</strong>
+              <small>+23%</small>
+            </article>
+            <article>
+              <span>AOV 提升</span>
+              <strong>$87.4</strong>
+              <small>+15%</small>
+            </article>
+          </div>
         </div>
 
         <div className="product-stage" aria-label="独立站转化路径示意">
           <div className="shop-window">
             <div className="shop-nav">
-              <strong>Shopify</strong>
-              <span>Shop Best Sellers Skincare Bundles About</span>
+              <strong><i aria-hidden="true">S</i>Shopify</strong>
+              <span>Shop</span>
+              <span>Best Sellers</span>
+              <span>Skincare</span>
+              <span>Bundles</span>
+              <span>About</span>
+              <b aria-hidden="true">⌕</b>
+              <b aria-hidden="true">□</b>
             </div>
 
             <div className={`product-gallery ${activeStep === "pdp" ? "is-active" : ""}`}>
@@ -749,55 +762,82 @@ export default function HeliosExperience() {
                 <i />
                 <i />
                 <i />
+                <i />
               </div>
-              <button className="product-photo" type="button" onClick={() => setActiveStep("pdp")} aria-label="查看商品详情页优化" />
+              <button className="product-photo" type="button" onClick={() => setActiveStep("pdp")} aria-label="查看商品详情页优化">
+                <span className="product-toast toast-mail">Welcome flow ready</span>
+                <span className="product-toast toast-offer">Bundle save 15%</span>
+                <span className="product-phone" aria-hidden="true">
+                  <i />
+                  <b>Add to cart</b>
+                </span>
+              </button>
             </div>
 
             <div className={`product-info ${activeStep === "pdp" || activeStep === "cart" ? "is-active" : ""}`}>
               <span>Daily Hydrating Cleanser</span>
-              <div className="rating-row" aria-label="4.8 星评价">★★★★★ <b>4.8</b></div>
-              <strong>$39.00</strong>
-              <p>A gentle daily cleanser with botanical extracts.</p>
+              <div className="rating-row" aria-label="4.8 星评价">★★★★★ <b>4.8 (1,259 reviews)</b></div>
+              <strong>$39.00 <em>USD</em></strong>
+              <p>A gentle daily cleanser with botanical extracts that cleanses without stripping.</p>
               <div className="size-row" aria-label="规格选择">
                 <button type="button" onClick={() => setActiveStep("pdp")}>120ml</button>
                 <button type="button" className="is-selected" onClick={() => setActiveStep("cart")}>250ml</button>
                 <button type="button" onClick={() => setActiveStep("pdp")}>500ml</button>
               </div>
+              <div className="quantity-row" aria-label="数量选择">
+                <button type="button" onClick={() => setActiveStep("cart")}>−</button>
+                <strong>1</strong>
+                <button type="button" onClick={() => setActiveStep("cart")}>+</button>
+              </div>
               <button className="add-cart" type="button" onClick={() => setActiveStep("cart")}>Add to Cart</button>
               <button className="buy-now" type="button" onClick={() => setActiveStep("checkout")}>Buy it now</button>
-              <small>Free shipping over $49 / 30-day returns / Secure payment</small>
+              <small>Free shipping over $49</small>
+              <small>30-day returns</small>
+              <small>Secure payment</small>
             </div>
 
             <button className={`review-box module-card ${activeStep === "pdp" ? "is-active" : ""}`} type="button" onClick={() => setActiveStep("pdp")}>
               <strong>Reviews</strong>
+              <span className="review-avatars" aria-hidden="true"><i /><i /><i /></span>
               <p>Love the texture and mild formula. My skin feels clean and hydrated.</p>
+              <em>Sarah M.</em>
               <span>See all reviews →</span>
             </button>
 
             <button className={`faq-box module-card ${activeStep === "checkout" ? "is-active" : ""}`} type="button" onClick={() => setActiveStep("checkout")}>
               <strong>FAQ</strong>
-              <span>Suitable for sensitive skin?</span>
-              <span>How often should I use it?</span>
+              <span>Is it suitable for sensitive skin? <b>+</b></span>
+              <span>What are the key ingredients? <b>+</b></span>
+              <span>How often should I use it? <b>+</b></span>
+              <span>Where is it made? <b>+</b></span>
             </button>
 
             <button className={`trust-box module-card ${activeStep === "checkout" ? "is-active" : ""}`} type="button" onClick={() => setActiveStep("checkout")}>
-              <span>Dermatologist Tested</span>
-              <span>Cruelty Free</span>
-              <span>30-Day Guarantee</span>
+              <span><i>♧</i>Dermatologist Tested</span>
+              <span><i>♡</i>Cruelty Free</span>
+              <span><i>◇</i>30-Day Guarantee</span>
             </button>
 
             <button className={`bundle-box module-card ${activeStep === "upsell" ? "is-active" : ""}`} type="button" onClick={() => setActiveStep("upsell")}>
               <strong>Frequently bought together</strong>
+              <div className="bundle-products" aria-hidden="true">
+                <i />
+                <b>+</b>
+                <i />
+                <b>−</b>
+                <i />
+              </div>
               <span>Complete Your Routine · Save 15%</span>
-              <b>$93.50</b>
+              <b>$93.50 <small>$110.00</small></b>
+              <em>Add Bundle</em>
             </button>
 
             <button className={`checkout-box module-card ${activeStep === "checkout" ? "is-active" : ""}`} type="button" onClick={() => setActiveStep("checkout")}>
               <strong>Checkout</strong>
-              <span>Cart ✓</span>
-              <span>Information</span>
-              <span>Shipping</span>
-              <span>Payment</span>
+              <span className="is-done"><i>1</i>Cart ✓</span>
+              <span className="is-current"><i>2</i>Information</span>
+              <span><i></i>Shipping</span>
+              <span><i></i>Payment</span>
             </button>
           </div>
           {conversionAnnotations.map((note) => (
@@ -856,6 +896,9 @@ export default function HeliosExperience() {
         </div>
         <div className="revenue-card-stage">
           <div className="revenue-arc" aria-hidden="true" />
+          <div className="revenue-orbit-center" aria-hidden="true">
+            <i />
+          </div>
           {revenueSteps.map((step) => (
             <button
               className={`revenue-step-card revenue-card-${step.id} ${activeRevenue === step.id ? "is-active" : ""}`}
@@ -874,6 +917,16 @@ export default function HeliosExperience() {
               </ul>
             </button>
           ))}
+          <div className="revenue-ltv-note note-left" aria-hidden="true">
+            <i>$</i>
+            <strong>LTV Growth</strong>
+            <span>长期客户价值增长</span>
+          </div>
+          <div className="revenue-ltv-note note-right" aria-hidden="true">
+            <i>$</i>
+            <strong>LTV Growth</strong>
+            <span>长期客户价值增长</span>
+          </div>
           <div className="revenue-layer">
             <strong>Helios Growth Engine / Revenue Layer</strong>
             <p>{currentRevenue.copy}</p>
@@ -898,6 +951,26 @@ export default function HeliosExperience() {
               <span key={item}>{item}</span>
             ))}
           </div>
+          <div className="revenue-phone" aria-hidden="true">
+            <strong>Subscribe & Save</strong>
+            <span>定期补货更省心</span>
+            <article>
+              <i />
+              <b>Every 30 Days</b>
+              <small>10% OFF</small>
+            </article>
+            <article className="is-active">
+              <i />
+              <b>Every 60 Days</b>
+              <small>15% OFF</small>
+            </article>
+            <article>
+              <i />
+              <b>Every 90 Days</b>
+              <small>15% OFF</small>
+            </article>
+            <em>Subscribe Now</em>
+          </div>
         </div>
       </section>
 
@@ -906,7 +979,7 @@ export default function HeliosExperience() {
           <p className="small-kicker">Campaign Rhythm</p>
           <h2 id="campaign-title">围绕全球营销节点，提前规划 DTC 增长节奏</h2>
           <p>Helios Growth Engine 将素材、页面、广告预算、EDM Campaign 和复购活动放进同一张年度作战表。</p>
-          <div className="layer-pill">Helios Growth Engine / Campaign Layer</div>
+          <div className="layer-pill campaign-layer-pill">Helios Growth Engine / Campaign Layer</div>
         </div>
         <div className="calendar-grid">
           {quarters.map((quarter) => (
@@ -916,7 +989,7 @@ export default function HeliosExperience() {
               type="button"
               onClick={() => setActiveQuarter(quarter.id)}
             >
-              <span>{quarter.id.toUpperCase()}</span>
+              <span className="quarter-badge">{quarter.id.toUpperCase()}</span>
               <strong>{quarter.title}</strong>
               <small>{quarter.months}</small>
               <ul className="campaign-task-list">
@@ -943,12 +1016,16 @@ export default function HeliosExperience() {
           ))}
         </div>
         <div className="rhythm-flow">
-          {["Insight", "Creative", "Landing Page", "Media", "Retention", "Review"].map((item) => (
-            <span key={item}>{item}</span>
+          {campaignFlow.map((item) => (
+            <span key={item.key}>
+              <EngineItemIcon name={item.key} />
+              <b>{item.title}</b>
+              <small>{item.copy}</small>
+            </span>
           ))}
         </div>
         <div className="campaign-footer">
-          <p>当前选中：{currentQuarter.title}，重点节奏为 {currentQuarter.rows.map((row) => row.label).join("、")}。</p>
+          <p>年度作战表驱动增长更可控：计划 → 执行 → 复盘 → 优化，当前选中 {currentQuarter.title}。</p>
           <a className="btn btn-primary" href="#diagnosis">获取适合你品类的年度营销节奏建议</a>
         </div>
       </section>
@@ -1179,7 +1256,7 @@ function CampaignMedia({ keysList }) {
   };
 
   return (
-    <span className="campaign-media" aria-hidden="true">
+    <span className={`campaign-media media-count-${keysList.length}`} aria-hidden="true">
       {keysList.map((key) => (
         <i key={key} style={{ "--campaign-image": assetBackground(imageMap[key]) }} />
       ))}
