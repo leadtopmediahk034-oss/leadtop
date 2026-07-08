@@ -235,11 +235,51 @@ const conversionAnnotations = [
 ];
 
 const revenueSteps = [
-  { id: "first", no: "01", title: "First Purchase", label: "首单", copy: "完成第一笔订单，建立可追踪客户资产。" },
-  { id: "bundle", no: "02", title: "Bundle / Upsell", label: "客单价提升", copy: "推荐搭配、加购优惠和组合售卖。" },
-  { id: "welcome", no: "03", title: "Welcome Flow", label: "欢迎邮件", copy: "用自动化欢迎流承接新客关系。" },
-  { id: "sms", no: "04", title: "SMS Recall", label: "召回", copy: "通过短信召回购物车、浏览和售后场景。" },
-  { id: "member", no: "05", title: "Membership / Repurchase", label: "会员复购", copy: "积分、等级和权益让老客贡献长期收入。" },
+  {
+    id: "first",
+    no: "01",
+    title: "First Purchase",
+    label: "首单",
+    copy: "完成第一笔订单，建立可追踪客户资产。",
+    image: "/helios/assets/revenue.png",
+    bullets: ["订单完成", "$39.00"],
+  },
+  {
+    id: "bundle",
+    no: "02",
+    title: "Bundle / Upsell",
+    label: "客单价提升",
+    copy: "推荐搭配、加购优惠和组合售卖。",
+    image: "/helios/assets/diagnosis.png",
+    bullets: ["推荐搭配", "加购优惠"],
+  },
+  {
+    id: "welcome",
+    no: "03",
+    title: "Welcome Flow",
+    label: "欢迎邮件",
+    copy: "用自动化欢迎流承接新客关系。",
+    image: "/helios/assets/traffic.png",
+    bullets: ["Welcome Email", "Shop Now"],
+  },
+  {
+    id: "sms",
+    no: "04",
+    title: "SMS Recall",
+    label: "召回",
+    copy: "通过短信召回购物车、浏览和售后场景。",
+    image: "/helios/assets/hero.png",
+    bullets: ["购物车召回", "浏览召回"],
+  },
+  {
+    id: "member",
+    no: "05",
+    title: "Membership / Repurchase",
+    label: "会员复购",
+    copy: "积分、等级和权益让老客贡献长期收入。",
+    image: "/helios/assets/revenue.png",
+    bullets: ["积分累计换礼", "定期补货提醒"],
+  },
 ];
 
 const quarters = [
@@ -247,25 +287,53 @@ const quarters = [
     id: "q1",
     title: "Valentine / Spring Launch",
     months: "1月 - 3月",
-    rows: ["素材准备", "Sale Page", "广告预算 20%", "EDM / SMS", "复购召回"],
+    tone: "green",
+    rows: [
+      { label: "素材准备", copy: "春季上新素材", media: ["revenue", "diagnosis", "traffic"] },
+      { label: "Sale Page", copy: "春季上新专题页", media: ["hero"] },
+      { label: "广告预算", copy: "预算占比 20%", budget: "20%" },
+      { label: "EDM / SMS", copy: "新品首发 + 优惠券", tags: ["EDM", "SMS"] },
+      { label: "复购召回", copy: "老客专享券 + 积分激励" },
+    ],
   },
   {
     id: "q2",
     title: "Mother's Day / Summer Sale",
     months: "4月 - 6月",
-    rows: ["素材准备", "Sale Page", "广告预算 25%", "EDM / SMS", "复购召回"],
+    tone: "amber",
+    rows: [
+      { label: "素材准备", copy: "节日礼赠素材", media: ["diagnosis", "revenue", "hero"] },
+      { label: "Sale Page", copy: "母亲节礼遇 / 夏季促销", media: ["traffic"] },
+      { label: "广告预算", copy: "预算占比 25%", budget: "25%" },
+      { label: "EDM / SMS", copy: "节日礼遇 + 限时折扣", tags: ["EDM", "SMS"] },
+      { label: "复购召回", copy: "加购未购 / 沉睡唤醒" },
+    ],
   },
   {
     id: "q3",
     title: "Back to School / Prime Day",
     months: "7月 - 9月",
-    rows: ["素材准备", "Sale Page", "广告预算 30%", "EDM / SMS", "复购召回"],
+    tone: "green",
+    rows: [
+      { label: "素材准备", copy: "返校与 Prime Day 素材", media: ["hero", "traffic", "revenue"] },
+      { label: "Sale Page", copy: "开学季 / Prime Day 专题", media: ["diagnosis"] },
+      { label: "广告预算", copy: "预算占比 30%", budget: "30%" },
+      { label: "EDM / SMS", copy: "Prime Day 提醒 + 抢购", tags: ["EDM", "SMS"] },
+      { label: "复购召回", copy: "浏览未购 / 回购激励" },
+    ],
   },
   {
     id: "q4",
     title: "Black Friday / Christmas",
     months: "10月 - 12月",
-    rows: ["素材准备", "Sale Page", "广告预算 25%", "EDM / SMS", "复购召回"],
+    tone: "orange",
+    rows: [
+      { label: "素材准备", copy: "黑五与圣诞素材", media: ["traffic", "hero", "diagnosis"] },
+      { label: "Sale Page", copy: "黑五大促 / 圣诞礼遇", media: ["revenue"] },
+      { label: "广告预算", copy: "预算占比 25%", budget: "25%" },
+      { label: "EDM / SMS", copy: "黑五预热 + 圣诞礼券", tags: ["EDM", "SMS"] },
+      { label: "复购召回", copy: "VIP 专享 / 年终回馈" },
+    ],
   },
 ];
 
@@ -291,6 +359,13 @@ const proofRows = [
 ];
 
 const trustPoints = ["数据看板", "周报复盘", "月度增长建议", "节点营销计划"];
+
+const engineHighlights = [
+  ["shield", "统一经营模型", "流量 · 转化 · 收入一体化闭环"],
+  ["trend", "数据驱动决策", "全链路归因，优化更精准"],
+  ["lab", "自动化增长系统", "EDM/SMS · 复购 · 会员自动化"],
+  ["team", "可复制 · 可放大", "稳定 ROI，长期利润增长"],
+];
 
 export default function HeliosExperience() {
   const [activeEngine, setActiveEngine] = useState("traffic");
@@ -330,7 +405,6 @@ export default function HeliosExperience() {
     return () => observer.disconnect();
   }, []);
 
-  const currentEngine = useMemo(() => engines.find((engine) => engine.id === activeEngine) ?? engines[0], [activeEngine]);
   const currentChannel = useMemo(
     () => trafficChannels.find((channel) => channel.id === activeChannel) ?? trafficChannels[0],
     [activeChannel],
@@ -342,7 +416,6 @@ export default function HeliosExperience() {
   );
   const currentQuarter = useMemo(() => quarters.find((quarter) => quarter.id === activeQuarter) ?? quarters[3], [activeQuarter]);
   const currentMetric = useMemo(() => metrics.find((metric) => metric.key === activeMetric) ?? metrics[0], [activeMetric]);
-  const currentPain = useMemo(() => painCards.find((card) => card.no === activePain) ?? painCards[0], [activePain]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -380,7 +453,6 @@ export default function HeliosExperience() {
           <a href="#traffic">服务动作</a>
           <a href="#proof">指标案例</a>
           <a href="#diagnosis">增长诊断</a>
-          <a href="#resources">资源中心</a>
         </nav>
         <a className="header-cta" href="#diagnosis">获取诊断</a>
       </header>
@@ -423,12 +495,6 @@ export default function HeliosExperience() {
             ))}
           </button>
 
-          <div className="trust-strip" aria-label="信任信息">
-            <span>数据来源：GA4 / Shopify / Ads Platform / Email</span>
-            <span>数据安全合规，保障客户隐私</span>
-            <span>100+ 品牌合作经验</span>
-            <span>全链路指标驱动增长决策</span>
-          </div>
         </div>
       </section>
 
@@ -486,30 +552,14 @@ export default function HeliosExperience() {
               type="button"
               onClick={() => setActivePain(card.no)}
             >
-              <span>{card.no}</span>
-              <i aria-hidden="true">{card.icon}</i>
+              <span className="leak-no">{card.no}</span>
+              <i className="leak-icon" aria-hidden="true">{card.icon}</i>
               <h3>{card.title}</h3>
               <p>{card.copy}</p>
+              <LeakVisual type={card.preview} />
               <small>{card.stat}</small>
-              <b aria-hidden="true" />
             </button>
           ))}
-        </div>
-        <div className={`pain-preview preview-${currentPain.preview}`} aria-live="polite">
-          <div className="preview-header">
-            <span>{currentPain.no}</span>
-            <strong>{currentPain.title}</strong>
-          </div>
-          <p>{currentPain.detail}</p>
-          <div className="preview-visual" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </div>
-          <div className="preview-foot">
-            <span>{currentPain.copy}</span>
-            <b>{currentPain.stat}</b>
-          </div>
         </div>
       </section>
 
@@ -520,50 +570,63 @@ export default function HeliosExperience() {
           <p>用同一套经营模型连接广告获客、站内转化、收入放大与数据归因，让 GMV 放大可控，ROI/MER 更稳定。</p>
         </div>
 
-        <div className="orbit-system" aria-label="Helios 三大引擎模型">
-          <div className="solar-core">
+        <div className="engine-orbit-board" aria-label="Helios 三大引擎模型">
+          <div className="engine-rings" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="engine-sun-core">
             <span>Helios</span>
             <strong>Growth Engine</strong>
           </div>
+          <i className="orbit-arrow arrow-top-left" aria-hidden="true" />
+          <i className="orbit-arrow arrow-top-right" aria-hidden="true" />
+          <i className="orbit-arrow arrow-bottom" aria-hidden="true" />
           {engines.map((engine) => (
             <button
-              className={`engine-card ${engine.id}-card ${activeEngine === engine.id ? "is-active" : ""}`}
+              className={`engine-model-card ${engine.id}-engine ${activeEngine === engine.id ? "is-active" : ""}`}
               key={engine.id}
               type="button"
               onClick={() => setActiveEngine(engine.id)}
             >
-              <span>{engine.eyebrow}</span>
-              <h3>{engine.title}</h3>
-              <small>{engine.tag}</small>
-              <div className="mini-chips">
+              <div className="engine-card-head">
+                <span className={`engine-symbol symbol-${engine.id}`} aria-hidden="true" />
+                <div>
+                  <small>{engine.eyebrow}</small>
+                  <h3>{engine.title}</h3>
+                </div>
+                <b>{engine.tag}</b>
+              </div>
+              <div className="engine-item-flow">
                 {engine.items.map((item) => (
-                  <b key={item}>{item}</b>
+                  <span key={item}>
+                    <EngineItemIcon name={item} />
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="engine-metric-row">
+                {metrics.map((metric) => (
+                  <span key={metric.key}>
+                    <small>{metric.key}</small>
+                    <strong>{metric.value}</strong>
+                    <b>{metric.delta}</b>
+                  </span>
                 ))}
               </div>
             </button>
           ))}
-        </div>
-
-        <div className="engine-detail-panel">
-          <article>
-            <p className="small-kicker">{currentEngine.eyebrow}</p>
-            <h3>{currentEngine.summary}</h3>
-            <ul>
-              {currentEngine.bullets.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </article>
-          <div className="metric-mini-grid">
-            {metrics.map((metric) => (
-              <button key={metric.key} type="button" onClick={() => setActiveMetric(metric.key)}>
-                <span>{metric.key}</span>
-                <strong>{metric.value}</strong>
-                <small>{metric.delta}</small>
-              </button>
+          <div className="engine-benefit-strip">
+            {engineHighlights.map(([icon, title, copy]) => (
+              <article key={title}>
+                <i className={`benefit-icon benefit-${icon}`} aria-hidden="true" />
+                <strong>{title}</strong>
+                <span>{copy}</span>
+              </article>
             ))}
           </div>
-          <div className="engine-actions">
+          <div className="engine-orbit-actions">
             <a className="btn btn-primary" href="#diagnosis">获取 DTC 增长诊断</a>
             <a className="text-link" href="#traffic">查看 Helios 增长方法论</a>
           </div>
@@ -773,33 +836,62 @@ export default function HeliosExperience() {
           <p>通过 Bundle、Upsell、EDM/SMS、会员体系和复购 Campaign，把一次购买带入长期客户价值。</p>
           <a className="text-link" href="#diagnosis">查看收入引擎动作</a>
         </div>
-        <div className="revenue-media">
-          <Image src="/helios/assets/revenue.png" alt="电商品牌复购与订阅增长场景" width={1792} height={1024} />
+        <div className="revenue-benefits" aria-label="收入引擎目标">
+          {[
+            ["chart", "提升客单价", "AOV 持续增长"],
+            ["repeat", "提高复购率", "老客贡献放大"],
+            ["mail", "放大私域营收", "EDM/SMS 增长"],
+            ["gem", "增强客户价值", "LTV 长期提升"],
+          ].map(([icon, title, copy]) => (
+            <article key={title}>
+              <EngineItemIcon name={icon} />
+              <strong>{title}</strong>
+              <span>{copy}</span>
+            </article>
+          ))}
         </div>
-        <div className="lifecycle-flow">
+        <div className="revenue-card-stage">
+          <div className="revenue-arc" aria-hidden="true" />
           {revenueSteps.map((step) => (
             <button
-              className={activeRevenue === step.id ? "is-active" : ""}
+              className={`revenue-step-card revenue-card-${step.id} ${activeRevenue === step.id ? "is-active" : ""}`}
               key={step.id}
               type="button"
               onClick={() => setActiveRevenue(step.id)}
             >
-              <span>{step.no}</span>
+              <span className="revenue-step-no">{step.no}</span>
               <strong>{step.title}</strong>
               <b>{step.label}</b>
+              <RevenueCardVisual step={step} />
+              <ul>
+                {step.bullets.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </button>
           ))}
-        </div>
-        <div className="revenue-layer">
-          <strong>Helios Growth Engine / Revenue Layer</strong>
-          <p>{currentRevenue.copy}</p>
-          <div className="metric-mini-grid">
-            {metrics.slice(3).map((metric) => (
-              <button key={metric.key} type="button" onClick={() => setActiveMetric(metric.key)}>
-                <span>{metric.key}</span>
-                <strong>{metric.value}</strong>
-                <small>{metric.delta}</small>
-              </button>
+          <div className="revenue-layer">
+            <strong>Helios Growth Engine / Revenue Layer</strong>
+            <p>{currentRevenue.copy}</p>
+            <div className="revenue-layer-metrics">
+              {[
+                ["AOV", "$87.4", "+15%"],
+                ["LTV", "$198", "+20%"],
+                ["复购率", "32.6%", "+18%"],
+                ["EDM 营收占比", "24.1%", "+22%"],
+              ].map(([key, value, delta]) => (
+                <button key={key} type="button">
+                  <span>{key}</span>
+                  <strong>{value}</strong>
+                  <small>{delta}</small>
+                  <MiniLineChart tone="amber" />
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="revenue-automation">
+            {["EDM 流程", "SMS 流程", "会员体系", "复购 Campaign"].map((item) => (
+              <span key={item}>{item}</span>
             ))}
           </div>
         </div>
@@ -815,7 +907,7 @@ export default function HeliosExperience() {
         <div className="calendar-grid">
           {quarters.map((quarter) => (
             <button
-              className={activeQuarter === quarter.id ? "is-active" : ""}
+              className={`calendar-card tone-${quarter.tone} ${activeQuarter === quarter.id ? "is-active" : ""}`}
               key={quarter.id}
               type="button"
               onClick={() => setActiveQuarter(quarter.id)}
@@ -823,9 +915,24 @@ export default function HeliosExperience() {
               <span>{quarter.id.toUpperCase()}</span>
               <strong>{quarter.title}</strong>
               <small>{quarter.months}</small>
-              <ul>
+              <ul className="campaign-task-list">
                 {quarter.rows.map((row) => (
-                  <li key={row}>{row}</li>
+                  <li key={row.label}>
+                    <EngineItemIcon name={row.label} />
+                    <div>
+                      <b>{row.label}</b>
+                      <em>{row.copy}</em>
+                    </div>
+                    {row.media ? <CampaignMedia keysList={row.media} /> : null}
+                    {row.budget ? <i className="campaign-budget" style={{ "--bar": row.budget }} /> : null}
+                    {row.tags ? (
+                      <span className="campaign-tags">
+                        {row.tags.map((tag) => (
+                          <strong key={tag}>{tag}</strong>
+                        ))}
+                      </span>
+                    ) : null}
+                  </li>
                 ))}
               </ul>
             </button>
@@ -837,7 +944,7 @@ export default function HeliosExperience() {
           ))}
         </div>
         <div className="campaign-footer">
-          <p>当前选中：{currentQuarter.title}，重点节奏为 {currentQuarter.rows.join("、")}。</p>
+          <p>当前选中：{currentQuarter.title}，重点节奏为 {currentQuarter.rows.map((row) => row.label).join("、")}。</p>
           <a className="btn btn-primary" href="#diagnosis">获取适合你品类的年度营销节奏建议</a>
         </div>
       </section>
@@ -877,11 +984,6 @@ export default function HeliosExperience() {
               </article>
             ))}
           </div>
-          <div className="growth-loop">
-            {trustPoints.map((item) => (
-              <a key={item} href="#diagnosis">{item}</a>
-            ))}
-          </div>
         </div>
         <div className="proof-copy">
           <p className="small-kicker">Growth Quality</p>
@@ -893,12 +995,6 @@ export default function HeliosExperience() {
             <span>{currentMetric.label} {currentMetric.delta}</span>
           </div>
         </div>
-      </section>
-
-      <section id="resources" className="resource-strip reveal-block" aria-label="Helios 信任信息">
-        {["数据来源：GA4 / Shopify / Ads Platform / Email", "数据安全合规，保障客户隐私", "100+ 品牌合作经验", "全链路指标驱动增长决策"].map((item) => (
-          <span key={item}>{item}</span>
-        ))}
       </section>
 
       <section id="diagnosis" className="diagnosis-section reveal-block" aria-labelledby="diagnosis-title">
@@ -963,5 +1059,126 @@ function SideLabel({ text }) {
       <span />
       <b>{text}</b>
     </aside>
+  );
+}
+
+function LeakVisual({ type }) {
+  if (type === "creative") {
+    return (
+      <div className="leak-visual leak-visual-creative" aria-hidden="true">
+        <span className="creative-thumb-one"><i /></span>
+        <span className="creative-thumb-two" />
+        <span className="creative-thumb-three" />
+      </div>
+    );
+  }
+
+  if (type === "funnel") {
+    return (
+      <div className="leak-visual leak-visual-funnel" aria-hidden="true">
+        <span><b>PDP 访问</b><strong>100%</strong><i /></span>
+        <span><b>加购</b><strong>8.7%</strong><i /></span>
+        <span><b>支付转化</b><strong>2.1%</strong><i /></span>
+      </div>
+    );
+  }
+
+  if (type === "revenue") {
+    return (
+      <div className="leak-visual leak-visual-revenue" aria-hidden="true">
+        <span>
+          <b>AOV</b>
+          <strong>$87.4</strong>
+          <MiniLineChart tone="green" />
+        </span>
+        <span>
+          <b>LTV</b>
+          <strong>$198</strong>
+          <MiniLineChart tone="green" />
+        </span>
+      </div>
+    );
+  }
+
+  if (type === "attribution") {
+    return (
+      <div className="leak-visual leak-visual-attribution" aria-hidden="true">
+        {["广告投放", "站内访问", "下单转化", "复购"].map((item) => (
+          <span key={item}><i />{item}</span>
+        ))}
+        <b />
+      </div>
+    );
+  }
+
+  return (
+    <div className="leak-visual leak-visual-media" aria-hidden="true">
+      <span>ROAS</span>
+      <strong>4.21</strong>
+      <MiniLineChart tone="amber" />
+    </div>
+  );
+}
+
+function MiniLineChart({ tone }) {
+  return (
+    <svg className={`mini-line-chart chart-${tone}`} viewBox="0 0 180 70" role="img" aria-label="">
+      <path d="M8 50 C 22 48, 27 38, 42 42 S 62 51, 76 38 S 98 34, 110 28 S 132 21, 146 30 S 162 34, 172 18" />
+    </svg>
+  );
+}
+
+function EngineItemIcon({ name }) {
+  const aliases = {
+    素材准备: "creative",
+    广告预算: "media",
+    "复购召回": "retention",
+  };
+  const key = aliases[name] ?? name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return <i className={`engine-item-icon icon-${key}`} aria-hidden="true" />;
+}
+
+function RevenueCardVisual({ step }) {
+  if (step.id === "sms") {
+    return (
+      <div className="revenue-card-visual sms-visual" aria-hidden="true">
+        <span>Hey there. Get 15% off today.</span>
+        <b>Code: AURORA15</b>
+      </div>
+    );
+  }
+
+  if (step.id === "member") {
+    return (
+      <div className="revenue-card-visual member-visual" aria-hidden="true">
+        <strong>Aurora Club</strong>
+        <span>Gold Member</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="revenue-card-visual product-visual" aria-hidden="true">
+      <span style={{ "--revenue-image": `url(${step.image})` }} />
+      <b>{step.id === "bundle" ? "Cleanser + Toner" : step.id === "welcome" ? "Welcome to Aurora" : "Hydrating Cleanser"}</b>
+      <small>{step.id === "bundle" ? "$68.00" : step.id === "welcome" ? "Shop Now" : "$39.00"}</small>
+    </div>
+  );
+}
+
+function CampaignMedia({ keysList }) {
+  const imageMap = {
+    revenue: "/helios/assets/revenue.png",
+    diagnosis: "/helios/assets/diagnosis.png",
+    traffic: "/helios/assets/traffic.png",
+    hero: "/helios/assets/hero.png",
+  };
+
+  return (
+    <span className="campaign-media" aria-hidden="true">
+      {keysList.map((key) => (
+        <i key={key} style={{ "--campaign-image": `url(${imageMap[key]})` }} />
+      ))}
+    </span>
   );
 }
