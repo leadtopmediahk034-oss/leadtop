@@ -220,13 +220,60 @@ function MiniVisual({ type, items }) {
   );
 }
 
-function PreviewMaterial({ tag }) {
+function PreviewMaterial({ service }) {
+  const previewClass = styles[`preview${service.no}`] || styles[`preview${service.tag}`] || "";
+  const content = {
+    "01": {
+      title: "客户画像与价值主张",
+      lines: ["目标客户", "核心痛点", "决策顾虑", "价值主张"],
+      type: "profile",
+    },
+    "02": {
+      title: "Your Trusted Partner",
+      lines: ["Products", "Solutions", "About", "Resources"],
+      type: "site",
+    },
+    "03": {
+      title: "Landing Page 线框",
+      lines: ["Hero", "Proof", "CTA"],
+      type: "landing",
+    },
+    "04": {
+      title: "Google Ads Account",
+      lines: ["Campaign", "Search term", "CVR"],
+      type: "chart",
+    },
+    "05": {
+      title: "关键词策略表",
+      lines: ["关键词", "搜索意图", "KD", "优先级"],
+      type: "table",
+    },
+    "06": {
+      title: "Landing Page 优化清单",
+      lines: ["表单字段", "CTA", "A/B"],
+      type: "ab",
+    },
+    "07": {
+      title: "FAQ 内容库",
+      lines: ["Q1", "Q2", "Q3"],
+      type: "faq",
+    },
+    "08": {
+      title: "月度增长复盘报告",
+      lines: ["询盘", "转化率", "CPL"],
+      type: "report",
+    },
+  }[service.no];
+
   return (
-    <div className={`${styles.previewMaterial} ${styles[`preview${tag}`] || ""}`} aria-hidden="true">
-      <span />
-      <i />
-      <i />
-      <b />
+    <div className={`${styles.previewMaterial} ${previewClass}`} aria-hidden="true">
+      <div className={styles.previewTitle}>{content.title}</div>
+      <div className={styles.previewBody}>
+        {content.lines.map((line) => (
+          <span key={line}>{line}</span>
+        ))}
+      </div>
+      <b data-type={content.type} />
     </div>
   );
 }
@@ -267,7 +314,7 @@ export default function PolarisExperience() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.pain}`}>
+      <section id="pain" className={`${styles.section} ${styles.pain}`}>
         <div className={styles.sectionCopy}>
           <p className={styles.kicker}>当前困境</p>
           <h2>问题不是单点失败，而是获客链路断开</h2>
@@ -278,7 +325,17 @@ export default function PolarisExperience() {
             <span />
             <i />
           </div>
-          <div className={styles.chainLine} aria-hidden="true" />
+          <svg className={styles.chainSvg} viewBox="0 0 1000 620" aria-hidden="true">
+            <defs>
+              <marker id="polaris-chain-arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
+                <path d="M2 2 L10 7 L2 12" />
+              </marker>
+            </defs>
+            <path d="M335 165 H617" markerEnd="url(#polaris-chain-arrow)" />
+            <path d="M620 284 H448" markerEnd="url(#polaris-chain-arrow)" />
+            <path d="M452 360 H610" markerEnd="url(#polaris-chain-arrow)" />
+            <path d="M825 505 H718" markerEnd="url(#polaris-chain-arrow)" />
+          </svg>
           {painItems.map(({ Icon, ...item }, index) => (
             <article key={item.title} className={`${styles.painCard} ${styles[`pain${index + 1}`]}`}>
               <div>
@@ -340,6 +397,10 @@ export default function PolarisExperience() {
           <p className={styles.kicker}>服务内容</p>
           <h2>从定位到复盘，按一条链路交付</h2>
           <span>每一步都有对应的页面、素材、数据和转化目标，避免服务内容散落在背景之外。</span>
+          <div className={styles.serviceActions}>
+            <a className={styles.primary} href="#diagnosis">获取 B2B Growth 方案</a>
+            <a className={styles.textLink} href="#proof">查看诊断维度</a>
+          </div>
         </div>
         <div className={styles.serviceBoard}>
           <div className={styles.stageRail}>
@@ -358,14 +419,14 @@ export default function PolarisExperience() {
                 <Icon size={34} weight="regular" aria-hidden />
                 <strong>{service.title}</strong>
                 <em>{service.tag}</em>
-                <PreviewMaterial tag={service.tag} />
+                <PreviewMaterial service={service} />
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.process}`}>
+      <section id="process" className={`${styles.section} ${styles.process}`}>
         <div className={styles.processCopy}>
           <p className={styles.kicker}>交付路径</p>
           <h2>90-180 天，搭建可持续获客基础</h2>
@@ -373,7 +434,17 @@ export default function PolarisExperience() {
         </div>
         <div className={styles.routeMap}>
           <div className={styles.mapTexture} aria-hidden="true" />
-          <div className={styles.routePath} aria-hidden="true" />
+          <div className={styles.routeCompass} aria-hidden="true">
+            <span>NORTH STAR</span>
+          </div>
+          <svg className={styles.routePath} viewBox="0 0 1280 310" aria-hidden="true">
+            <defs>
+              <marker id="route-arrow" markerWidth="18" markerHeight="18" refX="14" refY="9" orient="auto">
+                <path d="M2 2 L14 9 L2 16" />
+              </marker>
+            </defs>
+            <path d="M0 225 C105 175 150 270 260 226 S420 172 520 225 S682 274 802 222 S1005 178 1124 224 L1210 224" markerEnd="url(#route-arrow)" />
+          </svg>
           {processSteps.map(({ Icon, ...step }, index) => (
             <article key={step.no} className={`${styles.processCard} ${styles[`process${index + 1}`]}`}>
               <div>
@@ -386,6 +457,29 @@ export default function PolarisExperience() {
             </article>
           ))}
           <a href="#diagnosis" className={styles.routeCta}>查看诊断流程</a>
+          <aside className={styles.cadencePanel}>
+            <strong>Review cadence</strong>
+            <div>
+              <b>周报</b>
+              <span>关键词覆盖追踪<br />与执行进展同步</span>
+            </div>
+            <div>
+              <b>月报</b>
+              <span>效果复盘与优化建议<br />下一步计划</span>
+            </div>
+            <div>
+              <b>季度复盘</b>
+              <span>增长目标回顾<br />策略与资源调整</span>
+            </div>
+            <p>透明协作 · 数据驱动<br />让每一步都可衡量、可优化、可沉淀</p>
+          </aside>
+          <div className={styles.processFooter} aria-hidden="true">
+            <strong>LEADTOP</strong>
+            <span>POLARIS GROWTH SYSTEM</span>
+            <em>图例</em>
+            <i>关键里程碑</i>
+            <i>持续优化路径</i>
+          </div>
         </div>
       </section>
 
