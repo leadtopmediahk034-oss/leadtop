@@ -136,43 +136,6 @@ const engines = [
   },
 ];
 
-const trafficChannels = [
-  {
-    id: "google",
-    icon: "G",
-    title: "Google",
-    copy: "承接 Search、PMax 与 YouTube 的高意图需求。",
-    budget: "40%",
-  },
-  {
-    id: "meta",
-    icon: "∞",
-    title: "Meta",
-    copy: "用素材矩阵覆盖冷启动、种草和再营销。",
-    budget: "35%",
-  },
-  {
-    id: "tiktok",
-    icon: "♪",
-    title: "TikTok",
-    copy: "用短视频和 UGC 快速验证新卖点。",
-    budget: "15%",
-  },
-  {
-    id: "seo",
-    icon: "⌕",
-    title: "SEO / GEO",
-    copy: "沉淀自然流量，提高 AI 搜索可见性。",
-    budget: "10%",
-  },
-];
-
-const trafficOps = [
-  ["◇", "Feed 管理", ["商品 Feed", "Catalog Rules"]],
-  ["</>", "事件校准", ["Pixel", "Server Events"]],
-  ["☁", "归因闭环", ["CAPI", "Data Quality"]],
-];
-
 const conversionSteps = [
   {
     id: "pdp",
@@ -368,7 +331,6 @@ const engineHighlights = [
 
 export default function HeliosExperience() {
   const [activeEngine, setActiveEngine] = useState("traffic");
-  const [activeChannel, setActiveChannel] = useState("google");
   const [activeStep, setActiveStep] = useState("pdp");
   const [activeRevenue, setActiveRevenue] = useState("first");
   const [activeQuarter, setActiveQuarter] = useState("q4");
@@ -404,10 +366,6 @@ export default function HeliosExperience() {
     return () => observer.disconnect();
   }, []);
 
-  const currentChannel = useMemo(
-    () => trafficChannels.find((channel) => channel.id === activeChannel) ?? trafficChannels[0],
-    [activeChannel],
-  );
   const currentStep = useMemo(() => conversionSteps.find((step) => step.id === activeStep) ?? conversionSteps[0], [activeStep]);
   const currentRevenue = useMemo(
     () => revenueSteps.find((step) => step.id === activeRevenue) ?? revenueSteps[0],
@@ -447,9 +405,8 @@ export default function HeliosExperience() {
         <div className="hero-stage">
           <div className="hero-copy">
             <span className="sun-glyph" aria-hidden="true" />
-            <p className="system-name">Helios Growth Engine</p>
-            <h1 id="hero-title">B2C/DTC 独立站增长引擎</h1>
-            <p className="hero-subtitle">让 GMV 放大可控，ROI/MER 更稳定</p>
+            <h1 id="hero-title" className="system-name">Helios Growth Engine</h1>
+            <p className="hero-subtitle">围绕 流量（Traffic）× 转化（Conversion）× 留存（Retention）× 数据（Data） 四大核心能力，实现 GMV 与 ROI 的持续规模化增长和品牌资产沉淀</p>
             <div className="hero-actions" aria-label="主要行动">
               <a className="btn btn-primary" href="#diagnosis">获取 DTC 增长诊断</a>
               <a className="btn btn-secondary" href="#engine">查看增长模型</a>
@@ -460,9 +417,9 @@ export default function HeliosExperience() {
 
       <section id="fit" className="fit-section section-shell reveal-block" aria-labelledby="fit-title">
         <div className="section-center">
-          <p className="small-kicker">System Positioning</p>
-          <h2 id="fit-title">Helios Growth Engine 是 DTC 独立站的全链路效果增长系统</h2>
-          <p>面向 B2C 品牌、Shopify 店铺与平台转独立站团队，把广告、CRO、素材、复购和数据放进同一套增长模型。</p>
+          <p className="small-kicker">Helios Growth Engine</p>
+          <h2 id="fit-title">Leadtop 面向 B2C 品牌打造的独立站全链路增长解决方案</h2>
+          <p>聚焦 GMV 与 ROI 的规模化增长，帮助品牌实现从获客、转化、复购到品牌资产沉淀的持续增长。</p>
         </div>
 
         <div className="section-rule"><span>服务的品牌与团队</span></div>
@@ -486,7 +443,7 @@ export default function HeliosExperience() {
 
         <div className="section-rule"><span>Growth System Coverage</span></div>
         <div className="coverage-strip" aria-label="Helios 覆盖能力">
-          {["Google", "Meta", "TikTok", "SEO-GEO", "CRO", "EDM-SMS", "KOL-UGC", "GA4-GTM"].map((item) => (
+          {["SEM营销推广", "SNS营销推广", "SEO", "GEO", "CRO优化", "EMD", "社媒运营", "内容产出"].map((item) => (
             <button key={item} type="button">{item}</button>
           ))}
         </div>
@@ -499,7 +456,7 @@ export default function HeliosExperience() {
         </div>
         <div className="pain-copy">
           <p className="small-kicker">Growth Leaks</p>
-          <h2 id="pain-title">独立站不是投不起来，而是增长不够稳定。</h2>
+          <h2 id="pain-title">你如果面临独立站无法健康的增长，可能存在以下问题</h2>
           <p>广告、素材、页面、复购和数据没有协同，预算一放大，ROI 就开始失真。</p>
           <a className="text-link" href="#diagnosis">先做一次 DTC 增长诊断</a>
         </div>
@@ -587,77 +544,7 @@ export default function HeliosExperience() {
           </div>
           <div className="engine-orbit-actions">
             <a className="btn btn-primary" href="#diagnosis">获取 DTC 增长诊断</a>
-            <a className="text-link" href="#traffic">查看 Helios 增长方法论</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="traffic" className="traffic-section section-shell reveal-block" aria-labelledby="traffic-title">
-        <div className="traffic-media">
-          <Image src="/helios/assets/traffic.png" alt="电商品牌团队正在规划广告素材与流量投放" width={1792} height={1024} />
-          <div className="detail-copy">
-            <p className="small-kicker">Traffic Engine</p>
-            <h2 id="traffic-title">先跑出确定性，再放大预算。</h2>
-            <p>统一渠道、素材、Feed 和归因节奏，判断哪些流量值得加码，哪些该停。</p>
-            <a className="text-link" href="#engine">查看投放链路</a>
-            <div className="active-note">
-              <strong>当前渠道：{currentChannel.title}</strong>
-              <span>{currentChannel.copy}</span>
-            </div>
-          </div>
-          <div className="channel-board">
-            <strong>Channel Map</strong>
-            <div className="channel-map">
-              {trafficChannels.map((channel) => (
-                <button
-                  className={activeChannel === channel.id ? "is-active" : ""}
-                  key={channel.id}
-                  type="button"
-                  onClick={() => setActiveChannel(channel.id)}
-                >
-                  <i>{channel.icon}</i>
-                  {channel.title}
-                </button>
-              ))}
-            </div>
-            <div className="layer-banner">Helios Growth Engine / Traffic Layer</div>
-          </div>
-          <div className="budget-card">
-            <strong>Budget Mix</strong>
-            {trafficChannels.map((channel) => (
-              <button
-                className={activeChannel === channel.id ? "is-active" : ""}
-                key={channel.id}
-                type="button"
-                onClick={() => setActiveChannel(channel.id)}
-              >
-                <span>{channel.title}</span>
-                <i style={{ "--bar": channel.budget }} />
-                <b>{channel.budget}</b>
-              </button>
-            ))}
-          </div>
-          <div className="traffic-stack">
-            {trafficOps.map(([icon, title, rows]) => (
-              <article key={title}>
-                <strong><i>{icon}</i>{title}</strong>
-                {rows.map((row) => (
-                  <span key={row}>{row}<b>✓</b></span>
-                ))}
-              </article>
-            ))}
-          </div>
-          <div className="traffic-metrics">
-            {metrics.slice(0, 3).map((metric) => (
-              <button key={metric.key} type="button" onClick={() => setActiveMetric(metric.key)}>
-                <span className="traffic-metric-copy">
-                  <span>{metric.key}</span>
-                  <strong>{metric.value}</strong>
-                  <small>{metric.delta}</small>
-                </span>
-                <MiniLineChart tone="amber" />
-              </button>
-            ))}
+            <a className="text-link" href="#conversion-title">查看 Helios 增长方法论</a>
           </div>
         </div>
       </section>
@@ -973,7 +860,7 @@ export default function HeliosExperience() {
         <div className="proof-board">
           <div className="proof-copy">
             <p className="small-kicker">Growth Quality</p>
-            <h2 id="proof-title">不只看 ROAS，更看整站增长质量。</h2>
+            <h2 id="proof-title">不止看短期 ROI，更看长期增长稳健性。</h2>
             <p>Helios Growth Engine 把广告效率、站内转化、客单价、复购和长期利润放在一张表里判断。</p>
             <a className="text-link" href="#diagnosis">查看可脱敏案例结构</a>
             <div className="active-note">

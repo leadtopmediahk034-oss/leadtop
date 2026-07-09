@@ -3,7 +3,7 @@ import HeliosExperience from "../../components/HeliosExperience";
 export const metadata = {
   title: "B2C 独立站代运营方案 | Helios Growth Engine - Leadtop",
   description:
-    "Helios Growth Engine 帮助 B2C/DTC 品牌打通 Shopify 建站、广告投放、CRO、素材测试、EDM/SMS、复购和数据归因，让 GMV 放大可控，ROI/MER 更稳定。",
+    "Helios Growth Engine 围绕流量、转化、留存和数据四大核心能力，帮助 B2C 品牌实现 GMV 与 ROI 的持续规模化增长和品牌资产沉淀。",
 };
 
 export default function HeliosPage() {

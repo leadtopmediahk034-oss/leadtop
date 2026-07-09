@@ -41,8 +41,8 @@ body {
     linear-gradient(180deg, var(--paper) 0%, #fffaf1 52%, #fbfcf5 100%);
   color: var(--ink);
   font-family:
-    "Aptos",
-    "Geist",
+    var(--font-varela-round),
+    "Varela Round",
     "PingFang SC",
     "Microsoft YaHei",
     "Noto Sans SC",
@@ -129,17 +129,17 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2.6rem, 4.5vw, 4.8rem);
+  font-size: 50px;
   font-weight: 850;
 }
 
 h2 {
-  font-size: clamp(2.05rem, 3.6vw, 3.7rem);
+  font-size: 45px;
   font-weight: 830;
 }
 
 h3 {
-  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-size: 24px;
   font-weight: 780;
 }
 
@@ -320,7 +320,7 @@ p {
   position: relative;
   display: grid;
   width: 100%;
-  min-height: 100dvh;
+  min-height: 85dvh;
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -377,7 +377,7 @@ p {
   position: relative;
   display: grid;
   width: min(100%, 1380px);
-  min-height: calc(100dvh - 20px);
+  min-height: calc(85dvh - 20px);
   grid-template-columns: minmax(420px, 880px);
   align-items: center;
   margin-inline: auto;
@@ -430,7 +430,7 @@ p {
 .system-name {
   color: var(--sun-strong);
   max-width: 14em;
-  font-size: clamp(3rem, 5.2vw, 6rem);
+  font-size: 50px;
   font-weight: 850;
   line-height: 0.98;
   text-shadow: 0 12px 36px rgb(255 253 247 / 0.86);
@@ -4378,12 +4378,12 @@ p {
   }
 
   .hero-stage {
-    min-height: calc(100dvh - 20px);
+    min-height: calc(85dvh - 20px);
     grid-template-columns: minmax(330px, 780px);
   }
 
   .system-name {
-    font-size: clamp(2.7rem, 6.2vw, 4.8rem);
+    font-size: 50px;
   }
 
   .hero h1 {
@@ -4689,11 +4689,11 @@ p {
   }
 
   .hero {
-    min-height: clamp(560px, 66svh, 760px);
+    min-height: 85svh;
   }
 
   .hero-stage {
-    min-height: clamp(520px, 62svh, 700px);
+    min-height: calc(85svh - 20px);
     grid-template-columns: 1fr;
   }
 
@@ -4855,7 +4855,7 @@ p {
   }
 
   .hero {
-    min-height: clamp(620px, 76svh, 760px);
+    min-height: 85svh;
     padding-top: 28px;
   }
 
@@ -4879,7 +4879,7 @@ p {
   }
 
   .system-name {
-    font-size: clamp(2rem, 8vw, 2.9rem);
+    font-size: 50px;
   }
 
   .hero h1 {
@@ -4887,7 +4887,7 @@ p {
   }
 
   h2 {
-    font-size: clamp(1.8rem, 7vw, 2.65rem);
+    font-size: 45px;
   }
 
   .hero-actions,
@@ -5322,7 +5322,7 @@ p {
   }
 
   .hero {
-    min-height: min(820px, 88svh);
+    min-height: 85svh;
     padding-top: 0;
   }
 
@@ -5340,7 +5340,7 @@ p {
   }
 
   .system-name {
-    font-size: clamp(2.15rem, 11vw, 3rem);
+    font-size: 50px;
   }
 
   .hero h1 {
@@ -5609,4 +5609,20 @@ p {
   .diagnosis-form {
     padding: 22px;
   }
+}
+
+.helios-page h1,
+.helios-page .system-name {
+  font-family: var(--font-varela-round), "Varela Round", sans-serif;
+  font-size: 50px;
+}
+
+.helios-page h2 {
+  font-family: var(--font-varela-round), "Varela Round", sans-serif;
+  font-size: 45px;
+}
+
+.helios-page h3 {
+  font-family: var(--font-varela-round), "Varela Round", sans-serif;
+  font-size: 24px;
 }

@@ -1,4 +1,12 @@
 import "./globals.css";
+import { Varela_Round } from "next/font/google";
+
+const varelaRound = Varela_Round({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-varela-round",
+});
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const assetUrl = (path) => `url("${assetPrefix}${path}")`;
@@ -13,13 +21,13 @@ const assetStyles = {
 export const metadata = {
   title: "Leadtop Helios Growth Engine",
   description:
-    "Leadtop Helios Growth Engine 是面向 B2C/DTC 独立站的全链路效果增长系统，覆盖流量、转化、收入、复购和数据归因。",
+    "Leadtop Helios Growth Engine 是面向 B2C 品牌打造的独立站全链路增长解决方案，聚焦 GMV 与 ROI 的规模化增长。",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="zh-CN">
-      <body style={assetStyles}>{children}</body>
+      <body className={varelaRound.variable} style={assetStyles}>{children}</body>
     </html>
   );
 }
