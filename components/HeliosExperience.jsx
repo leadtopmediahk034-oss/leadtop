@@ -141,50 +141,36 @@ const trafficChannels = [
     id: "google",
     icon: "G",
     title: "Google",
-    copy: "Search / PMax / YouTube 捕捉高意图需求。",
+    copy: "承接 Search、PMax 与 YouTube 的高意图需求。",
     budget: "40%",
   },
   {
     id: "meta",
     icon: "∞",
     title: "Meta",
-    copy: "用素材矩阵覆盖 TOF/MOF/BOF 人群。",
+    copy: "用素材矩阵覆盖冷启动、种草和再营销。",
     budget: "35%",
   },
   {
     id: "tiktok",
     icon: "♪",
     title: "TikTok",
-    copy: "短视频与 UGC 快速验证新卖点。",
+    copy: "用短视频和 UGC 快速验证新卖点。",
     budget: "15%",
   },
   {
     id: "seo",
     icon: "⌕",
     title: "SEO / GEO",
-    copy: "沉淀可持续自然流量和 AI 搜索可见性。",
+    copy: "沉淀自然流量，提高 AI 搜索可见性。",
     budget: "10%",
   },
 ];
 
-const trafficCreatives = [
-  { label: "Hook", state: "Testing" },
-  { label: "Offer", state: "Testing" },
-  { label: "Product", state: "Active" },
-  { label: "Proof", state: "Active" },
-];
-
 const trafficOps = [
-  ["◇", "Feed Management", ["Product Feed", "Catalog Sync", "Dynamic Rules"]],
-  ["</>", "Pixel & Events", ["Meta Pixel", "TikTok Pixel", "Server-Side Events"]],
-  ["☁", "CAPI", ["Conversions API", "Deduplication", "Data Quality"]],
-];
-
-const trafficSignals = [
-  ["▥", "多渠道协同", "科学分配预算"],
-  ["△", "素材持续测试", "找到高表现组合"],
-  ["◎", "精准再营销", "提升转化效率"],
-  ["↗", "数据闭环", "驱动增长决策"],
+  ["◇", "Feed 管理", ["商品 Feed", "Catalog Rules"]],
+  ["</>", "事件校准", ["Pixel", "Server Events"]],
+  ["☁", "归因闭环", ["CAPI", "Data Quality"]],
 ];
 
 const conversionSteps = [
@@ -609,6 +595,16 @@ export default function HeliosExperience() {
       <section id="traffic" className="traffic-section section-shell reveal-block" aria-labelledby="traffic-title">
         <div className="traffic-media">
           <Image src="/helios/assets/traffic.png" alt="电商品牌团队正在规划广告素材与流量投放" width={1792} height={1024} />
+          <div className="detail-copy">
+            <p className="small-kicker">Traffic Engine</p>
+            <h2 id="traffic-title">先跑出确定性，再放大预算。</h2>
+            <p>统一渠道、素材、Feed 和归因节奏，判断哪些流量值得加码，哪些该停。</p>
+            <a className="text-link" href="#engine">查看投放链路</a>
+            <div className="active-note">
+              <strong>当前渠道：{currentChannel.title}</strong>
+              <span>{currentChannel.copy}</span>
+            </div>
+          </div>
           <div className="channel-board">
             <strong>Channel Map</strong>
             <div className="channel-map">
@@ -623,9 +619,6 @@ export default function HeliosExperience() {
                   {channel.title}
                 </button>
               ))}
-              <button type="button"><i>P</i>Pinterest</button>
-              <button type="button"><i>K</i>KOL / UGC</button>
-              <button type="button"><i>R</i>Retargeting</button>
             </div>
             <div className="layer-banner">Helios Growth Engine / Traffic Layer</div>
           </div>
@@ -643,18 +636,6 @@ export default function HeliosExperience() {
                 <b>{channel.budget}</b>
               </button>
             ))}
-          </div>
-          <div className="creative-queue">
-            <strong>Creative Test Queue</strong>
-            <div className="creative-list">
-              {trafficCreatives.map((item, index) => (
-                <button key={item.label} type="button">
-                  <span aria-hidden="true" className={`creative-thumb thumb-${index + 1}`} />
-                  <b>{item.label}</b>
-                  <small>{item.state}</small>
-                </button>
-              ))}
-            </div>
           </div>
           <div className="traffic-stack">
             {trafficOps.map(([icon, title, rows]) => (
@@ -676,25 +657,6 @@ export default function HeliosExperience() {
                 </span>
                 <MiniLineChart tone="amber" />
               </button>
-            ))}
-          </div>
-        </div>
-        <div className="detail-copy">
-          <p className="small-kicker">Traffic Engine</p>
-          <h2 id="traffic-title">让广告投放可控、可测试、可放大。</h2>
-          <p>从预算分配、账户结构、素材测试到 Feed 优化和再营销，让每一份流量都进入可复盘的增长模型。</p>
-          <a className="text-link" href="#engine">查看流量引擎动作</a>
-          <div className="active-note">
-            <strong>{currentChannel.title}</strong>
-            <span>{currentChannel.copy}</span>
-          </div>
-          <div className="signal-row">
-            {trafficSignals.map(([icon, title, copy]) => (
-              <article key={title}>
-                <i>{icon}</i>
-                <strong>{title}</strong>
-                <span>{copy}</span>
-              </article>
             ))}
           </div>
         </div>
@@ -1009,6 +971,16 @@ export default function HeliosExperience() {
 
       <section id="proof" className="proof-section section-shell reveal-block" aria-labelledby="proof-title">
         <div className="proof-board">
+          <div className="proof-copy">
+            <p className="small-kicker">Growth Quality</p>
+            <h2 id="proof-title">不只看 ROAS，更看整站增长质量。</h2>
+            <p>Helios Growth Engine 把广告效率、站内转化、客单价、复购和长期利润放在一张表里判断。</p>
+            <a className="text-link" href="#diagnosis">查看可脱敏案例结构</a>
+            <div className="active-note">
+              <strong>{currentMetric.key} · {currentMetric.value}</strong>
+              <span>{currentMetric.label} {currentMetric.delta}</span>
+            </div>
+          </div>
           <div className="measurement-badge">Helios Growth Engine / Measurement Layer</div>
           <div className="metrics-grid">
             {metrics.map((metric) => (
@@ -1041,16 +1013,6 @@ export default function HeliosExperience() {
                 <p>{row.result}</p>
               </article>
             ))}
-          </div>
-        </div>
-        <div className="proof-copy">
-          <p className="small-kicker">Growth Quality</p>
-          <h2 id="proof-title">不只看 ROAS，更看整站增长质量。</h2>
-          <p>Helios Growth Engine 把广告效率、站内转化、客单价、复购和长期利润放在一张表里判断。</p>
-          <a className="text-link" href="#diagnosis">查看可脱敏案例结构</a>
-          <div className="active-note">
-            <strong>{currentMetric.key} · {currentMetric.value}</strong>
-            <span>{currentMetric.label} {currentMetric.delta}</span>
           </div>
         </div>
       </section>
