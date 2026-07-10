@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leadtop Homepage Concept</title>
+  <style>
+    :root {
+      --paper: #fffdf7;
+      --paper-warm: #fbf4e8;
+      --cream: #f0e4d2;
+      --ink: #111927;
+      --muted: #687384;
+      --line: #ded3c1;
+      --forest: #435b3b;
+      --forest-deep: #263a28;
+      --sage: #dfe8d8;
+      --orange: #ee9728;
+      --orange-deep: #c9680d;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #d8d2c8; color: var(--ink); font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
+    body { width: 1600px; }
+    button, input, select { font: inherit; }
+    .scene {
+      position: relative;
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background: var(--paper);
+      isolation: isolate;
+    }
+    .scene::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 1px 1px, rgb(17 25 39 / 0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(90deg, transparent, #000 24%, #000 76%, transparent);
+      opacity: .35;
+    }
+    .shell { width: 1456px; height: 100%; margin: 0 auto; padding: 76px 0 68px; position: relative; }
+    .kicker { margin: 0 0 18px; color: var(--orange-deep); font-size: 13px; font-weight: 750; letter-spacing: 2px; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 22px; font-size: 76px; line-height: 1.08; letter-spacing: 0; font-weight: 680; }
+    h2 { margin-bottom: 18px; font-size: 52px; line-height: 1.13; letter-spacing: 0; font-weight: 660; }
+    h3 { margin-bottom: 12px; font-size: 25px; line-height: 1.25; letter-spacing: 0; }
+    p { color: var(--muted); font-size: 18px; line-height: 1.75; }
+    .lead { max-width: 850px; font-size: 20px; line-height: 1.72; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border: 1px solid transparent; border-radius: 6px; font-size: 15px; font-weight: 700; }
+    .btn-primary { color: #21170e; background: var(--orange); border-color: #df8413; }
+    .btn-ghost { color: currentColor; background: transparent; border-color: currentColor; }
+    .text-link { display: inline-flex; gap: 14px; align-items: center; color: inherit; font-size: 16px; font-weight: 700; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
+    .section-index { position: absolute; top: 78px; right: 72px; font-size: 12px; letter-spacing: 2px; color: #8c887f; }
+    .hairline { height: 1px; background: var(--line); }
+
+    /* 01 HERO */
+    #s1 { color: var(--paper); background: #06100c; font-family: Satoshi, Outfit, "PingFang SC", sans-serif; }
+    #s1::before { content: ""; position: absolute; inset: 0; z-index: -3; background: radial-gradient(circle at 76% 45%, rgb(39 126 82 / .3), transparent 27%), radial-gradient(circle at 70% 58%, rgb(238 151 40 / .13), transparent 18%), radial-gradient(circle at 17% 18%, rgb(74 125 100 / .12), transparent 32%), linear-gradient(120deg, #07140f 0%, #081c15 50%, #030806 100%); }
+    #s1::after { mask-image: none; opacity: .35; z-index: -2; background-image: linear-gradient(rgb(173 227 197 / .08) 1px, transparent 1px), linear-gradient(90deg, rgb(173 227 197 / .08) 1px, transparent 1px); background-size: 62px 62px; transform: perspective(650px) rotateX(64deg) scale(1.7) translateY(27%); transform-origin: bottom center; }
+    .nav { position: absolute; z-index: 20; top: 26px; left: 46px; right: 46px; height: 64px; padding: 0 22px 0 26px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border: 1px solid rgb(213 239 222 / .16); border-radius: 6px; background: rgb(7 18 13 / .56); box-shadow: inset 0 1px rgb(255 255 255 / .08), 0 18px 60px rgb(0 0 0 / .18); backdrop-filter: blur(18px); }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 720; letter-spacing: .2px; }
+    .brand::before { content: ""; width: 18px; height: 18px; border: 1px solid #ffad42; background: linear-gradient(135deg, transparent 47%, #ffad42 48% 55%, transparent 56%); box-shadow: 0 0 18px rgb(238 151 40 / .22); transform: rotate(45deg); }
+    .navlinks { display: flex; gap: 44px; color: rgb(235 246 238 / .72); font-size: 13px; }
+    .nav .btn { justify-self: end; min-height: 40px; padding: 0 18px; color: #121a15; }
+    .hero-tech-copy { position: absolute; z-index: 8; left: 72px; top: 158px; width: 840px; }
+    .hero-tech-brand { margin: 0 0 18px; color: #ffb75b; font-size: 18px; line-height: 1; font-weight: 680; letter-spacing: 5px; text-transform: uppercase; }
+    .hero-tech-copy h1 { width: 840px; max-width: 840px; margin: 0; font-size: clamp(52px, 5.4vw, 86px); line-height: 1.04; font-weight: 540; letter-spacing: 0; text-wrap: balance; }
+    .hero-tech-copy h1 em { color: #b8e6ca; font-style: normal; }
+    .hero-tech-copy p { width: 590px; margin: 25px 0 0; color: rgb(226 241 231 / .64); font-size: 17px; line-height: 1.75; }
+    .hero-actions { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+    .hero-actions .btn-ghost { color: #f5fbf7; border-color: rgb(235 246 238 / .34); }
+    .tech-stage { position: absolute; z-index: 2; top: 102px; right: -32px; width: 820px; height: 720px; filter: drop-shadow(0 40px 90px rgb(0 0 0 / .4)); }
+    .tech-stage::before { content: ""; position: absolute; left: 102px; top: 70px; width: 550px; height: 550px; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 48px, rgb(167 225 190 / .12) 49px 50px), conic-gradient(from 42deg, transparent 0 8%, rgb(135 215 169 / .16) 9% 10%, transparent 11% 31%, rgb(238 151 40 / .22) 32% 33%, transparent 34% 100%); animation: techSpin 28s linear infinite; }
+    .tech-stage::after { content: ""; position: absolute; left: 282px; top: 248px; width: 194px; height: 194px; border-radius: 50%; background: radial-gradient(circle at 42% 38%, #b6e4c7 0 2%, #38825d 3% 14%, #173c2b 35%, #07130e 68%); border: 1px solid rgb(185 235 205 / .45); box-shadow: 0 0 0 18px rgb(76 151 105 / .07), 0 0 0 42px rgb(76 151 105 / .04), 0 0 95px rgb(63 192 119 / .32), inset -22px -28px 45px rgb(0 0 0 / .55); }
+    .orbit { position: absolute; left: 90px; top: 215px; width: 590px; height: 260px; border: 1px solid rgb(175 231 197 / .24); border-radius: 50%; transform: rotate(-18deg); }
+    .orbit.o2 { left: 166px; top: 154px; width: 470px; height: 390px; transform: rotate(32deg); border-color: rgb(238 151 40 / .28); }
+    .orbit.o3 { left: 220px; top: 108px; width: 360px; height: 490px; transform: rotate(71deg); border-color: rgb(175 231 197 / .14); }
+    .signal { position: absolute; z-index: 5; display: flex; align-items: center; gap: 9px; color: rgb(229 244 235 / .7); font-size: 11px; letter-spacing: 1.4px; }
+    .signal::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #ffad42; box-shadow: 0 0 0 5px rgb(238 151 40 / .12), 0 0 24px #ee9728; }
+    .signal.s1 { left: 92px; top: 252px; }
+    .signal.s2 { left: 258px; top: 108px; }
+    .signal.s3 { right: 78px; top: 264px; }
+    .signal.s4 { right: 148px; bottom: 126px; }
+    .signal.s5 { left: 120px; bottom: 178px; }
+    .core-label { position: absolute; z-index: 6; left: 318px; top: 310px; width: 124px; color: #f1faf4; text-align: center; font-size: 12px; line-height: 1.4; letter-spacing: 1.8px; }
+    .core-label b { display: block; margin-bottom: 7px; color: #ffb75b; font-size: 10px; }
+    .data-ribbon { position: absolute; right: 68px; bottom: 44px; width: 640px; height: 122px; padding: 20px 24px; display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); align-items: center; border: 1px solid rgb(199 235 213 / .14); border-radius: 6px; color: rgb(231 244 235 / .72); background: rgb(7 20 14 / .64); backdrop-filter: blur(16px); }
+    .data-ribbon > div { height: 100%; padding: 6px 17px; border-left: 1px solid rgb(199 235 213 / .12); display: flex; flex-direction: column; justify-content: space-between; }
+    .data-ribbon > div:first-child { border-left: 0; padding-left: 0; }
+    .data-ribbon small { color: rgb(208 232 217 / .42); font-size: 9px; letter-spacing: 1.6px; }
+    .data-ribbon strong { color: #f2faf5; font-size: 13px; font-weight: 560; }
+    .pulse-line { height: 18px; background: linear-gradient(90deg, transparent 0 6%, #66be8a 7% 12%, transparent 13% 18%, #ffad42 19% 22%, transparent 23% 44%, #66be8a 45% 63%, transparent 64%); clip-path: polygon(0 48%, 8% 48%, 11% 6%, 15% 91%, 20% 48%, 47% 48%, 51% 18%, 56% 73%, 61% 48%, 100% 48%, 100% 56%, 61% 56%, 56% 84%, 51% 28%, 47% 56%, 20% 56%, 15% 100%, 11% 16%, 8% 56%, 0 56%); opacity: .8; }
+    .hero-footnote { position: absolute; left: 72px; bottom: 46px; color: rgb(218 238 226 / .4); font-size: 11px; letter-spacing: 1.5px; }
+    @keyframes techSpin { to { transform: rotate(360deg); } }
+
+    /* 02 ECOSYSTEM */
+    #s2 { background: var(--paper-warm); }
+    .eco-heading { display: grid; grid-template-columns: 1.25fr .75fr; gap: 100px; align-items: end; }
+    .eco-heading .lead { margin-bottom: 4px; }
+    .credential-board { margin-top: 52px; height: 470px; display: grid; grid-template-columns: 1.25fr 1fr; border: 1px solid var(--line); background: rgb(255 255 255 / .68); box-shadow: 0 28px 70px rgb(80 59 31 / .09); }
+    .credential-intro { padding: 34px; display: flex; flex-direction: column; justify-content: space-between; background: var(--forest); color: var(--paper); }
+    .credential-intro p { color: rgb(255 253 247 / .7); }
+    .rank { display: flex; gap: 22px; align-items: center; padding-top: 18px; border-top: 1px solid rgb(255 255 255 / .24); }
+    .rank b { font-size: 54px; font-weight: 500; color: #ffc56f; }
+    .partner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid rgb(255 255 255 / .18); }
+    .partner { min-height: 96px; padding: 16px; display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: center; border-right: 1px solid rgb(255 255 255 / .18); border-bottom: 1px solid rgb(255 255 255 / .18); }
+    .partner:nth-child(even) { border-right: 0; }
+    .partner-logo { height: 62px; background-image: url('leadtop-homepage-assets/certificates/leadtop-company-03.png'); background-size: 610px 343px; background-repeat: no-repeat; background-color: #fff; border-radius: 4px; }
+    .logo-google { background-position: -66px -112px; }
+    .logo-criteo { background-position: -207px -112px; }
+    .logo-shopify { background-position: -335px -112px; }
+    .logo-amazon { background-position: -482px -112px; }
+    .partner b { display: block; font-size: 15px; }
+    .partner small { color: rgb(255 255 255 / .62); font-size: 11px; }
+    .credential-proof { padding: 32px; display: grid; grid-template-rows: auto 1fr; gap: 22px; }
+    .credential-proof-head { display: flex; align-items: end; justify-content: space-between; }
+    .credential-proof-head h3 { margin: 0; font-size: 26px; }
+    .credential-proof-head small { color: var(--muted); }
+    .certificate-wall { display: grid; grid-template-columns: 1.55fr .78fr .78fr; gap: 14px; min-height: 0; }
+    .certificate { position: relative; overflow: hidden; border: 1px solid var(--line); background: #f9f4e9; }
+    .certificate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .certificate.rank-proof img { object-fit: cover; object-position: 50% 44%; }
+    .certificate.award img, .certificate.expert img { object-fit: contain; padding: 12px; }
+    .certificate span { position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 8px 10px; color: var(--ink); background: rgb(255 253 247 / .94); font-size: 11px; font-weight: 750; }
+    .eco-foot { margin-top: 18px; display: flex; justify-content: space-between; color: #7f7b72; font-size: 13px; }
+
+    /* 03 SOLUTIONS */
+    #s3 { background: #f4efe5; }
+    .solutions-head { display: flex; align-items: end; justify-content: space-between; }
+    .solutions-head h2 { width: 900px; }
+    .solution-grid { margin-top: 44px; height: 555px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .solution { position: relative; overflow: hidden; padding: 40px; border: 1px solid var(--line); background: var(--paper); }
+    .solution.polaris { color: var(--paper); background: var(--forest-deep); }
+    .solution.helios { color: var(--ink); background: #ece5d9; }
+    .solution-bg { position: absolute; inset: 0; opacity: .58; background-size: cover; background-position: center; }
+    .polaris .solution-bg { background-image: linear-gradient(0deg, rgb(28 49 31 / .92), transparent 72%), url('../public/polaris/assets/hero-command-center.png'); }
+    .helios .solution-bg { background-image: linear-gradient(0deg, rgb(248 242 230 / .96), rgb(248 242 230 / .18) 78%), url('../assets/helios/hero.png'); }
+    .solution-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; max-width: 620px; }
+    .solution-tag { position: absolute; top: 0; left: 0; padding: 9px 13px; border: 1px solid currentColor; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; }
+    .solution h3 { font-size: 36px; }
+    .solution p { max-width: 580px; color: currentColor; opacity: .74; font-size: 16px; }
+    .outcomes { display: flex; gap: 10px; margin: 15px 0 24px; flex-wrap: wrap; }
+    .outcomes span { padding: 7px 10px; border: 1px solid currentColor; font-size: 12px; }
+    .split-note { position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%); z-index: 4; width: 620px; padding: 18px 24px; background: var(--orange); color: #24190e; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 20px 46px rgb(65 42 20 / .18); }
+
+    /* 04 PROBLEM */
+    #s4 { color: var(--ink); background: #e7e5de; }
+    #s4::after { opacity: .72; mask-image: none; background-size: 34px 34px; background-image: linear-gradient(rgb(17 25 39 / .045) 1px, transparent 1px), linear-gradient(90deg, rgb(17 25 39 / .045) 1px, transparent 1px); }
+    #s4 .kicker { color: var(--orange-deep); }
+    #s4 p { color: var(--muted); }
+    .problem-layout { display: grid; grid-template-columns: 560px 1fr; gap: 88px; height: 100%; align-items: center; }
+    .problem-layout h2 { font-size: 58px; }
+    .problem-layout > div:first-child { padding: 44px; background: var(--orange); }
+    .problem-layout > div:first-child .kicker { color: #6c3a08; }
+    .problem-layout > div:first-child p { color: rgb(17 25 39 / .7); }
+    .fault-map { position: relative; display: grid; gap: 10px; background: var(--paper); padding: 26px 30px 18px; box-shadow: 0 22px 65px rgb(70 60 44 / .1); }
+    .fault { display: grid; grid-template-columns: 48px 1fr 52px 1.3fr; align-items: center; min-height: 82px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+    .fault .num { color: var(--orange-deep); font-family: Georgia, serif; font-size: 28px; }
+    .fault .break { font-size: 17px; font-weight: 700; }
+    .fault .arrow { color: var(--orange); font-size: 24px; }
+    .fault .response { color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .fault-map::before { content: ""; position: absolute; left: 0; top: -20px; right: 0; height: 1px; background: var(--orange); }
+    .fault-map::after { content: "SIGNAL / RESPONSE"; position: absolute; top: -43px; right: 0; color: #ffc56f; font-size: 10px; letter-spacing: 2px; }
+    .problem-close { margin-top: 34px; padding: 20px 0 0 28px; border-left: 3px solid var(--forest); font-size: 18px; color: var(--ink); }
+
+    /* 05 LOOP */
+    #s5 { background: var(--paper); }
+    .loop-head { display: grid; grid-template-columns: 1fr 520px; gap: 100px; align-items: end; }
+    .loop-canvas { position: relative; margin-top: 44px; height: 545px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, 1fr); }
+    .loop-step { position: relative; padding: 46px 34px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .loop-step:first-child { border-left: 1px solid var(--line); }
+    .loop-step:nth-child(2) { background: var(--paper-warm); }
+    .loop-step:nth-child(3) { background: var(--sage); }
+    .loop-step:nth-child(4) { background: var(--forest); color: var(--paper); }
+    .loop-step:nth-child(4) p { color: rgb(255 255 255 / .7); }
+    .loop-num { font-family: Georgia, serif; font-size: 78px; font-style: italic; color: rgb(238 151 40 / .52); }
+    .loop-step h3 { font-size: 25px; }
+    .loop-step p { font-size: 15px; line-height: 1.65; }
+    .loop-arrow { position: absolute; right: -22px; top: 48%; z-index: 3; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: #22160d; background: var(--orange); box-shadow: 0 8px 18px rgb(70 43 17 / .14); }
+    .loop-step:last-child .loop-arrow { right: 18px; top: 18px; background: transparent; color: #ffc56f; border: 1px solid #ffc56f; }
+    .loop-caption { margin-top: 26px; display: flex; justify-content: space-between; align-items: center; }
+    .loop-caption p { margin: 0; }
+
+    /* 06 CAPABILITIES */
+    #s6 { background: #eae2d5; }
+    .cap-head { position: absolute; top: 72px; left: 72px; width: 410px; z-index: 3; }
+    .cap-head h2 { width: 410px; font-size: 48px; }
+    .cap-head p { width: 390px; }
+    .cap-stack { position: absolute; top: 0; right: 0; bottom: 0; left: 510px; display: flex; }
+    .cap-slice { position: relative; width: 132px; border-left: 1px solid rgb(17 25 39 / .18); padding: 68px 24px 34px; overflow: hidden; transition: none; }
+    .cap-slice.active { width: 430px; background: var(--paper); box-shadow: -24px 0 60px rgb(70 53 30 / .12); }
+    .cap-slice:nth-child(3), .cap-slice:nth-child(6) { background: var(--sage); }
+    .cap-slice:nth-child(5) { background: var(--forest); color: var(--paper); }
+    .cap-slice:nth-child(5) p { color: rgb(255 255 255 / .65); }
+    .cap-no { writing-mode: vertical-rl; font-family: Georgia, serif; color: var(--orange-deep); font-size: 28px; }
+    .cap-slice h3 { writing-mode: vertical-rl; margin: 30px 0 0; font-size: 19px; }
+    .cap-slice.active h3 { writing-mode: initial; margin-top: 150px; font-size: 30px; }
+    .cap-slice.active p { display: block; margin-top: 24px; font-size: 16px; }
+    .cap-slice p { display: none; }
+    .cap-visual { position: absolute; left: 26px; right: 26px; bottom: 32px; height: 250px; background: url('../public/polaris/systems.png') center/cover; border: 1px solid var(--line); box-shadow: 0 18px 38px rgb(83 60 31 / .12); }
+    .cap-action { position: absolute; left: 72px; bottom: 78px; }
+
+    /* 07 DELIVERY */
+    #s7 { background: var(--paper-warm); }
+    .delivery-head { display: grid; grid-template-columns: 1fr 540px; gap: 80px; align-items: end; }
+    .timeline { margin-top: 58px; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    .timeline::before { content: ""; position: absolute; top: 42px; left: 18px; right: 18px; height: 1px; background: var(--line); }
+    .phase { position: relative; padding: 84px 30px 30px 0; }
+    .phase::before { content: ""; position: absolute; top: 32px; left: 0; width: 19px; height: 19px; border-radius: 50%; background: var(--paper-warm); border: 5px solid var(--forest); }
+    .phase:last-child::before { border-color: var(--orange); }
+    .phase small { color: var(--orange-deep); font-weight: 800; letter-spacing: 1px; }
+    .phase p { font-size: 15px; }
+    .team-band { position: absolute; left: 72px; right: 72px; bottom: 58px; height: 190px; display: grid; grid-template-columns: 1fr 1.35fr; background: var(--forest); color: var(--paper); }
+    .team-copy { padding: 34px 38px; }
+    .team-copy p { color: rgb(255 255 255 / .7); font-size: 15px; }
+    .team-roles { display: grid; grid-template-columns: repeat(6, 1fr); border-left: 1px solid rgb(255 255 255 / .18); }
+    .role { display: flex; align-items: flex-end; padding: 24px 16px; border-left: 1px solid rgb(255 255 255 / .13); font-size: 13px; color: rgb(255 255 255 / .72); }
+    .role b { display: block; color: #ffc56f; font-size: 24px; margin-bottom: 10px; }
+
+    /* 08 PROOF */
+    #s8 { background: #f7f2e8; }
+    .proof-layout { height: 100%; display: grid; grid-template-columns: 430px 1fr; gap: 48px; align-items: center; }
+    .proof-copy h2 { font-size: 50px; font-weight: 660; }
+    .proof-copy .metric { margin: 30px 0; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .metric b { font-size: 32px; color: var(--forest); }
+    .metric small { display: block; margin-top: 8px; color: var(--muted); }
+    .case-gallery { height: 690px; display: grid; grid-template-columns: 1.15fr .85fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+    .case-feature { grid-row: span 2; position: relative; overflow: hidden; color: var(--paper); background: var(--forest); }
+    .case-feature::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(22 40 25 / .95), rgb(22 40 25 / .15) 72%), url('../public/polaris/assets/hero-command-center.png') center/cover; }
+    .case-feature-content { position: absolute; left: 34px; right: 34px; bottom: 34px; }
+    .case-feature-content h3 { font-size: 34px; }
+    .case-feature-content p { color: rgb(255 255 255 / .68); font-size: 15px; }
+    .case-path { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 24px; border-top: 1px solid rgb(255 255 255 / .28); }
+    .case-path span { padding: 15px 10px 0 0; font-size: 12px; color: rgb(255 255 255 / .72); }
+    .case-path b { display: block; margin-bottom: 5px; color: #ffc56f; font-size: 11px; letter-spacing: 1px; }
+    .case-secondary { position: relative; overflow: hidden; padding: 28px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .case-secondary.dtc { background: #e8dfd2; }
+    .case-secondary.dtc::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgb(247 241 230 / .97), rgb(247 241 230 / .14) 75%), url('../assets/helios/hero.png') center/cover; }
+    .case-secondary.method { color: var(--paper); background: var(--orange-deep); }
+    .case-secondary.method::before { content: ""; position: absolute; inset: 0; opacity: .34; background: url('../public/polaris/systems.png') center/cover; mix-blend-mode: multiply; }
+    .case-secondary > * { position: relative; }
+    .case-secondary h3 { font-size: 27px; }
+    .case-secondary p { margin: 0; color: currentColor; opacity: .7; font-size: 14px; }
+    .case-type { position: absolute; top: 22px; left: 24px; z-index: 2; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; }
+
+    /* 09 FAQ */
+    #s9 { background: var(--paper); }
+    .faq-layout { display: grid; grid-template-columns: 455px 1fr; gap: 110px; height: 100%; align-items: center; }
+    .faq-intro { align-self: start; padding-top: 60px; }
+    .faq-intro h2 { font-size: 58px; }
+    .faq-note { margin-top: 80px; padding: 22px 0 22px 26px; border-left: 3px solid var(--orange); color: var(--muted); }
+    .questions { border-top: 1px solid var(--line); }
+    .question { display: grid; grid-template-columns: 54px 1fr 32px; min-height: 92px; align-items: center; border-bottom: 1px solid var(--line); }
+    .question.open { min-height: 176px; background: var(--paper-warm); margin: 0 -24px; padding: 0 24px; }
+    .q-num { color: var(--orange-deep); font-family: Georgia, serif; }
+    .q-copy strong { font-size: 18px; }
+    .q-copy p { display: none; margin: 12px 0 0; font-size: 14px; line-height: 1.6; }
+    .question.open .q-copy p { display: block; }
+    .q-icon { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--forest); }
+    .side-rail { position: absolute; right: 28px; top: 110px; bottom: 110px; writing-mode: vertical-rl; color: #aaa399; font-size: 10px; letter-spacing: 2px; }
+
+    /* 10 CTA */
+    #s10 { color: var(--paper); background: var(--forest-deep); }
+    #s10::before { content: ""; position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, rgb(27 48 30 / .98), rgb(27 48 30 / .78) 55%, rgb(27 48 30 / .32)), url('../assets/helios/diagnosis.png') center/cover; }
+    #s10::after { mask-image: none; opacity: .28; }
+    .cta-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 100px; align-items: center; height: 100%; }
+    .cta-copy .kicker { color: #ffc56f; }
+    .cta-copy h2 { font-size: 66px; }
+    .cta-copy p { color: rgb(255 253 247 / .7); }
+    .diagnostic-axis { margin-top: 48px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .diagnostic-axis span { padding: 9px 12px; border: 1px solid rgb(255 255 255 / .35); font-size: 13px; }
+    .form { padding: 40px 42px; color: var(--ink); background: var(--paper); box-shadow: 0 34px 80px rgb(0 0 0 / .24); }
+    .form h3 { font-size: 31px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 24px; }
+    .field { height: 54px; padding: 0 15px; display: flex; align-items: center; color: #817b72; border: 1px solid var(--line); background: #fff; font-size: 14px; }
+    .field.wide { grid-column: span 2; }
+    .form .btn { width: 100%; grid-column: span 2; min-height: 58px; margin-top: 4px; }
+    .reassure { margin: 17px 0 0; font-size: 12px; line-height: 1.6; }
+    .footer-line { position: absolute; left: 72px; right: 72px; bottom: 22px; padding-top: 14px; border-top: 1px solid rgb(255 255 255 / .25); display: flex; justify-content: space-between; color: rgb(255 255 255 / .52); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <section class="scene" id="s1">
+    <header class="nav"><div class="brand">Leadtop</div><nav class="navlinks"><span>解决方案</span><span>增长能力</span><span>案例与洞察</span><span>关于 Leadtop</span></nav><div class="btn btn-primary">获取增长诊断</div></header>
+    <div class="hero-tech-copy"><div class="hero-tech-brand">LEADTOP</div><h1>让独立站成为<br><em>持续增长的基础设施</em></h1><p>连接流量、页面、内容、信任与数据，让 B2B 询盘和 DTC 订单不再依赖单一渠道或一次爆量。</p><div class="hero-actions"><span class="btn btn-primary">获取独立站增长诊断</span><span class="btn btn-ghost">选择适合我的增长系统</span></div></div>
+    <div class="tech-stage" aria-hidden="true"><div class="orbit"></div><div class="orbit o2"></div><div class="orbit o3"></div><span class="signal s1">GLOBAL MEDIA</span><span class="signal s2">CONTENT / GEO</span><span class="signal s3">SITE / CRO</span><span class="signal s4">DATA / REVIEW</span><span class="signal s5">TRUST / CRM</span><div class="core-label"><b>LEADTOP CORE</b>GROWTH<br>SYSTEM</div></div>
+    <div class="data-ribbon"><div><small>SYSTEM STATUS</small><strong>Independent-site growth loop</strong><div class="pulse-line"></div></div><div><small>DISCOVER</small><strong>广告 / 搜索</strong></div><div><small>TRUST</small><strong>网站 / 内容</strong></div><div><small>CONVERT</small><strong>询盘 / 订单</strong></div><div><small>ITERATE</small><strong>数据 / 复盘</strong></div></div>
+    <div class="hero-footnote">GLOBAL GROWTH SYSTEMS · NINGBO / WORLDWIDE · SINCE 2016</div>
+  </section>
+
+  <section class="scene" id="s2"><div class="shell"><span class="section-index">02 / 10</span><div class="eco-heading"><div><div class="kicker">Global growth ecosystem</div><h2>一线增长资源，落到每个页面与数据动作</h2></div><p class="lead">平台资质带来方法、产品与资源支持；Leadtop 再把媒体、内容、站点和数据组织成可执行的增长路径。</p></div><div class="credential-board"><div class="credential-intro"><div><h3>官方合作伙伴</h3><p>覆盖搜索、再营销、独立站与电商程序化广告生态。</p></div><div class="partner-grid"><div class="partner"><div class="partner-logo logo-google"></div><span><b>Google Ads</b><small>官方合作伙伴资质</small></span></div><div class="partner"><div class="partner-logo logo-criteo"></div><span><b>Criteo Ads</b><small>官方合作伙伴资质</small></span></div><div class="partner"><div class="partner-logo logo-shopify"></div><span><b>Shopify Plus</b><small>合作伙伴</small></span></div><div class="partner"><div class="partner-logo logo-amazon"></div><span><b>Amazon DSP</b><small>Verified Partner</small></span></div></div><div class="rank"><b>No.1</b><span>Google Ads 全国代理商<br>专业认证考试成绩认可</span></div></div><div class="credential-proof"><div class="credential-proof-head"><h3>专业深度与成就证明</h3><small>来自公司介绍材料 · 上线前复核</small></div><div class="certificate-wall"><div class="certificate rank-proof"><img src="leadtop-homepage-assets/certificates/google-ranking.png" alt="Google Ads 专业认证成绩"><span>Google Ads 专业认证成绩</span></div><div class="certificate award"><img src="leadtop-homepage-assets/certificates/google-award.png" alt="Google Ads 创意特训营奖项"><span>广告学霸团队奖</span></div><div class="certificate expert"><img src="leadtop-homepage-assets/certificates/google-expert.png" alt="Google Ads Digital Guru 证书"><span>Digital Guru / Expert</span></div></div></div></div><div class="eco-foot"><span>自 2016 年起，持续服务品牌全球化增长</span><span>平台合作状态、正式称谓与 Logo 使用规范以上线前复核为准</span></div></div></section>
+
+  <section class="scene" id="s3"><div class="shell"><span class="section-index">03 / 10</span><div class="solutions-head"><div><div class="kicker">Choose by business outcome</div><h2>同样做独立站，B2B 和 DTC 需要不同的增长系统</h2></div><span class="text-link">先判断我的增长瓶颈 →</span></div><div class="solution-grid"><article class="solution polaris"><div class="solution-bg"></div><div class="solution-content"><span class="solution-tag">B2B GROWTH</span><h3>Polaris Growth System</h3><p>让真正有采购意向的海外客户更容易找到你、相信你、联系你。</p><div class="outcomes"><span>高质量询盘</span><span>CPL</span><span>CVR</span><span>自然流量</span></div><span class="text-link">查看 B2B 获客方案 →</span></div></article><article class="solution helios"><div class="solution-bg"></div><div class="solution-content"><span class="solution-tag">B2C / DTC GROWTH</span><h3>Helios Growth Engine</h3><p>让流量、转化和复购共同推动收入，并连接 Amazon 与品牌自有站资产。</p><div class="outcomes"><span>ROI / MER</span><span>CVR</span><span>AOV</span><span>LTV</span></div><span class="text-link">查看 DTC 增长方案 →</span></div></article></div><div class="split-note"><strong>Amazon 已经在销售，也希望做大品牌自有站？</strong><span>了解双生态协同 →</span></div></div></section>
+
+  <section class="scene" id="s4"><div class="shell"><span class="section-index">04 / 10</span><div class="problem-layout"><div><div class="kicker">Growth is not a single-point project</div><h2>网站上线、广告开跑，为什么增长还是不稳定？</h2><p class="lead">多数问题不只出在一个渠道。每个断点都会放大下一环节的损耗。</p><div class="problem-close">我们把页面、内容、投放和数据放回同一张增长路线图。</div></div><div class="fault-map"><div class="fault"><span class="num">01</span><span class="break">有访问，没有询盘或订单</span><span class="arrow">→</span><span class="response">重构页面、卖点、CTA 与行动路径</span></div><div class="fault"><span class="num">02</span><span class="break">广告有点击，质量不稳定</span><span class="arrow">→</span><span class="response">联动搜索词、素材、落地页与反馈</span></div><div class="fault"><span class="num">03</span><span class="break">SEO / GEO 没有积累</span><span class="arrow">→</span><span class="response">建立场景内容与结构化信息资产</span></div><div class="fault"><span class="num">04</span><span class="break">陌生客户缺乏信任</span><span class="arrow">→</span><span class="response">让案例、资质、评价进入决策路径</span></div><div class="fault"><span class="num">05</span><span class="break">供应商分段执行，无法复盘</span><span class="arrow">→</span><span class="response">统一目标、指标、动作与迭代节奏</span></div></div></div></div></section>
+
+  <section class="scene" id="s5"><div class="shell"><span class="section-index">05 / 10</span><div class="loop-head"><div><div class="kicker">Leadtop Growth Loop</div><h2>让每一份流量都有承接，让每一次复盘都有下一步</h2></div><p class="lead">先明确增长目标与受众，再让流量、页面、信任和数据围绕这个目标协同工作。</p></div><div class="loop-canvas"><article class="loop-step"><span class="loop-num">01</span><div><h3>定义增长机会</h3><p>从市场、客户、利润、竞争表达与现有数据出发，判断先验证什么。</p></div><span class="loop-arrow">→</span></article><article class="loop-step"><span class="loop-num">02</span><div><h3>搭建转化承接</h3><p>优化网站、关键页面、Landing Page 与追踪，不让高意向流量落空。</p></div><span class="loop-arrow">→</span></article><article class="loop-step"><span class="loop-num">03</span><div><h3>放大有效流量</h3><p>把广告、SEO/GEO、内容与社媒按阶段放进可测试的组合。</p></div><span class="loop-arrow">→</span></article><article class="loop-step"><span class="loop-num">04</span><div><h3>用真实反馈优化</h3><p>结合询盘质量与经营指标，找出下一轮最值得投入的动作。</p></div><span class="loop-arrow">↻</span></article></div><div class="loop-caption"><p>短期用测试获取反馈，长期用网站、内容、数据和用户资产降低单一渠道依赖。</p><span class="text-link">查看增长方法 →</span></div></div></section>
+
+  <section class="scene" id="s6"><div class="cap-head"><div class="kicker">Capabilities, not a service pile</div><h2>从独立站基础，到持续增长的每个关键环节</h2><p>不同业务选择不同组合，每个模块都服务于一个明确的问题。</p></div><span class="section-index">06 / 10</span><span class="text-link cap-action">查看完整增长能力 →</span><div class="cap-stack"><article class="cap-slice active"><span class="cap-no">01</span><h3>独立站建站与转化页面</h3><p>围绕搜索意图、采购或购买顾虑与行动路径设计，而不只是完成视觉上线。</p><div class="cap-visual"></div></article><article class="cap-slice"><span class="cap-no">02</span><h3>广告获客与渠道测试</h3></article><article class="cap-slice"><span class="cap-no">03</span><h3>SEO / GEO 内容增长</h3></article><article class="cap-slice"><span class="cap-no">04</span><h3>CRO 转化率优化</h3></article><article class="cap-slice"><span class="cap-no">05</span><h3>内容与信任资产</h3></article><article class="cap-slice"><span class="cap-no">06</span><h3>数据追踪与复盘</h3></article><article class="cap-slice"><span class="cap-no">07</span><h3>Amazon × DTC</h3></article></div></section>
+
+  <section class="scene" id="s7"><div class="shell"><span class="section-index">07 / 10</span><div class="delivery-head"><div><div class="kicker">From diagnosis to iteration</div><h2>先找对优先级，再让增长动作持续发生</h2></div><p class="lead">不在项目启动时列一张长清单，而是在每个阶段明确假设、动作、指标和下一步。</p></div><div class="timeline"><article class="phase"><small>PHASE 01</small><h3>增长诊断与路线图</h3><p>梳理目标、网站、流量、转化、内容与竞争环境。</p></article><article class="phase"><small>PHASE 02</small><h3>基础建设与首轮验证</h3><p>完成关键页面、追踪、素材基础与首批渠道测试。</p></article><article class="phase"><small>PHASE 03</small><h3>优化与资产沉淀</h3><p>根据真实反馈迭代页面、广告、内容与用户运营。</p></article><article class="phase"><small>CONTINUOUS</small><h3>报告不是终点</h3><p>解释发生了什么、为什么发生，以及下一步先做什么。</p></article></div><div class="team-band"><div class="team-copy"><h3>专业团队如何协同</h3><p>策略定义优先级，媒体、内容、设计开发、CRO 与数据共同完成测试、承接与复盘。</p></div><div class="team-roles"><div class="role"><span><b>01</b>策略</span></div><div class="role"><span><b>02</b>媒体</span></div><div class="role"><span><b>03</b>内容</span></div><div class="role"><span><b>04</b>设计 / 开发</span></div><div class="role"><span><b>05</b>CRO</span></div><div class="role"><span><b>06</b>数据</span></div></div></div></div></section>
+
+  <section class="scene" id="s8"><div class="shell"><span class="section-index">08 / 10</span><div class="proof-layout"><div class="proof-copy"><div class="kicker">Selected growth work</div><h2>案例不只展示结果，也展示增长如何发生</h2><p>像头部营销集团一样建立项目可信度，但用更清楚的“问题—动作—结果”说明 Leadtop 的执行深度。</p><div class="metric"><b>$100m+ / $600m+</b><small>广告投放与独立站 GMV 经验<br>正式发布前确认币种、时间与统计口径</small></div><span class="text-link">查看全部增长案例 →</span></div><div class="case-gallery"><article class="case-feature"><span class="case-type">POLARIS / B2B</span><div class="case-feature-content"><h3>工业设备出海：从搜索点击到高质量询盘</h3><p>重构关键词与页面承接，用案例、工厂实力和表单路径降低采购决策阻力。</p><div class="case-path"><span><b>PROBLEM</b>线索质量不稳</span><span><b>ACTION</b>页面 × 搜索 × 信任</span><span><b>RESULT</b>待客户授权后公开</span></div></div></article><article class="case-secondary dtc"><span class="case-type">HELIOS / DTC</span><h3>消费品牌：让素材、PDP 与复购共同推动收入</h3><p>从广告效率走向整站经营效率。</p></article><article class="case-secondary method"><span class="case-type">HOW WE PROVE IT</span><h3>原始问题、关键动作、观察周期、结果口径</h3><p>拒绝只放好看的数字，保留可复盘的增长证据。</p></article></div></div></div></section>
+
+  <section class="scene" id="s9"><div class="shell"><span class="section-index">09 / 10</span><div class="faq-layout"><div class="faq-intro"><div class="kicker">Before we start</div><h2>关于独立站增长，你可能想先了解这些</h2><p>先把常见判断说清楚，再决定是否进入诊断。</p><div class="faq-note">一个好答案不只是解释概念，也应该帮助你判断下一步。</div></div><div class="questions"><div class="question open"><span class="q-num">01</span><div class="q-copy"><strong>独立站建好后，为什么没有询盘或订单？</strong><p>很多网站只完成了展示，没有围绕流量来源、客户顾虑、信任内容和行动路径设计。需要一起检查访客从哪里来、为什么离开。</p></div><span class="q-icon">−</span></div><div class="question"><span class="q-num">02</span><div class="q-copy"><strong>Leadtop 做建站，还是做广告代运营？</strong></div><span class="q-icon">+</span></div><div class="question"><span class="q-num">03</span><div class="q-copy"><strong>B2B 和 B2C / DTC 为什么分成两套系统？</strong></div><span class="q-icon">+</span></div><div class="question"><span class="q-num">04</span><div class="q-copy"><strong>Google Ads、SEO 和 GEO 应该先做哪一个？</strong></div><span class="q-icon">+</span></div><div class="question"><span class="q-num">05</span><div class="q-copy"><strong>已经在 Amazon 销售，为什么还要做独立站？</strong></div><span class="q-icon">+</span></div><div class="question"><span class="q-num">06</span><div class="q-copy"><strong>增长诊断会看哪些内容？</strong></div><span class="q-icon">+</span></div></div></div><div class="side-rail">LEADTOP / INDEPENDENT-SITE GROWTH SYSTEMS / FAQ</div></div></section>
+
+  <section class="scene" id="s10"><div class="shell"><span class="section-index">10 / 10</span><div class="cta-layout"><div class="cta-copy"><div class="kicker">Start with the bottleneck</div><h2>先找到增长卡点，再决定下一步投入</h2><p class="lead">提交网站或店铺信息，我们会从五个维度做初步判断，帮助你确定更值得优先投入的方向。</p><div class="diagnostic-axis"><span>流量</span><span>页面</span><span>信任</span><span>内容</span><span>数据</span></div></div><form class="form"><div class="kicker">Growth diagnosis</div><h3>获取独立站增长诊断</h3><div class="form-grid"><div class="field">姓名</div><div class="field">公司名称</div><div class="field">手机 / 微信</div><div class="field">业务类型 ▾</div><div class="field wide">官网或店铺链接（可选）</div><div class="field wide">当前最想解决的问题 ▾</div><div class="btn btn-primary">提交链接，获取增长诊断 →</div></div><p class="reassure">我们会先基于你提供的信息做初步判断，再与你确认业务目标和下一步。</p></form></div><div class="footer-line"><span>Leadtop © 2026</span><span>Polaris / Helios / Growth Capabilities / Insights</span><span>Ningbo · Global</span></div></div></section>
+
+  <script src="../node_modules/gsap/dist/gsap.min.js"></script>
+  <script src="../node_modules/gsap/dist/ScrollTrigger.min.js"></script>
+  <script>
+    const section = new URLSearchParams(location.search).get('section');
+    if (section) {
+      document.querySelectorAll('.scene').forEach((scene) => {
+        scene.style.display = scene.id === `s${section}` ? 'block' : 'none';
+      });
+    }
+
+    if (window.gsap && !section) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.hero-tech-copy > *', {
+        y: 28,
+        opacity: 0,
+        duration: 1.1,
+        stagger: 0.12,
+        ease: 'power3.out'
+      });
+      gsap.fromTo('.tech-stage',
+        { scale: 0.86, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.55, ease: 'power3.out' }
+      );
+      gsap.to('.orbit', { rotation: '+=360', duration: 34, repeat: -1, ease: 'none' });
+      gsap.to('.orbit.o2', { rotation: '-=360', duration: 42, repeat: -1, ease: 'none' });
+      gsap.to('.signal', {
+        opacity: 0.42,
+        duration: 1.6,
+        stagger: 0.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+
+      ScrollTrigger.create({ trigger: '#s1', start: 'top top', end: '+=420', pin: true, pinSpacing: true });
+      gsap.utils.toArray('.solution, .case-feature, .case-secondary').forEach((visual) => {
+        gsap.fromTo(visual,
+          { scale: 0.88, opacity: 0.55 },
+          { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: visual, start: 'top 92%', end: 'center 55%', scrub: true } }
+        );
+      });
+    }
+  </script>
+</body>
+</html>
