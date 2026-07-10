@@ -10,6 +10,7 @@ import {
   Factory,
   FileText,
   Funnel,
+  Gear,
   GlobeHemisphereWest,
   GoogleLogo,
   InstagramLogo,
@@ -23,6 +24,8 @@ import {
   ShieldCheck,
   Strategy,
   Target,
+  TrendUp,
+  Wrench,
   YoutubeLogo,
   UserFocus,
 } from "@phosphor-icons/react/dist/ssr";
@@ -67,6 +70,13 @@ const painItems = [
     tag: "Review",
     copy: "没有完整的转化事件、来源追踪和询盘质量反馈，很难判断哪些渠道、页面和内容真正带来客户。",
     Icon: ChartBar,
+  },
+  {
+    no: "06",
+    title: "询盘跟进断层，增长无法沉淀",
+    tag: "Follow-up",
+    copy: "表单线索、销售跟进和客户结果没有回流到营销系统，团队无法识别高价值客户，也很难复制有效获客路径。",
+    Icon: Path,
   },
 ];
 
@@ -204,20 +214,102 @@ const proofCards = [
     title: "Landing Page 联动广告",
     tag: "搜索词 / 落地页 / 表单 / 销售反馈",
     points: ["关键词与搜索意图对齐", "落地页结构与转化路径优化", "表单字段精简与分级", "销售反馈闭环与线索分配"],
+    visual: "landing",
   },
   {
     no: "02",
     title: "SEO / GEO 内容资产",
     tag: "产品词 / 应用场景 / FAQ / 行业引用",
     points: ["产品与应用场景内容体系化", "FAQ 覆盖用户关键决策问题", "行业引用与可信来源增强信任", "内容更新与搜索可见性提升"],
+    visual: "content",
   },
   {
     no: "03",
     title: "月度增长复盘",
     tag: "CPL / CVR / 询盘质量 / 销售反馈",
     points: ["关键指标变动与原因分析", "高价值页面与内容表现复盘", "询盘质量与销售反馈对齐", "下月优化重点与实验计划"],
+    visual: "review",
   },
 ];
+
+const caseRows = [
+  {
+    industry: "机械设备",
+    Icon: Gear,
+    problem: "关键词分散，页面与搜索意图不匹配",
+    action: "关键词体系重建，页面分层优化，内容与意图对齐",
+    results: ["关键词覆盖更清晰", "高意向询盘提升"],
+  },
+  {
+    industry: "工业配件",
+    Icon: Wrench,
+    problem: "落地页结构单一，内容薄弱，广告与页面脱节",
+    action: "重构落地页与表单逻辑，广告、页面、表单联动",
+    results: ["表单转化率提升", "有效询盘占比提升"],
+  },
+  {
+    industry: "定制制造",
+    Icon: Factory,
+    problem: "有流量但转化低，销售反馈信息不足",
+    action: "内容资产补强，表单分级，销售跟进机制优化",
+    results: ["CPL 持续优化", "销售跟进效率提升"],
+  },
+];
+
+function ProofVisual({ type }) {
+  if (type === "landing") {
+    return (
+      <div className={styles.landingProof} aria-label="搜索到销售反馈的落地页联动路径">
+        {[
+          { label: "搜索", Icon: MagnifyingGlass },
+          { label: "页面", Icon: Browser },
+          { label: "表单", Icon: Rows },
+          { label: "反馈", Icon: PaperPlaneTilt },
+        ].map(({ label, Icon }, index) => (
+          <div key={label}>
+            <span><Icon size={21} weight="regular" aria-hidden /></span>
+            <b>{label}</b>
+            {index < 3 && <i aria-hidden>→</i>}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (type === "content") {
+    return (
+      <div className={styles.contentProof} aria-label="FAQ 与可信引用内容结构">
+        <div>
+          <strong>FAQ</strong>
+          {["采购周期", "质量标准", "交付能力"].map((item) => (
+            <span key={item}><Check size={14} weight="bold" aria-hidden />{item}</span>
+          ))}
+        </div>
+        <blockquote>
+          <b>“</b>
+          <span>用明确来源和行业内容回答客户的关键决策问题。</span>
+        </blockquote>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.reviewProof} aria-label="月度增长复盘指标">
+      {[
+        ["CPL", "下降"],
+        ["CVR", "提升"],
+        ["询盘质量", "提升"],
+        ["销售反馈", "闭环"],
+      ].map(([label, state]) => (
+        <div key={label}>
+          <TrendUp size={22} weight="regular" aria-hidden />
+          <b>{label}</b>
+          <span>{state}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 const faqs = [
   ["B2B 外贸企业适合做独立站吗？", "适合。尤其是客单价较高、销售周期较长、需要展示资质、工厂实力和案例的企业，独立站可以承接搜索、广告、展会、社媒和销售开发流量，沉淀自己的海外获客资产。"],
@@ -368,27 +460,6 @@ export default function PolarisExperience() {
             <a className={styles.secondary} href="#systems">查看系统架构</a>
           </div>
         </div>
-        <div className={styles.heroPanel}>
-          <div className={styles.panelHead}>
-            <strong>Polaris Growth System</strong>
-            <small>Growth chain</small>
-          </div>
-          <div className={styles.heroFlow}>
-            {[
-              { label: "Traffic", detail: "Google Ads\nSEO / GEO", Icon: Target },
-              { label: "Conversion", detail: "Landing Page\n转化优化", Icon: Browser },
-              { label: "Trust", detail: "Case Proof\n品牌信任背书", Icon: ShieldCheck },
-              { label: "Inquiry", detail: "Leads / CPL / CVR\n询盘增长", Icon: PaperPlaneTilt },
-            ].map(({ label, detail, Icon }) => (
-              <article key={label}>
-                <span><Icon size={38} weight="regular" aria-hidden /></span>
-                <strong>{label}</strong>
-                <p>{detail.split("\n").map((line) => <span key={line}>{line}</span>)}</p>
-                <em>Active</em>
-              </article>
-            ))}
-          </div>
-        </div>
       </section>
 
       <section id="pain" className={`${styles.section} ${styles.pain}`}>
@@ -398,21 +469,6 @@ export default function PolarisExperience() {
           <span>很多 B2B 企业已经做了外贸网站，也尝试过谷歌推广，但询盘仍然不稳定。问题通常不在某一个渠道，而是网站承接、关键词策略、广告结构、信任内容和转化路径没有形成闭环。</span>
         </div>
         <div className={styles.diagnosticBoard}>
-          <div className={styles.boardFrame} aria-hidden="true">
-            <span />
-            <i />
-          </div>
-          <svg className={styles.chainSvg} viewBox="0 0 1200 660" aria-hidden="true">
-            <defs>
-              <marker id="polaris-chain-arrow" markerWidth="14" markerHeight="14" refX="10" refY="7" orient="auto">
-                <path d="M2 2 L10 7 L2 12" />
-              </marker>
-            </defs>
-            <path d="M330 145 H824" markerEnd="url(#polaris-chain-arrow)" />
-            <path d="M846 294 H466" markerEnd="url(#polaris-chain-arrow)" />
-            <path d="M462 410 H814" markerEnd="url(#polaris-chain-arrow)" />
-            <path d="M962 548 H698" markerEnd="url(#polaris-chain-arrow)" />
-          </svg>
           {painItems.map(({ Icon, ...item }, index) => (
             <article key={item.title} className={`${styles.painCard} ${styles[`pain${index + 1}`]}`}>
               <div>
@@ -593,32 +649,34 @@ export default function PolarisExperience() {
           <span>B2B 增长不能只看流量截图。Polaris 更关注每一次优化是否带来更清晰的关键词、更有效的页面、更可信的内容和更值得销售跟进的询盘。</span>
         </div>
         <div className={styles.dossier}>
+          <div className={styles.dossierLayers} aria-hidden="true"><i /><i /><i /></div>
           <div className={styles.clip} aria-hidden="true" />
+          <div className={styles.dossierTab} aria-hidden="true">Polaris Case Dossier</div>
           <div className={styles.caseTable}>
             <strong>Recommended Case Format</strong>
-            <div>
+            <div className={styles.caseGrid}>
               {["行业", "原始问题", "Leadtop 动作", "结果指标"].map((item) => <b key={item}>{item}</b>)}
-              {["机械设备", "关键词分散，页面与搜索意图不匹配", "关键词体系重建，页面分层优化", "关键词覆盖更清晰，高意向询盘提升"].map((item) => <span key={item}>{item}</span>)}
-              {["工业配件", "广告页面不稳定，内容薄弱", "重构落地页与表单逻辑，广告页面联动", "表单转化率提升，有效询盘占比提升"].map((item) => <span key={item}>{item}</span>)}
-              {["定制制造", "有流量但转化低，销售信息不足", "内容资产补强，表单分级，销售跟进机制优化", "CPL 优化，销售跟进效率提升"].map((item) => <span key={item}>{item}</span>)}
+              {caseRows.map(({ industry, Icon, problem, action, results }) => (
+                <div className={styles.caseRow} key={industry}>
+                  <span className={styles.industryCell}><Icon size={29} weight="regular" aria-hidden /><strong>{industry}</strong></span>
+                  <span>{problem}</span>
+                  <span>{action}</span>
+                  <span className={styles.resultCell}>{results.map((result) => <i key={result}><Check size={17} weight="bold" aria-hidden />{result}</i>)}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div className={styles.proofCards}>
             {proofCards.map((card) => (
               <article key={card.title}>
-                <b>{card.no}</b>
-                <h3>{card.title}</h3>
+                <header><b>{card.no}</b><h3>{card.title}</h3></header>
                 <em>{card.tag}</em>
-                <ul>{card.points.map((item) => <li key={item}>{item}</li>)}</ul>
-                <div className={styles.proofMini} aria-hidden="true">
-                  <span />
-                  <i />
-                  <i />
-                  <b />
-                </div>
+                <ul>{card.points.map((item) => <li key={item}><Check size={16} weight="bold" aria-hidden />{item}</li>)}</ul>
+                <ProofVisual type={card.visual} />
               </article>
             ))}
           </div>
+          <div className={styles.confidentialStamp} aria-hidden="true">CASE<br />CONFIDENTIAL</div>
           <p className={styles.dossierNote}>Real pages. Real data. Real review. Real growth.</p>
         </div>
       </section>
