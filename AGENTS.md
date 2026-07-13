@@ -1,5 +1,12 @@
 # Leadtop Repository Workflow
 
+## Git workflow
+
+- Work directly on `main` and push completed commits to `origin/main`.
+- Do not create feature, task, Codex, or pull-request branches unless the user explicitly requests one.
+- Do not open pull requests for normal project changes unless the user explicitly requests one.
+- Before committing or pushing, preserve unrelated user changes and verify that the current branch is `main`.
+
 ## Fast frontend iteration
 
 - Use `npm run dev:preview` for local visual work. It always serves `http://127.0.0.1:3001`.
