@@ -207,10 +207,6 @@ const faqs = [
   ["案例中的 ROI、GMV 和销量数据应该如何理解？", "这些数据来自既有项目 PPT 的阶段复盘，反映特定项目在特定周期内的结果。不同项目的基础、预算、产品和市场条件不同，因此历史数据不代表所有项目表现，也不构成结果承诺。"],
 ];
 
-function BrandMark() {
-  return <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span>;
-}
-
 function CtaArrow() {
   return <span className={styles.ctaIcon}><ArrowRight size={16} weight="bold" aria-hidden="true" /></span>;
 }

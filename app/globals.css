@@ -3385,11 +3385,12 @@ p {
 
 .campaign-section {
   position: relative;
-  min-height: auto;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
   overflow: hidden;
-  padding-block: clamp(20px, 2.4vw, 28px);
-  padding-top: clamp(38px, 3.2vw, 46px);
-  padding-bottom: clamp(6px, 0.8vw, 12px);
+  padding-block: clamp(56px, 6svh, 78px);
   text-align: center;
 }
 
@@ -3504,7 +3505,7 @@ p {
   grid-template-columns: 52px minmax(0, 1fr) auto;
   column-gap: 12px;
   row-gap: 2px;
-  min-height: 408px;
+  min-height: 438px;
   padding: 16px 14px 12px;
   border: 1px solid rgb(232 223 208 / 0.94);
   border-radius: calc(var(--radius) + 4px);
@@ -3595,18 +3596,18 @@ p {
 .campaign-task-list {
   display: grid;
   grid-column: 1 / -1;
-  gap: 7px;
-  margin: 15px 0 0;
+  gap: 8px;
+  margin: 18px 0 0;
   padding: 0;
   list-style: none;
 }
 
 .campaign-task-list li {
   display: grid;
-  grid-template-columns: 26px minmax(92px, 1fr) minmax(92px, 0.9fr) 18px;
+  grid-template-columns: 26px minmax(82px, 1fr) minmax(112px, 1.15fr) 18px;
   gap: 8px;
   align-items: center;
-  min-height: 50px;
+  min-height: 56px;
   padding: 7px 8px;
   border: 1px solid rgb(232 223 208 / 0.82);
   border-radius: calc(var(--radius) + 2px);
@@ -3668,29 +3669,25 @@ p {
 }
 
 .campaign-media {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 5px;
-  align-items: center;
+  display: block;
+  min-width: 0;
 }
 
 .campaign-media i {
   display: block;
-  height: 34px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 45 / 16;
   border: 1px solid rgb(232 223 208 / 0.72);
-  border-radius: 6px;
+  border-radius: 7px;
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.2)),
+    linear-gradient(180deg, rgb(255 255 255 / 0.02), rgb(255 255 255 / 0.08)),
     var(--campaign-image) center / cover;
   box-shadow: 0 8px 16px rgb(103 79 43 / 0.09);
 }
 
 .campaign-media.media-count-1 {
   grid-template-columns: 1fr;
-}
-
-.campaign-media.media-count-1 i {
-  height: 38px;
 }
 
 .campaign-budget {
@@ -4212,10 +4209,6 @@ p {
 
   .proof-section {
     padding-top: 12px;
-  }
-
-  .campaign-section {
-    padding-bottom: 4px;
   }
 
   .diagnosis-section {
@@ -5570,5 +5563,17 @@ p {
 
   .helios-page .hero-stage {
     padding-top: 74px;
+  }
+}
+
+/* Keep the Helios banner compact on tablet and desktop viewports. */
+@media (min-width: 761px) {
+  .helios-page .hero {
+    height: 70svh;
+    min-height: max(560px, 70svh);
+  }
+
+  .helios-page .hero-stage {
+    min-height: calc(max(560px, 70svh) - 20px);
   }
 }

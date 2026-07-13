@@ -243,8 +243,8 @@ const quarters = [
     months: "1月 - 3月",
     tone: "green",
     rows: [
-      { label: "素材准备", copy: "春季上新素材", media: ["revenue", "diagnosis", "traffic"] },
-      { label: "Sale Page", copy: "春季上新专题页", media: ["hero"] },
+      { label: "素材准备", copy: "春季上新素材", media: ["q1-creative"] },
+      { label: "Sale Page", copy: "春季上新专题页", media: ["q1-landing"] },
       { label: "广告预算", copy: "预算占比 20%", budget: "20%" },
       { label: "EDM / SMS", copy: "新品首发 + 优惠券", tags: ["EDM", "SMS"] },
       { label: "复购召回", copy: "老客专享券 + 积分激励" },
@@ -256,8 +256,8 @@ const quarters = [
     months: "4月 - 6月",
     tone: "amber",
     rows: [
-      { label: "素材准备", copy: "节日礼赠素材", media: ["diagnosis", "revenue", "hero"] },
-      { label: "Sale Page", copy: "母亲节礼遇 / 夏季促销", media: ["traffic"] },
+      { label: "素材准备", copy: "节日礼赠素材", media: ["q2-creative"] },
+      { label: "Sale Page", copy: "母亲节礼遇 / 夏季促销", media: ["q2-landing"] },
       { label: "广告预算", copy: "预算占比 25%", budget: "25%" },
       { label: "EDM / SMS", copy: "节日礼遇 + 限时折扣", tags: ["EDM", "SMS"] },
       { label: "复购召回", copy: "加购未购 / 沉睡唤醒" },
@@ -269,8 +269,8 @@ const quarters = [
     months: "7月 - 9月",
     tone: "green",
     rows: [
-      { label: "素材准备", copy: "返校与 Prime Day 素材", media: ["hero", "traffic", "revenue"] },
-      { label: "Sale Page", copy: "开学季 / Prime Day 专题", media: ["diagnosis"] },
+      { label: "素材准备", copy: "返校与 Prime Day 素材", media: ["q3-creative"] },
+      { label: "Sale Page", copy: "开学季 / Prime Day 专题", media: ["q3-landing"] },
       { label: "广告预算", copy: "预算占比 30%", budget: "30%" },
       { label: "EDM / SMS", copy: "Prime Day 提醒 + 抢购", tags: ["EDM", "SMS"] },
       { label: "复购召回", copy: "浏览未购 / 回购激励" },
@@ -282,8 +282,8 @@ const quarters = [
     months: "10月 - 12月",
     tone: "orange",
     rows: [
-      { label: "素材准备", copy: "黑五与圣诞素材", media: ["traffic", "hero", "diagnosis"] },
-      { label: "Sale Page", copy: "黑五大促 / 圣诞礼遇", media: ["revenue"] },
+      { label: "素材准备", copy: "黑五与圣诞素材", media: ["q4-creative"] },
+      { label: "Sale Page", copy: "黑五大促 / 圣诞礼遇", media: ["q4-landing"] },
       { label: "广告预算", copy: "预算占比 25%", budget: "25%" },
       { label: "EDM / SMS", copy: "黑五预热 + 圣诞礼券", tags: ["EDM", "SMS"] },
       { label: "复购召回", copy: "VIP 专享 / 年终回馈" },
@@ -1056,10 +1056,14 @@ function RevenueCardVisual({ step }) {
 
 function CampaignMedia({ keysList }) {
   const imageMap = {
-    revenue: "/helios/assets/revenue.png",
-    diagnosis: "/helios/assets/diagnosis.png",
-    traffic: "/helios/assets/traffic.png",
-    hero: "/helios/assets/hero.png",
+    "q1-creative": "/helios/campaign-cases/q1-creative.png",
+    "q1-landing": "/helios/campaign-cases/q1-landing.png",
+    "q2-creative": "/helios/campaign-cases/q2-creative.png",
+    "q2-landing": "/helios/campaign-cases/q2-landing.png",
+    "q3-creative": "/helios/campaign-cases/q3-creative.png",
+    "q3-landing": "/helios/campaign-cases/q3-landing.png",
+    "q4-creative": "/helios/campaign-cases/q4-creative.png",
+    "q4-landing": "/helios/campaign-cases/q4-landing.png",
   };
 
   return (

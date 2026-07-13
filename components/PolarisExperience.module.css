@@ -6257,3 +6257,12 @@
     background-size: auto 560px;
   }
 }
+
+/* Match the Polaris banner height to the compact Helios hero. */
+@media (min-width: 768px) {
+  .page .hero {
+    height: 70svh;
+    min-height: max(560px, 70svh);
+    max-height: none;
+  }
+}

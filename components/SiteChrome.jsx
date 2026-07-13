@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CaretDown, List, X } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
@@ -40,8 +41,19 @@ const footerServices = [
 
 const pageHref = (href, isHomepage) => href.startsWith("#") && !isHomepage ? "/" : href;
 
-function BrandMark() {
-  return <span className={styles.brandMark} aria-hidden="true"><i /><i /><i /></span>;
+function BrandLogo({ footer = false }) {
+  return (
+    <Image
+      alt=""
+      aria-hidden="true"
+      className={footer ? styles.footerBrandLogo : styles.brandLogo}
+      height={172}
+      priority={!footer}
+      sizes={footer ? "220px" : "176px"}
+      src="/leadtop/brand/leadtop-logo-horizontal.png"
+      width={1022}
+    />
+  );
 }
 
 function CtaArrow() {
@@ -60,7 +72,7 @@ export function SiteHeader({ isHomepage = false }) {
   return (
     <>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Leadtop 首页"><BrandMark /><span><strong>Leadtop</strong><small>领拓出海增长</small></span></Link>
+        <Link className={styles.brand} href="/" aria-label="Leadtop 首页"><BrandLogo /></Link>
         <nav className={styles.nav} aria-label="主导航" onKeyDown={(event) => event.key === "Escape" && setActiveMenu(null)} onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
           {navigation.map((item) => (
             <div className={styles.navItem} key={item.label} onMouseEnter={() => openMenu(item.label)}>
@@ -90,7 +102,7 @@ export function SiteFooter({ isHomepage = false }) {
   return (
     <footer className={styles.siteFooter} id="about">
       <div className={styles.footerLead}>
-        <Link className={styles.footerBrand} href="/" aria-label="Leadtop 首页"><BrandMark /><span><strong>Leadtop</strong><small>领拓出海增长</small></span></Link>
+        <Link className={styles.footerBrand} href="/" aria-label="Leadtop 首页"><BrandLogo footer /></Link>
         <h2>让全球增长成为<br />可持续经营能力</h2>
         <p>连接独立站、媒体、内容、转化与数据，为 B2B 企业和 DTC 品牌建设长期增长系统。</p>
         <Link className={styles.footerCta} href={href("#diagnosis")}>Get Free Strategy<CtaArrow /></Link>
