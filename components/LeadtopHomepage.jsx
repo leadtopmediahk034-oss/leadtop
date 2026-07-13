@@ -15,7 +15,6 @@ import {
   MagnifyingGlass,
   Megaphone,
   PenNib,
-  Storefront,
   ShieldCheck,
   Target,
   TrendUp,
@@ -30,10 +29,14 @@ const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
 
 const partners = [
-  { name: "Google Ads", image: "/leadtop/brands/google-ads.svg", width: 226, height: 78 },
-  { name: "Criteo", image: "/leadtop/brands/criteo.svg", width: 228, height: 62 },
-  { name: "Shopify", image: "/leadtop/brands/shopify.svg", width: 220, height: 70 },
-  { name: "Amazon Ads", image: "/leadtop/brands/amazon-ads.png", width: 238, height: 60 },
+  { name: "Google Partner", href: "https://www.google.com/partners/agency?id=5115971347", image: "https://www.gstatic.com/partners/badge/images/2026/PartnerBadgeClickable.svg", remote: true },
+  { name: "Microsoft Bing", image: "/leadtop/brands/microsoft-bing.svg", width: 512, height: 80 },
+  { name: "Meta", image: "/leadtop/brands/meta.svg", width: 96, height: 96 },
+  { name: "Criteo", image: "/leadtop/brands/criteo.svg", width: 582, height: 159 },
+  { name: "TikTok", image: "/leadtop/brands/tiktok.svg", width: 96, height: 96 },
+  { name: "LinkedIn", image: "/leadtop/brands/linkedin.png", width: 2212, height: 540 },
+  { name: "Shopify Plus Partner", href: "https://www.shopify.com/partners/directory/partner/leadtopmedia4", image: "/leadtop/credentials/shopify-plus-partner.png", width: 300, height: 160 },
+  { name: "WordPress", image: "/leadtop/brands/wordpress.png", width: 1000, height: 1000 },
 ];
 
 const navigation = [
@@ -202,7 +205,7 @@ const faqs = [
   ["为什么 B2B 与 DTC 需要两套不同的增长系统？", "B2B 关注匹配的销售线索与长决策周期信任，DTC 关注获客成本、转化、客单价、复购和利润质量，因此由 Polaris 与 Helios 分别承接。"],
   ["Google Ads、SEO / GEO 和网站改版应该从哪一项开始？", "实施顺序取决于现有基础与验证目标。Leadtop 会先判断主要约束，再确定渠道、页面与内容的先后顺序。"],
   ["Leadtop 如何判断项目是否真正取得进展？", "Polaris 关注询盘质量、MQL、CPL、页面 CVR、Pipeline 与自然流量；Helios 关注 MER、CAC、CVR、AOV、LTV 与复购。"],
-  ["Amazon DSP 与 AMC 是否属于 Leadtop 的正式服务？", "是。该服务适用于已有 Amazon 业务基础，希望拓展站内外触达、再营销或路径洞察的品牌，但不作为第三套核心系统。"],
+  ["项目是否需要一次启用所有服务？", "不需要。Leadtop 会先识别当前最影响结果的约束，再按优先级配置渠道、页面、内容、CRO 与数据能力，分阶段验证后再决定是否扩大投入。"],
   ["增长诊断会提供哪些内容？", "我们会从流量、页面、信任、内容和数据五个维度识别主要约束、建议优先验证的环节，并判断适配的增长系统。"],
   ["案例中的 ROI、GMV 和销量数据应该如何理解？", "这些数据来自既有项目 PPT 的阶段复盘，反映特定项目在特定周期内的结果。不同项目的基础、预算、产品和市场条件不同，因此历史数据不代表所有项目表现，也不构成结果承诺。"],
 ];
@@ -223,30 +226,29 @@ export default function LeadtopHomepage() {
       <div id="main-content" />
       <section className={styles.hero} aria-labelledby="hero-title">
         <div className={styles.heroMedia} aria-hidden="true">
-          <Image alt="" fill loading="eager" priority sizes="100vw" src={withAssetPrefix("/leadtop/hero/homepage-banner.png")} />
+          <Image alt="" fill loading="eager" priority sizes="100vw" src={withAssetPrefix("/leadtop/hero/homepage-banner-independent-growth.png")} />
         </div>
         <div className={styles.heroCopy} data-reveal>
           <span className={styles.eyebrow}>Leadtop Digital Marketing</span>
-          <h1 id="hero-title">全球数字营销<br /><em>增长伙伴</em></h1>
-          <strong className={styles.heroStatement}>独立站 + 亚马逊 双生态增长体系</strong>
-          <p>为跨境品牌提供建站、广告投放、SEO、内容营销、<br className={styles.desktopBreak} />红人合作与数据增长服务，助力品牌实现全球化增长。</p>
+          <h1 id="hero-title">让独立站持续带来<br /><em>询盘与收入</em></h1>
+          <strong className={styles.heroStatement}>面向 B2B 与 DTC 的两套增长系统</strong>
+          <p>把网站、广告、SEO / GEO、内容、CRO 与数据协同起来，<br className={styles.desktopBreak} />让每一笔投入更接近可衡量的业务结果。</p>
           <div className={styles.heroActions}>
             <a className={styles.primaryButton} href="#diagnosis">预约增长咨询<CtaArrow /></a>
             <a className={styles.secondaryButton} href="#systems">了解服务方案<CtaArrow /></a>
           </div>
           <div className={styles.heroCapabilities} aria-label="核心增长能力">
-            <span><ChartLineUp size={22} weight="duotone" />DTC增长</span>
-            <span><Storefront size={22} weight="duotone" />Amazon生态</span>
+            <span><Target size={22} weight="duotone" />B2B询盘</span>
+            <span><ChartLineUp size={22} weight="duotone" />DTC营收</span>
             <span><GlobeHemisphereWest size={22} weight="duotone" />品牌出海</span>
             <span><Database size={22} weight="duotone" />数据驱动</span>
           </div>
         </div>
       </section>
 
-      <section className={styles.trustStrip} aria-label="平台合作能力">
-        <p><strong>平台合作能力</strong><span>搜索、独立站与程序化广告生态</span></p>
-        <div className={styles.partnerLogos}>{partners.map((partner) => <Image key={partner.name} alt={partner.name} height={partner.height} src={withAssetPrefix(partner.image)} width={partner.width} />)}</div>
-        <p className={styles.amazonTag}><span>专项服务能力</span><strong>Amazon DSP 广告 · AMC 数据分析</strong></p>
+      <section className={styles.trustStrip} aria-label="合作与技术生态">
+        <p><strong>主流媒体与建站技术</strong><span>覆盖搜索、社媒、程序化广告与独立站建设</span></p>
+        <div className={styles.partnerLogos}>{partners.map((partner) => <PartnerLogo key={partner.name} partner={partner} />)}</div>
       </section>
 
       <section className={styles.systems} id="systems" aria-labelledby="systems-title">
@@ -268,7 +270,6 @@ export default function LeadtopHomepage() {
             </article>
           ))}
         </div>
-        <aside className={styles.specialService} id="amazon" data-reveal><ChartLineUp size={28} weight="light" /><div><strong>Amazon DSP 广告与 AMC 数据分析</strong><p>面向已有 Amazon 业务基础，希望拓展站内外触达、再营销或路径洞察的适配品牌。</p></div><a href="#diagnosis">评估服务适配性<ArrowRight size={16} weight="bold" /></a></aside>
       </section>
 
       <section className={styles.constraints} aria-labelledby="constraints-title">
@@ -330,9 +331,9 @@ export default function LeadtopHomepage() {
             <label><span>姓名 <em>*</em></span><input name="name" autoComplete="name" required /></label>
             <label><span>公司名称 <em>*</em></span><input name="company" autoComplete="organization" required /></label>
             <label><span>联系方式 <em>*</em></span><input name="contact" autoComplete="tel" required /></label>
-            <label><span>业务类型 <em>*</em></span><select name="businessType" defaultValue="" required><option value="" disabled>请选择</option><option>B2B 外贸 / 制造业</option><option>B2C / DTC 品牌</option><option>Amazon + DTC</option><option>其他</option></select></label>
+            <label><span>业务类型 <em>*</em></span><select name="businessType" defaultValue="" required><option value="" disabled>请选择</option><option>B2B 外贸 / 制造业</option><option>B2C / DTC 品牌</option><option>品牌出海 / 海外市场拓展</option><option>其他</option></select></label>
             <label className={styles.formWide}><span>官网或店铺链接 <small>选填</small></span><input name="website" placeholder="https://" type="url" autoComplete="url" /></label>
-            <label className={styles.formWide}><span>当前最需要解决的问题 <em>*</em></span><select name="problem" defaultValue="" required><option value="" disabled>请选择主要问题</option><option>B2B 询盘不足或质量不稳定</option><option>广告获客成本或 ROI 波动</option><option>独立站转化率偏低</option><option>SEO / GEO 尚未形成增长</option><option>复购与 LTV 不足</option><option>Amazon DSP / AMC 服务</option><option>Amazon 与独立站协同</option></select></label>
+            <label className={styles.formWide}><span>当前最需要解决的问题 <em>*</em></span><select name="problem" defaultValue="" required><option value="" disabled>请选择主要问题</option><option>B2B 询盘不足或质量不稳定</option><option>广告获客成本或 ROI 波动</option><option>独立站转化率偏低</option><option>SEO / GEO 尚未形成增长</option><option>复购与 LTV 不足</option><option>品牌内容与信任不足</option><option>数据追踪与归因不清</option></select></label>
           </div>
           <button type="submit">评估我的增长优先级<CtaArrow /></button>
           <p className={styles.formNote}><ShieldCheck size={16} weight="light" />提交信息不代表签约，相关信息仅用于本次业务判断与后续沟通。</p>
@@ -350,4 +351,16 @@ function EvidenceRows({ rows }) {
 
 function CaseMetrics({ metrics }) {
   return <div className={styles.caseMetrics}>{metrics.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>;
+}
+
+function PartnerLogo({ partner }) {
+  const logo = partner.remote
+    ? <img alt={partner.name} src={partner.image} />
+    : <Image alt={partner.name} height={partner.height} src={withAssetPrefix(partner.image)} width={partner.width} />;
+
+  if (partner.href) {
+    return <a aria-label={`查看 ${partner.name} 官方合作伙伴页面`} className={styles.partnerLogo} href={partner.href} rel="noopener noreferrer" target="_blank">{logo}</a>;
+  }
+
+  return <span className={styles.partnerLogo}>{logo}</span>;
 }
