@@ -24,7 +24,7 @@ const navigation = [
     { title: "Practical Assets", links: [["Templates", "#resources"], ["Webinar", "#resources"], ["FAQ", "#faq"]] },
   ] },
   { label: "About", intro: "了解 Leadtop 的团队、合作生态与全球增长实践。", groups: [
-    { title: "Company", links: [["About Leadtop", "#about"], ["Our Team", "#about"], ["Partners", "#about"], ["Careers", "#about"], ["News", "#about"], ["Contact", "#diagnosis"]] },
+    { title: "Company", links: [["About Leadtop", "/aboutus"], ["Our Team", "/aboutus"], ["Partners", "/aboutus"], ["Careers", "/aboutus"], ["News", "/aboutus"], ["Contact", "/contactus"]] },
   ] },
   { label: "Growth Hub", intro: "持续更新的增长知识中心，连接洞察、方法、工具与案例。", groups: [
     { title: "Learn", links: [["Growth Insights", "#resources"], ["Playbooks", "#resources"], ["Academy", "#resources"], ["AI Marketing", "#resources"]] },
@@ -48,6 +48,7 @@ function BrandLogo({ footer = false }) {
       aria-hidden="true"
       className={footer ? styles.footerBrandLogo : styles.brandLogo}
       height={172}
+      loading={footer ? "lazy" : "eager"}
       priority={!footer}
       sizes={footer ? "220px" : "176px"}
       src="/leadtop/brand/leadtop-logo-horizontal.png"
@@ -78,19 +79,19 @@ export function SiteHeader({ isHomepage = false }) {
             <div className={styles.navItem} key={item.label} onMouseEnter={() => openMenu(item.label)}>
               <button type="button" aria-expanded={activeMenu === item.label} onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)}>{item.label}<CaretDown size={12} weight="bold" /></button>
               <div className={`${styles.megaMenu} ${activeMenu === item.label ? styles.megaMenuOpen : ""}`} aria-hidden={activeMenu !== item.label}>
-                <div className={styles.megaIntro}><span>{item.label}</span><p>{item.intro}</p><Link href={isHomepage ? "#diagnosis" : "/"} onClick={() => setActiveMenu(null)}>Discuss your growth plan<ArrowRight size={16} weight="bold" /></Link></div>
+                <div className={styles.megaIntro}><span>{item.label}</span><p>{item.intro}</p><Link href={isHomepage ? "#diagnosis" : "/contactus"} onClick={() => setActiveMenu(null)}>Discuss your growth plan<ArrowRight size={16} weight="bold" /></Link></div>
                 <div className={styles.megaGroups}>{item.groups.map((group) => <div key={group.title}><strong>{group.title}</strong>{group.links.map(([label, href]) => <Link key={label} href={pageHref(href, isHomepage)} onClick={() => setActiveMenu(null)}>{label}<ArrowRight size={14} /></Link>)}</div>)}</div>
               </div>
             </div>
           ))}
         </nav>
-        <Link className={styles.headerCta} href={isHomepage ? "#diagnosis" : "/"}>Get Free Strategy<CtaArrow /></Link>
+        <Link className={styles.headerCta} href={isHomepage ? "#diagnosis" : "/contactus"}>Get Free Strategy<CtaArrow /></Link>
         <button className={styles.menuButton} type="button" aria-expanded={mobileOpen} aria-label={mobileOpen ? "关闭导航" : "打开导航"} onClick={() => setMobileOpen((value) => !value)}>{mobileOpen ? <X size={22} /> : <List size={22} />}</button>
       </header>
       <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ""}`} aria-hidden={!mobileOpen}>
         <div className={styles.mobileMenuInner}>
           {navigation.map((item) => <details key={item.label}><summary>{item.label}<CaretDown size={17} weight="bold" /></summary><div className={styles.mobileGroups}>{item.groups.map((group) => <div key={group.title}><strong>{group.title}</strong>{group.links.map(([label, href]) => <Link key={label} href={pageHref(href, isHomepage)} onClick={() => setMobileOpen(false)}>{label}<ArrowRight size={15} /></Link>)}</div>)}</div></details>)}
-          <Link className={styles.mobileStrategy} href={isHomepage ? "#diagnosis" : "/"} onClick={() => setMobileOpen(false)}>Get Free Strategy<ArrowRight size={18} /></Link>
+          <Link className={styles.mobileStrategy} href={isHomepage ? "#diagnosis" : "/contactus"} onClick={() => setMobileOpen(false)}>Get Free Strategy<ArrowRight size={18} /></Link>
         </div>
       </div>
     </>
@@ -105,7 +106,7 @@ export function SiteFooter({ isHomepage = false }) {
         <Link className={styles.footerBrand} href="/" aria-label="Leadtop 首页"><BrandLogo footer /></Link>
         <h2>让全球增长成为<br />可持续经营能力</h2>
         <p>连接独立站、媒体、内容、转化与数据，为 B2B 企业和 DTC 品牌建设长期增长系统。</p>
-        <Link className={styles.footerCta} href={href("#diagnosis")}>Get Free Strategy<CtaArrow /></Link>
+        <Link className={styles.footerCta} href={isHomepage ? "#diagnosis" : "/contactus"}>Get Free Strategy<CtaArrow /></Link>
       </div>
       <section className={styles.footerServices} id="resources" aria-labelledby="footer-services-title">
         <div><span>SERVICES</span><h3 id="footer-services-title">增长服务能力</h3><p>服务内容不占用主导航，通过独立页面与页脚目录承接。</p></div>
