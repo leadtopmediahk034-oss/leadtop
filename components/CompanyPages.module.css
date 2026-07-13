@@ -52,16 +52,14 @@
 .introSection, .servicesSection, .advantagesSection, .timelineSection, .contactSection { padding: clamp(100px, 9vw, 150px) max(24px, calc((100vw - var(--max)) / 2)); }
 .introSection, .advantagesSection, .contactSection { background: var(--paper-soft); }
 .introGrid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 18px; margin-top: 58px; }
-.introLead, .introPlatform { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 22px 70px rgb(103 79 43 / .08); }
+.introLead { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 22px 70px rgb(103 79 43 / .08); }
 .introLead { display: flex; min-height: 530px; flex-direction: column; justify-content: center; padding: clamp(34px, 5vw, 72px); }
-.introLead > svg, .introPlatform svg { color: var(--sun-strong); }
-.introLead h3, .introPlatform h3 { margin-top: 30px; }
-.introLead p, .introPlatform p { margin-top: 18px; }
-.introPlatform { display: grid; min-height: 530px; grid-template-columns: .8fr 1.2fr; overflow: hidden; }
-.introPlatform > div:first-child { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 4vw, 58px); }
-.platformImage { position: relative; min-height: 100%; overflow: hidden; }
-.platformImage::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(255 255 255 / .32), transparent 28%); content: ""; }
-.platformImage img { object-fit: cover; }
+.introLead > svg { color: var(--sun-strong); }
+.introLead h3 { margin-top: 30px; }
+.introLead p { margin-top: 18px; }
+.introPhoto { position: relative; min-height: 530px; overflow: hidden; border-radius: var(--radius); box-shadow: 0 22px 70px rgb(103 79 43 / .12); }
+.introPhoto::after { position: absolute; inset: 0; background: linear-gradient(135deg, transparent 55%, rgb(17 32 57 / .18)); content: ""; }
+.introPhoto img { object-fit: cover; }
 
 .servicesSection { background: var(--paper); }
 .servicesSection, .timelineSection, .formWrap { scroll-margin-top: 110px; }
@@ -140,7 +138,6 @@
 @media (max-width: 1180px) {
   .aboutHero, .contactHero { grid-template-columns: minmax(0, 1fr) minmax(420px, .9fr); }
   .introGrid, .advantageLayout, .contactSection { grid-template-columns: 1fr; }
-  .introPlatform { grid-template-columns: 1fr 1fr; }
   .advantageVisual { position: relative; top: auto; min-height: 480px; }
   .contactAside { display: grid; grid-template-columns: 1fr 1fr; }
   .asideHeading, .contactCards { grid-column: 1; }
@@ -171,9 +168,7 @@
   .introSection, .servicesSection, .advantagesSection, .timelineSection, .contactSection { padding: 84px 18px; }
   .introGrid { margin-top: 40px; }
   .introLead { min-height: 0; padding: 30px 22px; }
-  .introPlatform { min-height: 0; grid-template-columns: 1fr; }
-  .introPlatform > div:first-child { padding: 30px 22px; }
-  .platformImage { min-height: 300px; }
+  .introPhoto { min-height: 330px; }
   .serviceGrid { grid-template-columns: 1fr; margin-top: 40px; }
   .serviceCard, .serviceCard:nth-child(n) { min-height: 260px; grid-column: 1; padding: 28px 22px; }
   .serviceCard h3 { padding-top: 44px; }

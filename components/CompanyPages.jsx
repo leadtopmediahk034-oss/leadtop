@@ -118,7 +118,7 @@ export function AboutPage() {
               fill
               priority
               sizes="(max-width: 900px) 100vw, 52vw"
-              src="/leadtop/hero/homepage-banner-independent-growth.png"
+              src="/leadtop/about/team-workspace.jpg"
             />
           </div>
         </section>
@@ -134,16 +134,9 @@ export function AboutPage() {
               <h3>领拓数字营销</h3>
               <p>领拓数字营销(LeadtopMedia)聚焦为出海企业提供竞品调研分析、网站建设、多渠道引流、广告代投放、效果分析、创意素材制作、PR 等全链路数字营销整合解决方案服务。团队平均数字营销经验 5 年，累计服务客户 500+，累计广告投放金额 $300,000,000。</p>
             </article>
-            <article className={styles.introPlatform}>
-              <div>
-                <ChartLineUp aria-hidden="true" size={36} weight="duotone" />
-                <h3>元翼智投聚合平台</h3>
-                <p>一站式智能投放聚合管理平台，全媒体流程数据追踪与数据沉淀。聚合 Google、Bing、Facebook、TikTok、Twitter、Instagram、Pinterest 等主流媒体广告平台数据，实时统计各渠道表现。数据驱动决策，提升运营效率。</p>
-              </div>
-              <div className={styles.platformImage}>
-                <Image alt="多渠道增长数据与运营系统" fill sizes="(max-width: 900px) 100vw, 46vw" src="/polaris/assets/hero-command-center.png" />
-              </div>
-            </article>
+            <div className={styles.introPhoto}>
+              <Image alt="Leadtop 团队围绕客户增长策略开展协作" fill sizes="(max-width: 900px) 100vw, 54vw" src="/leadtop/about/team-collaboration.jpg" />
+            </div>
           </div>
         </section>
 
@@ -170,7 +163,7 @@ export function AboutPage() {
           </div>
           <div className={styles.advantageLayout}>
             <div className={styles.advantageVisual}>
-              <Image alt="跨渠道数字营销增长能力" fill sizes="(max-width: 900px) 100vw, 40vw" src="/helios/sections/engine-reference.png" />
+              <Image alt="数字营销团队分析跨渠道增长数据" fill sizes="(max-width: 900px) 100vw, 40vw" src="/leadtop/about/growth-strategy.jpg" />
             </div>
             <div className={styles.advantageList}>
               {advantages.map(({ title, copy, Icon }) => (
