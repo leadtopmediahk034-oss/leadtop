@@ -32,6 +32,7 @@ import {
 
 import styles from "./PolarisExperience.module.css";
 import SystemAdvantageExplorer from "./SystemAdvantageExplorer";
+import { SiteFooter, SiteHeader } from "./SiteChrome";
 
 const iconProps = { size: 34, weight: "regular", "aria-hidden": true };
 
@@ -443,13 +444,10 @@ function PreviewMaterial({ service }) {
 
 export default function PolarisExperience() {
   return (
-    <main className={styles.page}>
+    <>
+    <SiteHeader />
+    <main className={`${styles.page} system-page`}>
       <section id="top" className={`${styles.section} ${styles.hero}`}>
-        <div className={styles.heroBrand}>
-          <span className={styles.compass} aria-hidden="true" />
-          <strong>Leadtop</strong>
-          <em>Polaris Growth System</em>
-        </div>
         <div className={styles.heroMedia} aria-hidden="true" />
         <div className={styles.heroCopy}>
           <p>B2B 独立站海外询盘增长系统</p>
@@ -694,7 +692,10 @@ export default function PolarisExperience() {
             ))}
           </div>
         </div>
-        <form id="diagnosis" className={styles.form}>
+      </section>
+
+      <section id="diagnosis" className={`${styles.section} ${styles.diagnosis}`}>
+        <form className={styles.form}>
           <span className={styles.formMark} aria-hidden="true" />
           <h2>获取 B2B 独立站获客诊断</h2>
           <p>留下官网链接和当前问题，我们将从网站承接、广告结构、SEO/GEO、信任内容和询盘路径五个维度给出初步判断。</p>
@@ -710,12 +711,9 @@ export default function PolarisExperience() {
             ))}
           </aside>
         </form>
-        <footer className={styles.footer}>
-          <span className={styles.compass} aria-hidden="true" />
-          <strong>Leadtop Polaris Growth System</strong>
-          <p>品牌为舟 / 流量为帆 / 线索为桨 / 增长为海</p>
-        </footer>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }

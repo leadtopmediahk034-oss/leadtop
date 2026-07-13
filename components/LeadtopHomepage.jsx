@@ -24,6 +24,7 @@ import {
 } from "@phosphor-icons/react";
 
 import styles from "./LeadtopHomepage.module.css";
+import { SiteFooter, SiteHeader } from "./SiteChrome";
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
@@ -48,8 +49,8 @@ const navigation = [
     label: "Industries",
     intro: "按行业决策路径与增长约束配置团队、渠道和内容。",
     groups: [
-      { title: "B2B Industries", links: [["Industrial Manufacturing", "#industries"], ["Machinery", "#industries"], ["Medical", "#industries"], ["Electronics", "#industries"], ["New Energy", "#industries"]] },
-      { title: "Consumer Industries", links: [["Furniture", "#industries"], ["Outdoor", "#industries"], ["Fashion", "#industries"], ["Beauty", "#industries"], ["Home & Living", "#industries"], ["Pet", "#industries"]] },
+      { title: "B2B Industries", links: [["Industrial Manufacturing", "#systems"], ["Machinery", "#systems"], ["Medical", "#systems"], ["Electronics", "#systems"], ["New Energy", "#systems"]] },
+      { title: "Consumer Industries", links: [["Furniture", "#systems"], ["Outdoor", "#systems"], ["Fashion", "#systems"], ["Beauty", "#systems"], ["Home & Living", "#systems"], ["Pet", "#systems"]] },
     ],
   },
   {
@@ -216,43 +217,12 @@ function CtaArrow() {
 
 export default function LeadtopHomepage() {
   const [activeCapability, setActiveCapability] = useState(6);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
   const ActiveCapabilityIcon = capabilities[activeCapability].Icon;
 
   return (
     <main className={styles.page}>
       <a className={styles.skipLink} href="#main-content">跳到主要内容</a>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/" aria-label="Leadtop 首页">
-          <BrandMark />
-          <span><strong>Leadtop</strong><small>领拓出海增长</small></span>
-        </Link>
-        <nav className={styles.nav} aria-label="主导航" onMouseLeave={() => setActiveMenu(null)}>
-          {navigation.map((item) => (
-            <div className={styles.navItem} key={item.label} onMouseEnter={() => setActiveMenu(item.label)}>
-              <button type="button" aria-expanded={activeMenu === item.label} onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)}>{item.label}<CaretDown size={12} weight="bold" /></button>
-              <MegaMenu item={item} open={activeMenu === item.label} onNavigate={() => setActiveMenu(null)} />
-            </div>
-          ))}
-        </nav>
-        <a className={styles.headerCta} href="#diagnosis">Get Free Strategy<CtaArrow /></a>
-        <button className={styles.menuButton} type="button" aria-expanded={menuOpen} aria-label={menuOpen ? "关闭导航" : "打开导航"} onClick={() => setMenuOpen((value) => !value)}>
-          {menuOpen ? <X size={22} /> : <List size={22} />}
-        </button>
-      </header>
-
-      <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ""}`} aria-hidden={!menuOpen}>
-        <div className={styles.mobileMenuInner}>
-          {navigation.map((item) => (
-            <details key={item.label}>
-              <summary>{item.label}<CaretDown size={17} weight="bold" /></summary>
-              <div className={styles.mobileGroups}>{item.groups.map((group) => <div key={group.title}><strong>{group.title}</strong>{group.links.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}<ArrowRight size={15} /></a>)}</div>)}</div>
-            </details>
-          ))}
-          <a className={styles.mobileStrategy} href="#diagnosis" onClick={() => setMenuOpen(false)}>Get Free Strategy<ArrowRight size={18} /></a>
-        </div>
-      </div>
+      <SiteHeader isHomepage />
 
       <div id="main-content" />
       <section className={styles.hero} aria-labelledby="hero-title">
@@ -313,18 +283,20 @@ export default function LeadtopHomepage() {
 
       <section className={styles.capabilities} id="capabilities" aria-labelledby="capabilities-title">
         <div className={styles.capabilityHeading} data-reveal><span className={styles.eyebrow}>CAPABILITY CONFIGURATION</span><h2 id="capabilities-title">围绕增长约束，配置所需执行能力</h2><p>每个项目不必启用全部能力。Leadtop 根据阶段目标、数据基础与首要约束确定组合和顺序。</p></div>
-        <div className={styles.capabilityStage} data-reveal>
-          <div className={styles.capabilityDetail}>
-            <span>0{activeCapability + 1}</span>
-            <ActiveCapabilityIcon size={25} weight="light" />
-            <h3>{capabilities[activeCapability].title}</h3>
-            <strong>{capabilities[activeCapability].copy}</strong>
-            <p>{capabilities[activeCapability].detail}</p>
-            <div className={styles.capabilityImage}><Image alt={`${capabilities[activeCapability].title}示意`} fill sizes="(max-width: 760px) 100vw, 42vw" src={withAssetPrefix(capabilities[activeCapability].image)} /></div>
-          </div>
-          <div className={styles.capabilityTabs}>
-            {capabilities.map((item, index) => <button className={index === activeCapability ? styles.capabilityTabActive : ""} type="button" key={item.title} aria-pressed={index === activeCapability} onClick={() => setActiveCapability(index)}><span>0{index + 1}</span><strong>{item.title}</strong><i>{index === activeCapability ? "−" : "+"}</i></button>)}
-          </div>
+        <div className={styles.capabilityStack} data-reveal>
+          {capabilities.map(({ Icon, ...item }, index) => (
+            <article className={styles.capabilityCard} key={item.title} style={{ "--card-index": index }}>
+              <div className={styles.capabilityCardCopy}>
+                <span>0{index + 1}</span>
+                <Icon size={28} weight="light" />
+                <h3>{item.title}</h3>
+                <strong>{item.copy}</strong>
+                <p>{item.detail}</p>
+                <a href="#diagnosis">配置这项能力<ArrowRight size={16} weight="bold" /></a>
+              </div>
+              <div className={styles.capabilityCardMedia}><Image alt={`${item.title}示意`} fill sizes="(max-width: 760px) 100vw, 52vw" src={withAssetPrefix(item.image)} /></div>
+            </article>
+          ))}
         </div>
         <a className={styles.textLink} href="#diagnosis">评估当前需要优先配置的能力<ArrowRight size={17} weight="bold" /></a>
       </section>
@@ -371,60 +343,13 @@ export default function LeadtopHomepage() {
         </form>
       </section>
 
-      <SiteFooter />
+      <SiteFooter isHomepage />
     </main>
   );
 }
 
 function EvidenceRows({ rows }) {
   return <dl>{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>;
-}
-
-function MegaMenu({ item, open, onNavigate }) {
-  return (
-    <div className={`${styles.megaMenu} ${open ? styles.megaMenuOpen : ""}`} aria-hidden={!open}>
-      <div className={styles.megaIntro}><span>{item.label}</span><p>{item.intro}</p><a href="#diagnosis" onClick={onNavigate}>Discuss your growth plan<ArrowRight size={16} weight="bold" /></a></div>
-      <div className={styles.megaGroups}>{item.groups.map((group) => <div key={group.title}><strong>{group.title}</strong>{group.links.map(([label, href]) => <a key={label} href={href} onClick={onNavigate}>{label}<ArrowRight size={14} /></a>)}</div>)}</div>
-    </div>
-  );
-}
-
-function SiteFooter() {
-  return (
-    <footer className={styles.siteFooter}>
-      <div className={styles.footerLead}>
-        <Link className={styles.footerBrand} href="/" aria-label="Leadtop 首页"><BrandMark /><span><strong>Leadtop</strong><small>领拓出海增长</small></span></Link>
-        <h2>让全球增长成为<br />可持续经营能力</h2>
-        <p>连接独立站、媒体、内容、转化与数据，为 B2B 企业和 DTC 品牌建设长期增长系统。</p>
-        <a className={styles.footerCta} href="#diagnosis">Get Free Strategy<CtaArrow /></a>
-      </div>
-
-      <section className={styles.footerServices} aria-labelledby="footer-services-title">
-        <div><span>SERVICES</span><h3 id="footer-services-title">增长服务能力</h3><p>服务内容不占用主导航，通过独立页面与页脚目录承接。</p></div>
-        <nav aria-label="服务导航">{footerServices.map((group) => <div className={styles.footerServiceGroup} key={group.title}><strong>{group.title}</strong>{group.links.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</div>)}</nav>
-      </section>
-
-      <nav className={styles.footerNav} aria-label="页脚导航">
-        {navigation.map((item) => (
-          <section key={item.label}>
-            <h3>{item.label}</h3>
-            {item.groups.map((group) => (
-              <div className={styles.footerGroup} key={group.title}>
-                {item.groups.length > 1 && <strong>{group.title}</strong>}
-                {group.links.map(([label, href]) => <a key={`${group.title}-${label}`} href={href}>{label}</a>)}
-              </div>
-            ))}
-          </section>
-        ))}
-      </nav>
-
-      <div className={styles.footerBottom}>
-        <span>Leadtop © 2026</span>
-        <span>Polaris Growth System · Helios Growth Engine</span>
-        <div><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#sitemap">Sitemap</a></div>
-      </div>
-    </footer>
-  );
 }
 
 function CaseMetrics({ metrics }) {

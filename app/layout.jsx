@@ -1,4 +1,11 @@
 import "./globals.css";
+import { Varela_Round } from "next/font/google";
+
+const varelaRound = Varela_Round({
+  subsets: ["latin"],
+  variable: "--font-varela-round",
+  weight: "400",
+});
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const assetUrl = (path) => `url("${assetPrefix}${path}")`;
@@ -18,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="zh-CN">
+    <html className={varelaRound.variable} lang="zh-CN">
       <body style={assetStyles}>{children}</body>
     </html>
   );

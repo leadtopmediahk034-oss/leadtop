@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { SiteFooter, SiteHeader } from "./SiteChrome";
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
@@ -394,7 +395,9 @@ export default function HeliosExperience() {
   }
 
   return (
-    <main id="top" className="helios-page">
+    <>
+    <SiteHeader />
+    <main id="top" className="helios-page system-page">
       <div className="scroll-progress" aria-hidden="true" />
 
       <section className="hero section-shell" aria-labelledby="hero-title">
@@ -957,6 +960,8 @@ export default function HeliosExperience() {
         </div>
       </section>
     </main>
+    <SiteFooter />
+    </>
   );
 }
 

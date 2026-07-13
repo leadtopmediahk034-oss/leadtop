@@ -20,14 +20,7 @@
     radial-gradient(circle at 8% 18%, rgb(67 91 59 / 0.08), transparent 24rem),
     linear-gradient(180deg, var(--paper) 0%, #fff8ec 52%, var(--paper) 100%);
   color: var(--ink);
-  font-family:
-    var(--font-varela-round),
-    "Varela Round",
-    "PingFang SC",
-    "Microsoft YaHei",
-    "Noto Sans SC",
-    system-ui,
-    sans-serif;
+  font-family: var(--font-site);
 }
 
 .page,
@@ -5978,5 +5971,289 @@
   .pain > .sectionCopy,
   .diagnosticBoard {
     align-self: center;
+  }
+}
+
+/* Final hero override: shared type scale, left-side copy, local blur only. */
+.page .hero {
+  display: grid;
+  grid-template-columns: minmax(520px, .82fr) minmax(0, .58fr);
+  align-items: center;
+  justify-content: normal;
+  padding-top: 118px;
+}
+
+.page .hero::before {
+  background: linear-gradient(90deg, rgb(255 253 247 / .1), rgb(255 253 247 / .04)), url("/polaris/assets/hero-command-center.png") center center / cover no-repeat;
+}
+
+.page .heroCopy {
+  position: relative;
+  isolation: isolate;
+  grid-column: 1;
+  width: min(100%, 700px);
+  max-width: 700px;
+  justify-self: start;
+  padding: clamp(26px, 3.5vw, 48px) clamp(18px, 3vw, 42px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+}
+
+.page .heroCopy::before {
+  display: block;
+  position: absolute;
+  inset: -42px -72px;
+  z-index: -1;
+  border-radius: 0;
+  background: radial-gradient(ellipse at 42% 50%, rgb(255 253 247 / .64) 0%, rgb(255 253 247 / .4) 48%, transparent 76%);
+  backdrop-filter: blur(16px) saturate(1.04);
+  -webkit-backdrop-filter: blur(16px) saturate(1.04);
+  -webkit-mask-image: radial-gradient(ellipse at 42% 50%, #000 0%, #000 52%, transparent 79%);
+  mask-image: radial-gradient(ellipse at 42% 50%, #000 0%, #000 52%, transparent 79%);
+  content: "";
+}
+.page .heroCopy h1 { max-width: none; margin-top: 14px; font-size: 50px; font-weight: 850; line-height: .98; white-space: normal; }
+.page .heroCopy > span { max-width: 620px; margin-inline: 0; }
+.page .heroCopy .actions { justify-content: flex-start; }
+
+@media (max-width: 900px) {
+  .page .hero { display: flex; padding: 104px 18px 48px; }
+  .page .hero::before { background: linear-gradient(180deg, rgb(255 253 247 / .12), rgb(255 253 247 / .18)), url("/polaris/assets/hero-command-center.png") 62% center / cover no-repeat; }
+  .page .heroCopy { width: 100%; padding: 28px 20px; text-align: left; }
+  .page .heroCopy::before { inset: -28px -18px; }
+  .page .heroCopy h1 { font-size: clamp(2.15rem, 9vw, 2.75rem); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .page .heroCopy::before { background: radial-gradient(ellipse at 42% 50%, rgb(255 253 247 / .94), rgb(255 253 247 / .8) 52%, transparent 79%); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* Helios-style section flow: one shared content width, natural full height. */
+.page .section:not(.hero) {
+  width: min(1680px, calc(100% - 48px));
+  max-width: 1680px;
+  min-height: auto;
+  margin-inline: auto;
+  padding: clamp(56px, 7vw, 96px) clamp(24px, 4vw, 64px);
+}
+
+.page .pain,
+.page .systems,
+.page .services,
+.page .difference,
+.page .process,
+.page .proof,
+.page .faq,
+.page .diagnosis {
+  height: auto;
+  min-height: auto;
+}
+
+.page .diagnosticBoard,
+.page .systemConsole,
+.page .serviceBoard,
+.page .advantageExplorer,
+.page .routeMap,
+.page .dossier,
+.page .faqCopy,
+.page .form {
+  width: 100%;
+  max-width: 100%;
+}
+
+.page .systemConsole,
+.page .serviceBoard,
+.page .serviceRows,
+.page .serviceRows article {
+  height: auto;
+  max-height: none;
+}
+
+.page .serviceBoard {
+  min-height: 720px;
+}
+
+.page .serviceRows {
+  grid-template-rows: repeat(8, minmax(82px, auto));
+}
+
+.page .serviceRows article {
+  min-height: 82px;
+  padding-block: 12px;
+}
+
+.page .faq {
+  display: block;
+}
+
+.page .faqCopy {
+  width: min(100%, 980px);
+  margin-inline: auto;
+}
+
+.page .diagnosis {
+  display: block;
+  background:
+    radial-gradient(circle at 86% 10%, rgb(238 151 40 / .1), transparent 26rem),
+    linear-gradient(180deg, #fff8ec, #fbf0dc);
+}
+
+.page .diagnosis .form {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr) 240px;
+}
+
+.page .proofCards article {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.page .landingProof,
+.page .contentProof,
+.page .reviewProof {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  min-height: 104px;
+  margin-top: 24px;
+  flex: 0 0 auto;
+}
+
+.page .landingProof b {
+  color: #607055;
+  font-size: clamp(.72rem, .8vw, .84rem);
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+@media (min-width: 1181px) {
+  .page .pain {
+    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+    gap: clamp(40px, 4vw, 64px);
+  }
+
+  .page .systems,
+  .page .proof {
+    display: block;
+  }
+
+  .page .centered,
+  .page .proofCopy {
+    width: min(100%, 900px);
+    margin-inline: auto;
+  }
+
+  .page .systemConsole,
+  .page .dossier {
+    margin-top: 42px;
+  }
+
+  .page .services {
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr);
+    gap: clamp(40px, 4vw, 64px);
+  }
+
+  .page .difference {
+    grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+    gap: clamp(40px, 4vw, 64px);
+  }
+
+  .page .section:not(.hero).process {
+    min-height: 900px;
+    padding-block: 0;
+  }
+
+}
+
+@media (max-width: 1180px) {
+  .page .section:not(.hero) {
+    width: min(100% - 32px, 1680px);
+    padding-block: clamp(42px, 5vw, 64px);
+  }
+
+  .page .serviceBoard {
+    min-height: 0;
+  }
+
+  .page .diagnosis .form {
+    grid-template-columns: minmax(0, 1fr) 210px;
+  }
+}
+
+@media (max-width: 767px) {
+  .page .section:not(.hero) {
+    width: calc(100% - 28px);
+    padding: 34px 0;
+  }
+
+  .page .diagnosis .form {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+
+  .page .hero {
+    height: 560px;
+    min-height: 560px;
+    max-height: 560px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 78px 18px 18px;
+  }
+
+  .page .hero::before {
+    background:
+      linear-gradient(180deg, rgb(255 253 247 / .7), rgb(255 253 247 / .24) 62%, rgb(255 253 247 / .08)),
+      url("/polaris/assets/hero-command-center.png") 58% 48% / auto 560px no-repeat;
+  }
+
+  .page .heroCopy {
+    align-self: flex-start;
+    padding: 10px 20px;
+    text-align: left;
+  }
+
+  .page .heroCopy p {
+    font-size: .76rem;
+  }
+
+  .page .heroCopy h1 {
+    margin-top: 8px;
+    font-size: clamp(1.85rem, 8.4vw, 2.25rem);
+    line-height: 1.02;
+  }
+
+  .page .heroCopy > span {
+    max-width: 38ch;
+    margin-top: 9px;
+    font-size: .84rem;
+    line-height: 1.5;
+  }
+
+  .page .heroCopy .actions {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .page .heroCopy .actions a {
+    min-height: 40px;
+    font-size: .76rem;
+  }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .page .hero {
+    height: 560px;
+    min-height: 560px;
+    max-height: 560px;
+    padding-top: 74px;
+  }
+
+  .page .hero::before {
+    background-size: auto 560px;
   }
 }

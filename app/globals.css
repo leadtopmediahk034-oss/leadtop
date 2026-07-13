@@ -1,4 +1,8 @@
 :root {
+  --font-site: var(--font-varela-round), "Varela Round", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --text-body: 16px;
+  --text-small: 14px;
+  --line-body: 1.72;
   --paper: #fffdf7;
   --paper-warm: #fbf6ec;
   --surface: #ffffff;
@@ -17,8 +21,8 @@
   --shadow: 0 22px 70px rgb(103 79 43 / 0.14);
   --shadow-soft: 0 14px 42px rgb(103 79 43 / 0.1);
   --radius: 8px;
-  --max: 1440px;
-  --desktop-canvas: 1440px;
+  --max: 1680px;
+  --desktop-canvas: 1680px;
   --desktop-gutter: 48px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -40,15 +44,9 @@ body {
     radial-gradient(circle at 5% 22%, rgb(47 123 95 / 0.09), transparent 24rem),
     linear-gradient(180deg, var(--paper) 0%, #fffaf1 52%, #fbfcf5 100%);
   color: var(--ink);
-  font-family:
-    var(--font-varela-round),
-    "Varela Round",
-    "PingFang SC",
-    "Microsoft YaHei",
-    "Noto Sans SC",
-    system-ui,
-    sans-serif;
-  line-height: 1.62;
+  font-family: var(--font-site);
+  font-size: var(--text-body);
+  line-height: var(--line-body);
 }
 
 @supports (overflow: clip) {
@@ -181,7 +179,7 @@ p {
   top: 0;
   z-index: 60;
   display: flex;
-  width: min(100%, 1600px);
+  width: min(100%, 1680px);
   height: 84px;
   align-items: center;
   justify-content: space-between;
@@ -5625,4 +5623,107 @@ p {
 .helios-page h3 {
   font-family: var(--font-varela-round), "Varela Round", sans-serif;
   font-size: 24px;
+}
+
+/* Shared typography for the Polaris and Helios system pages. */
+.system-page,
+.system-page button,
+.system-page input,
+.system-page select,
+.system-page textarea { font-family: var(--font-site); }
+
+.system-page { font-size: var(--text-body); line-height: var(--line-body); }
+
+.system-page.system-page p,
+.system-page.system-page li,
+.system-page.system-page label,
+.system-page.system-page input,
+.system-page.system-page select,
+.system-page.system-page textarea { font-family: var(--font-site); font-size: 1rem; line-height: var(--line-body); letter-spacing: 0; }
+
+.system-page.system-page small,
+.system-page.system-page figcaption { font-family: var(--font-site); font-size: var(--text-small); line-height: 1.55; }
+
+.system-page h1,
+.system-page h2,
+.system-page h3,
+.system-page strong,
+.system-page b { font-family: var(--font-site); letter-spacing: 0; }
+
+/* Shared site-header spacing and cross-page mobile type scale. */
+.helios-page .hero { padding-top: clamp(118px, 12vw, 158px); }
+
+@media (max-width: 760px) {
+  .helios-page h1,
+  .helios-page .system-name {
+    font-size: clamp(2.15rem, 9vw, 2.75rem);
+  }
+
+  .helios-page h2 { font-size: clamp(2rem, 8vw, 3rem); }
+}
+
+/* Compact Helios mobile hero while retaining its photographic stage. */
+@media (max-width: 760px) {
+  .helios-page .hero {
+    width: 100%;
+    min-height: 560px;
+    height: 560px;
+    padding-top: 0;
+  }
+
+  .helios-page .hero-stage {
+    min-height: 560px;
+    height: 560px;
+    padding: 78px 14px 18px;
+    align-content: start;
+  }
+
+  .helios-page .hero-media img {
+    object-position: 62% 54%;
+  }
+
+  .helios-page .hero-copy {
+    margin-top: 0;
+    align-self: start;
+    text-align: left;
+  }
+
+  .helios-page .sun-glyph {
+    width: 20px;
+    height: 20px;
+  }
+
+  .helios-page .system-name {
+    margin-top: 14px;
+    font-size: clamp(1.85rem, 8.4vw, 2.25rem);
+    line-height: 1.02;
+  }
+
+  .helios-page .hero-subtitle {
+    margin-top: 10px;
+    font-size: .82rem;
+    line-height: 1.5;
+  }
+
+  .helios-page .hero-actions {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .helios-page .hero-actions .btn {
+    min-height: 40px;
+    font-size: .76rem;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 700px) {
+  .helios-page .hero,
+  .helios-page .hero-stage {
+    min-height: 560px;
+    height: 560px;
+  }
+
+  .helios-page .hero-stage {
+    padding-top: 74px;
+  }
 }
