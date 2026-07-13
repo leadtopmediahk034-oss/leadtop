@@ -746,16 +746,6 @@ export default function HeliosExperience() {
               </ul>
             </button>
           ))}
-          <div className="revenue-ltv-note note-left" aria-hidden="true">
-            <i>$</i>
-            <strong>LTV Growth</strong>
-            <span>长期客户价值增长</span>
-          </div>
-          <div className="revenue-ltv-note note-right" aria-hidden="true">
-            <i>$</i>
-            <strong>LTV Growth</strong>
-            <span>长期客户价值增长</span>
-          </div>
           <div className="revenue-layer">
             <strong>Helios Growth Engine / Revenue Layer</strong>
             <p>{currentRevenue.copy}</p>
@@ -774,11 +764,6 @@ export default function HeliosExperience() {
                 </button>
               ))}
             </div>
-          </div>
-          <div className="revenue-automation">
-            {["EDM 流程", "SMS 流程", "会员体系", "复购 Campaign"].map((item) => (
-              <span key={item}>{item}</span>
-            ))}
           </div>
           <div className="revenue-phone" aria-hidden="true">
             <strong>Subscribe & Save</strong>

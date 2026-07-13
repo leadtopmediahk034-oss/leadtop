@@ -531,6 +531,15 @@ export default function PolarisExperience() {
         </div>
       </section>
 
+      <section className={`${styles.section} ${styles.difference}`}>
+        <div className={styles.differenceCopy}>
+          <p className={styles.kicker}>系统优势</p>
+          <h2>Polaris 和传统外贸推广服务有什么不同？</h2>
+          <span>Leadtop 不把 B2B 独立站当成一个“网站项目”，而是当成海外获客系统来搭建。页面、内容、广告和数据都围绕同一个目标：让真正有采购意向的客户更容易找到你、相信你、联系你。</span>
+        </div>
+        <SystemAdvantageExplorer advantages={systemAdvantages} />
+      </section>
+
       <section id="services" className={`${styles.section} ${styles.services}`}>
         <div className={styles.serviceCopy}>
           <p className={styles.kicker}>服务内容</p>
@@ -566,15 +575,6 @@ export default function PolarisExperience() {
             ))}
           </div>
         </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.difference}`}>
-        <div className={styles.differenceCopy}>
-          <p className={styles.kicker}>系统优势</p>
-          <h2>Polaris 和传统外贸推广服务有什么不同？</h2>
-          <span>Leadtop 不把 B2B 独立站当成一个“网站项目”，而是当成海外获客系统来搭建。页面、内容、广告和数据都围绕同一个目标：让真正有采购意向的客户更容易找到你、相信你、联系你。</span>
-        </div>
-        <SystemAdvantageExplorer advantages={systemAdvantages} />
       </section>
 
       <section id="process" className={`${styles.section} ${styles.process}`}>
