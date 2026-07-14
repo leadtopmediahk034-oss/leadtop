@@ -15,7 +15,7 @@ const navigation = [
   ] },
   { label: "行业", intro: "按行业决策路径与增长约束配置团队、渠道和内容。", groups: [
     { title: "B2B 行业", links: [["工业制造", "#systems"], ["机械设备", "#systems"], ["医疗健康", "#systems"], ["电子科技", "#systems"], ["新能源", "#systems"]] },
-    { title: "消费品牌", links: [["家居家具", "#systems"], ["运动户外", "#systems"], ["时尚服饰", "#systems"], ["美妆个护", "#systems"], ["生活方式", "#systems"], ["宠物用品", "#systems"]] },
+    { title: "B2C 行业", links: [["家居家具", "#systems"], ["运动户外", "#systems"], ["时尚服饰", "#systems"], ["美妆个护", "#systems"], ["生活方式", "#systems"], ["宠物用品", "#systems"]] },
   ] },
   { label: "客户案例", intro: "从业务问题、关键动作到结果口径，查看增长如何发生。", groups: [
     { title: "案例分类", links: [["B2B 出海案例", "#proof"], ["DTC 品牌案例", "#proof"], ["按行业查看", "#proof"]] },
