@@ -63,18 +63,6 @@ function PageShell({ children }) {
   );
 }
 
-function PageCta() {
-  return (
-    <section className={styles.pageCta} aria-labelledby="page-cta-title">
-      <div>
-        <p>全球线上营销成功营，即刻开启您的全链路数字营销之旅</p>
-        <h2 id="page-cta-title">探索更多无限可能！</h2>
-      </div>
-      <Link href="/contactus">立即咨询<span><ArrowRight aria-hidden="true" size={17} weight="bold" /></span></Link>
-    </section>
-  );
-}
-
 export function AboutPage() {
   return (
     <PageShell>
@@ -166,7 +154,6 @@ export function AboutPage() {
           </div>
         </section>
 
-        <PageCta />
       </main>
     </PageShell>
   );
@@ -218,7 +205,6 @@ export function ContactPage() {
           </aside>
         </section>
 
-        <PageCta />
       </main>
     </PageShell>
   );
