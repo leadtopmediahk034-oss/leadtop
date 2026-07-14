@@ -1,0 +1,68 @@
+.leadtop-inquiry-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1px;
+	margin: -6px -12px -12px;
+	background: #dcdcde;
+}
+
+.leadtop-inquiry-field {
+	display: flex;
+	min-height: 68px;
+	flex-direction: column;
+	gap: 7px;
+	padding: 16px 18px;
+	background: #fff;
+}
+
+.leadtop-inquiry-field.is-wide {
+	grid-column: 1 / -1;
+}
+
+.leadtop-inquiry-field strong {
+	color: #646970;
+	font-size: 12px;
+	letter-spacing: .02em;
+}
+
+.leadtop-inquiry-field span,
+.leadtop-inquiry-field a {
+	font-size: 14px;
+	line-height: 1.6;
+	overflow-wrap: anywhere;
+}
+
+.leadtop-status {
+	display: inline-block;
+	padding: 4px 9px;
+	border-radius: 999px;
+	background: #f0f0f1;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.leadtop-status.status-new { background: #e7f5ff; color: #006ba1; }
+.leadtop-status.status-contacted { background: #fff4ce; color: #795500; }
+.leadtop-status.status-qualified { background: #e9f7ef; color: #176b3a; }
+.leadtop-status.status-won { background: #d9f7e7; color: #075f32; }
+.leadtop-status.status-closed,
+.leadtop-status.status-spam { background: #f0f0f1; color: #50575e; }
+
+.leadtop-export-button {
+	margin-left: 8px !important;
+}
+
+.column-leadtop_status,
+.column-leadtop_owner {
+	width: 110px;
+}
+
+.column-leadtop_contact,
+.column-leadtop_form {
+	width: 16%;
+}
+
+@media (max-width: 782px) {
+	.leadtop-inquiry-grid { grid-template-columns: 1fr; }
+	.leadtop-inquiry-field.is-wide { grid-column: auto; }
+}
