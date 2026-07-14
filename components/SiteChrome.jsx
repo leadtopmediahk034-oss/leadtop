@@ -103,7 +103,6 @@ export function SiteFooter({ isHomepage = false }) {
         <Link className={styles.footerBrand} href="/" aria-label="Leadtop 首页"><BrandLogo footer /></Link>
         <h2>让全球增长成为<br />可持续经营能力</h2>
         <p>连接独立站、媒体、内容、转化与数据，为 B2B 企业和 DTC 品牌建设长期增长系统。</p>
-        <Link className={styles.footerCta} href={isHomepage ? "#diagnosis" : "/contactus"}>免费获取方案<CtaArrow /></Link>
       </div>
       <section className={styles.footerServices} id="resources" aria-labelledby="footer-services-title">
         <div><span>服务能力</span><h3 id="footer-services-title">增长服务能力</h3><p>围绕增长目标整合建站、内容、媒体和运营能力。</p></div>
