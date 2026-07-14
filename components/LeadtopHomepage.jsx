@@ -35,13 +35,13 @@ const partners = [
   { name: "Facebook", image: "/leadtop/brands/facebook.svg", width: 180, height: 56 },
   { name: "Instagram", image: "/leadtop/brands/instagram.svg", width: 180, height: 56 },
   { name: "Pinterest", image: "/leadtop/brands/pinterest.svg", width: 180, height: 56 },
-  { name: "Yandex", image: "/leadtop/brands/yandex.svg", width: 180, height: 56 },
+  { name: "Yandex", image: "/leadtop/brands/yandex-official.png", width: 1000, height: 524 },
   { name: "Reddit", image: "/leadtop/brands/reddit.svg", width: 180, height: 56 },
   { name: "Criteo", image: "/leadtop/brands/criteo.svg", width: 582, height: 159 },
   { name: "TikTok", image: "/leadtop/brands/tiktok.svg", width: 96, height: 96 },
   { name: "LinkedIn", image: "/leadtop/brands/linkedin.png", width: 2212, height: 540 },
   { name: "Shopify", href: "https://www.shopify.com/partners/directory/partner/leadtopmedia4", image: "/leadtop/brands/shopify.svg", width: 180, height: 56 },
-  { name: "WordPress", image: "/leadtop/brands/wordpress.svg", width: 180, height: 56 },
+  { name: "WordPress", image: "/leadtop/brands/wordpress.png", width: 1000, height: 1000 },
 ];
 
 const systems = [
