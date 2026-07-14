@@ -9,8 +9,9 @@ import styles from "./LeadtopHomepage.module.css";
 
 const navigation = [
   { label: "Solutions", intro: "两套增长系统，覆盖从获客到收入增长的关键路径。", groups: [
-    { title: "B2B Growth", links: [["Polaris Growth System", "/polaris"], ["Website & Landing Pages", "#systems"], ["SEO / GEO", "#capabilities"], ["Google Ads", "#capabilities"]] },
-    { title: "B2C Growth", links: [["Helios Growth Engine", "/helios"], ["Shopify Plus", "#systems"], ["Paid Media", "#capabilities"], ["CRO & Retention", "#capabilities"]] },
+    { title: "B2B Growth", links: [["Polaris Growth System", "/polaris"], ["Website & Landing Pages", "/services/websitedesign"], ["SEO / GEO", "#capabilities"], ["Google Ads", "/services/ads"]] },
+    { title: "B2C Growth", links: [["Helios Growth Engine", "/helios"], ["Shopify Plus", "/services/websitedesign"], ["Paid Media", "/services/ads"], ["CRO & Retention", "#capabilities"]] },
+    { title: "Specialist Services", links: [["Media Buying", "/services/mediabuy"], ["Creative Design", "/services/ui"], ["Social Media", "/services/socialmedia"], ["Incubation", "/services/incubation"], ["Consultation", "/services/consultation"]] },
   ] },
   { label: "Industries", intro: "按行业决策路径与增长约束配置团队、渠道和内容。", groups: [
     { title: "B2B Industries", links: [["Industrial Manufacturing", "#systems"], ["Machinery", "#systems"], ["Medical", "#systems"], ["Electronics", "#systems"], ["New Energy", "#systems"]] },
@@ -33,13 +34,13 @@ const navigation = [
 ];
 
 const footerServices = [
-  { title: "Website", links: ["WordPress Website", "Shopify Plus", "Landing Pages"] },
-  { title: "Search & Content", links: ["SEO", "GEO", "AI Marketing", "Content Marketing"] },
-  { title: "Paid Media", links: ["Google Ads", "Meta Ads", "Microsoft Ads", "LinkedIn Ads", "TikTok Ads", "Criteo Ads"] },
-  { title: "Growth Operations", links: ["Social Media", "EDM / Email Marketing", "Influencer Marketing", "Crowdfunding", "CRO"] },
+  { title: "Website", links: [["WordPress Website", "/services/websitedesign"], ["Shopify Plus", "/services/websitedesign"], ["Landing Pages", "/services/websitedesign"]] },
+  { title: "Search & Content", links: [["SEO", "#capabilities"], ["GEO", "#capabilities"], ["AI Marketing", "#capabilities"], ["Content Marketing", "#capabilities"]] },
+  { title: "Paid Media", links: [["Media Buying", "/services/mediabuy"], ["Google Ads", "/services/ads"], ["Meta Ads", "/services/ads"], ["Microsoft Ads", "/services/ads"], ["TikTok Ads", "/services/ads"]] },
+  { title: "Growth Operations", links: [["Creative Design", "/services/ui"], ["Social Media", "/services/socialmedia"], ["Incubation", "/services/incubation"], ["Consultation", "/services/consultation"], ["CRO", "#capabilities"]] },
 ];
 
-const pageHref = (href, isHomepage) => href.startsWith("#") && !isHomepage ? "/" : href;
+const pageHref = (href, isHomepage) => href.startsWith("#") && !isHomepage ? `/${href}` : href;
 
 function BrandLogo({ footer = false }) {
   return (
@@ -99,7 +100,7 @@ export function SiteHeader({ isHomepage = false }) {
 }
 
 export function SiteFooter({ isHomepage = false }) {
-  const href = (anchor) => isHomepage ? anchor : "/";
+  const href = (anchor) => isHomepage ? anchor : `/${anchor}`;
   return (
     <footer className={styles.siteFooter} id="about">
       <div className={styles.footerLead}>
@@ -110,7 +111,7 @@ export function SiteFooter({ isHomepage = false }) {
       </div>
       <section className={styles.footerServices} id="resources" aria-labelledby="footer-services-title">
         <div><span>SERVICES</span><h3 id="footer-services-title">增长服务能力</h3><p>服务内容不占用主导航，通过独立页面与页脚目录承接。</p></div>
-        <nav aria-label="服务导航">{footerServices.map((group) => <div className={styles.footerServiceGroup} key={group.title}><strong>{group.title}</strong>{group.links.map((label) => <Link key={label} href={href("#capabilities")}>{label}</Link>)}</div>)}</nav>
+        <nav aria-label="服务导航">{footerServices.map((group) => <div className={styles.footerServiceGroup} key={group.title}><strong>{group.title}</strong>{group.links.map(([label, link]) => <Link key={label} href={pageHref(link, isHomepage)}>{label}</Link>)}</div>)}</nav>
       </section>
       <nav className={styles.footerNav} aria-label="页脚导航">{navigation.map((item) => <section key={item.label}><h3>{item.label}</h3>{item.groups.map((group) => <div className={styles.footerGroup} key={group.title}>{item.groups.length > 1 && <strong>{group.title}</strong>}{group.links.map(([label, link]) => <Link key={`${group.title}-${label}`} href={pageHref(link, isHomepage)}>{label}</Link>)}</div>)}</section>)}</nav>
       <div className={styles.footerBottom}><span>Leadtop © 2026</span><span>Polaris Growth System · Helios Growth Engine</span><div><Link href={href("#privacy")}>Privacy</Link><Link href={href("#terms")}>Terms</Link><Link href={href("#sitemap")}>Sitemap</Link></div></div>

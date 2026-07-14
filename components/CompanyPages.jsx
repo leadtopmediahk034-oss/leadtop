@@ -27,36 +27,43 @@ import { SiteFooter, SiteHeader } from "./SiteChrome";
 const services = [
   {
     title: "网站建设(2B/2C)",
+    href: "/services/websitedesign",
     details: ["符合各媒体政策", "响应式设计", "WordPress 建站", "Shopify 建站"],
     Icon: Code,
   },
   {
     title: "媒体流量采买",
+    href: "/services/mediabuy",
     details: ["Google", "Bing", "Facebook / Instagram", "Twitter / TikTok", "Yandex / LinkedIn / Criteo 等媒体开户充值"],
     Icon: GlobeHemisphereWest,
   },
   {
     title: "广告代投运营",
+    href: "/services/ads",
     details: ["Google", "Bing", "Facebook", "TikTok", "Yandex / LinkedIn 等媒体广告代投放和效果运营"],
     Icon: Megaphone,
   },
   {
     title: "视觉创意设计",
+    href: "/services/ui",
     details: ["创意需求洞察", "LOGO / UI / VI 设计", "创意拍摄剪辑", "Creative 本地化"],
     Icon: PaintBrush,
   },
   {
     title: "社交媒体运营",
+    href: "/services/socialmedia",
     details: ["营销策略制定", "内容创意产出", "价值线索采集", "维护分析黏性"],
     Icon: ShareNetwork,
   },
   {
     title: "孵化培训服务",
+    href: "/services/incubation",
     details: ["线上专业培训", "线下行业沙龙", "一对一孵化", "全流程系统培训"],
     Icon: GraduationCap,
   },
   {
     title: "顾问咨询服务",
+    href: "/services/consultation",
     details: ["线上专业培训", "线下行业沙龙", "一对一孵化", "全流程系统培训"],
     Icon: Strategy,
   },
@@ -146,11 +153,12 @@ export function AboutPage() {
             <h2 id="services-title">服务内容</h2>
           </div>
           <div className={styles.serviceGrid}>
-            {services.map(({ title, details, Icon }, index) => (
+            {services.map(({ title, details, href, Icon }, index) => (
               <article className={styles.serviceCard} key={title}>
                 <div className={styles.serviceTop}><span>{index + 1}</span><Icon aria-hidden="true" size={28} weight="duotone" /></div>
                 <h3>{title}</h3>
                 <p>{details.join(" / ")}</p>
+                <Link className={styles.serviceLink} href={href}>了解服务<ArrowRight aria-hidden="true" size={15} weight="bold" /></Link>
               </article>
             ))}
           </div>

@@ -74,6 +74,8 @@
 .serviceTop > span { font-size: 1.15rem; font-weight: 820; }
 .serviceCard h3 { margin-top: auto; padding-top: 54px; }
 .serviceCard p { margin-top: 16px; color: var(--ink-soft); }
+.serviceLink { display: inline-flex; width: fit-content; align-items: center; gap: 8px; margin-top: 20px; padding-bottom: 5px; border-bottom: 1px solid currentColor; color: var(--sun-strong) !important; font-size: .78rem; font-weight: 800; transition: gap 250ms var(--ease); }
+.serviceLink:hover { gap: 12px; }
 
 .advantagesSection { background: var(--paper-soft); }
 .advantageLayout { display: grid; grid-template-columns: minmax(380px, .82fr) minmax(0, 1.18fr); gap: clamp(30px, 5vw, 84px); align-items: start; margin-top: 62px; }
