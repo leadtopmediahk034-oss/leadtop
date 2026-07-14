@@ -9,12 +9,9 @@ import {
   Code,
   EnvelopeSimple,
   GlobeHemisphereWest,
-  GraduationCap,
   MapPin,
   Megaphone,
-  PaintBrush,
   Phone,
-  ShareNetwork,
   Sparkle,
   Strategy,
   Timer,
@@ -24,48 +21,18 @@ import ContactForm from "./ContactForm";
 import styles from "./CompanyPages.module.css";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
 
-const services = [
+const growthSystems = [
   {
-    title: "网站建设(2B/2C)",
-    href: "/services/websitedesign",
-    details: ["符合各媒体政策", "响应式设计", "WordPress 建站", "Shopify 建站"],
-    Icon: Code,
-  },
-  {
-    title: "媒体流量采买",
-    href: "/services/mediabuy",
-    details: ["Google", "Bing", "Facebook / Instagram", "Twitter / TikTok", "Yandex / LinkedIn / Criteo 等媒体开户充值"],
+    title: "Polaris B2B 增长系统",
+    href: "/polaris",
+    details: ["转化型网站", "Google Ads", "SEO / GEO", "专业内容", "销售反馈闭环"],
     Icon: GlobeHemisphereWest,
   },
   {
-    title: "广告代投运营",
-    href: "/services/ads",
-    details: ["Google", "Bing", "Facebook", "TikTok", "Yandex / LinkedIn 等媒体广告代投放和效果运营"],
-    Icon: Megaphone,
-  },
-  {
-    title: "视觉创意设计",
-    href: "/services/ui",
-    details: ["创意需求洞察", "LOGO / UI / VI 设计", "创意拍摄剪辑", "Creative 本地化"],
-    Icon: PaintBrush,
-  },
-  {
-    title: "社交媒体运营",
-    href: "/services/socialmedia",
-    details: ["营销策略制定", "内容创意产出", "价值线索采集", "维护分析黏性"],
-    Icon: ShareNetwork,
-  },
-  {
-    title: "孵化培训服务",
-    href: "/services/incubation",
-    details: ["线上专业培训", "线下行业沙龙", "一对一孵化", "全流程系统培训"],
-    Icon: GraduationCap,
-  },
-  {
-    title: "顾问咨询服务",
-    href: "/services/consultation",
-    details: ["线上专业培训", "线下行业沙龙", "一对一孵化", "全流程系统培训"],
-    Icon: Strategy,
+    title: "Helios DTC 增长引擎",
+    href: "/helios",
+    details: ["广告投放", "创意素材", "Shopify CRO", "SEO / GEO", "用户运营"],
+    Icon: ChartLineUp,
   },
 ];
 
@@ -117,7 +84,7 @@ export function AboutPage() {
             <span className={styles.eyebrow}>关于领拓</span>
             <h1 id="about-title">专注客户效果服务，全链路<br />数字营销整合解决方案</h1>
             <p>与全球消费者有效链接</p>
-            <Link className={styles.primaryButton} href="#services">了解服务内容<span><ArrowRight aria-hidden="true" size={17} weight="bold" /></span></Link>
+            <Link className={styles.primaryButton} href="#services">了解两套系统<span><ArrowRight aria-hidden="true" size={17} weight="bold" /></span></Link>
           </div>
           <div className={styles.heroImage}>
             <Image
@@ -149,16 +116,16 @@ export function AboutPage() {
 
         <section className={styles.servicesSection} id="services" aria-labelledby="services-title">
           <div className={styles.sectionHeading}>
-            <p>需要我们提供什么？</p>
-            <h2 id="services-title">服务内容</h2>
+            <p>两类业务目标，两条增长路径</p>
+            <h2 id="services-title">两套增长系统</h2>
           </div>
           <div className={styles.serviceGrid}>
-            {services.map(({ title, details, href, Icon }, index) => (
+            {growthSystems.map(({ title, details, href, Icon }, index) => (
               <article className={styles.serviceCard} key={title}>
                 <div className={styles.serviceTop}><span>{index + 1}</span><Icon aria-hidden="true" size={28} weight="duotone" /></div>
                 <h3>{title}</h3>
                 <p>{details.join(" / ")}</p>
-                <Link className={styles.serviceLink} href={href}>了解服务<ArrowRight aria-hidden="true" size={15} weight="bold" /></Link>
+                <Link className={styles.serviceLink} href={href}>查看系统<ArrowRight aria-hidden="true" size={15} weight="bold" /></Link>
               </article>
             ))}
           </div>
@@ -209,7 +176,7 @@ export function ContactPage() {
   const contacts = [
     {
       title: "电话",
-      lines: ["华南区：+86 150 5889 8105", "华东华北区：+86 137 3216 5859"],
+      lines: ["全国咨询：17815956889", "华南区：+86 150 5889 8105", "华东华北区：+86 137 3216 5859"],
       Icon: Phone,
     },
     { title: "地址", lines: ["浙江省宁波市宁波中心 A 座"], Icon: MapPin },

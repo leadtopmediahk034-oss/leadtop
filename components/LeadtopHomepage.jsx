@@ -30,70 +30,18 @@ const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
 
 const partners = [
-  { name: "Google Partner", href: "https://www.google.com/partners/agency?id=5115971347", image: "https://www.gstatic.com/partners/badge/images/2026/PartnerBadgeClickable.svg", remote: true },
+  { name: "Google Ads", image: "/leadtop/brands/google-ads.svg", width: 180, height: 56 },
   { name: "Microsoft Bing", image: "/leadtop/brands/microsoft-bing.svg", width: 512, height: 80 },
-  { name: "Meta", image: "/leadtop/brands/meta.svg", width: 96, height: 96 },
+  { name: "Facebook", image: "/leadtop/brands/facebook.svg", width: 180, height: 56 },
+  { name: "Instagram", image: "/leadtop/brands/instagram.svg", width: 180, height: 56 },
+  { name: "Pinterest", image: "/leadtop/brands/pinterest.svg", width: 180, height: 56 },
+  { name: "Yandex", image: "/leadtop/brands/yandex.svg", width: 180, height: 56 },
+  { name: "Reddit", image: "/leadtop/brands/reddit.svg", width: 180, height: 56 },
   { name: "Criteo", image: "/leadtop/brands/criteo.svg", width: 582, height: 159 },
   { name: "TikTok", image: "/leadtop/brands/tiktok.svg", width: 96, height: 96 },
   { name: "LinkedIn", image: "/leadtop/brands/linkedin.png", width: 2212, height: 540 },
-  { name: "Shopify Plus Partner", href: "https://www.shopify.com/partners/directory/partner/leadtopmedia4", image: "/leadtop/credentials/shopify-plus-partner.png", width: 300, height: 160 },
-  { name: "WordPress", image: "/leadtop/brands/wordpress.png", width: 1000, height: 1000 },
-];
-
-const navigation = [
-  {
-    label: "Solutions",
-    intro: "两套增长系统，覆盖从获客到收入增长的关键路径。",
-    groups: [
-      { title: "B2B Growth", links: [["Polaris Growth System", "/polaris"], ["Website & Landing Pages", "#systems"], ["SEO / GEO", "#capabilities"], ["Google Ads", "#capabilities"]] },
-      { title: "B2C Growth", links: [["Helios Growth Engine", "/helios"], ["Shopify Plus", "#systems"], ["Paid Media", "#capabilities"], ["CRO & Retention", "#capabilities"]] },
-    ],
-  },
-  {
-    label: "Industries",
-    intro: "按行业决策路径与增长约束配置团队、渠道和内容。",
-    groups: [
-      { title: "B2B Industries", links: [["Industrial Manufacturing", "#systems"], ["Machinery", "#systems"], ["Medical", "#systems"], ["Electronics", "#systems"], ["New Energy", "#systems"]] },
-      { title: "Consumer Industries", links: [["Furniture", "#systems"], ["Outdoor", "#systems"], ["Fashion", "#systems"], ["Beauty", "#systems"], ["Home & Living", "#systems"], ["Pet", "#systems"]] },
-    ],
-  },
-  {
-    label: "Case Studies",
-    intro: "从业务问题、关键动作到结果口径，查看增长如何发生。",
-    groups: [
-      { title: "Explore Cases", links: [["By Industry", "#proof"], ["By Service", "#proof"], ["B2B Cases", "#proof"], ["B2C Cases", "#proof"]] },
-    ],
-  },
-  {
-    label: "Resources",
-    intro: "面向出海团队的洞察、指南和可执行增长资产。",
-    groups: [
-      { title: "Knowledge", links: [["Growth Insights", "#resources"], ["Guides", "#resources"], ["Reports", "#resources"]] },
-      { title: "Practical Assets", links: [["Templates", "#resources"], ["Webinar", "#resources"], ["FAQ", "#faq"]] },
-    ],
-  },
-  {
-    label: "About",
-    intro: "了解 Leadtop 的团队、合作生态与全球增长实践。",
-    groups: [
-      { title: "Company", links: [["About Leadtop", "#about"], ["Our Team", "#about"], ["Partners", "#about"], ["Careers", "#about"], ["News", "#about"], ["Contact", "#diagnosis"]] },
-    ],
-  },
-  {
-    label: "Growth Hub",
-    intro: "持续更新的增长知识中心，连接洞察、方法、工具与案例。",
-    groups: [
-      { title: "Learn", links: [["Growth Insights", "#resources"], ["Playbooks", "#resources"], ["Academy", "#resources"], ["AI Marketing", "#resources"]] },
-      { title: "Use", links: [["Templates", "#resources"], ["Tools", "#resources"], ["Events", "#resources"], ["Customer Stories", "#proof"]] },
-    ],
-  },
-];
-
-const footerServices = [
-  { title: "Website", links: [["WordPress Website", "#capabilities"], ["Shopify Plus", "#capabilities"], ["Landing Pages", "#capabilities"]] },
-  { title: "Search & Content", links: [["SEO", "#capabilities"], ["GEO", "#capabilities"], ["AI Marketing", "#capabilities"], ["Content Marketing", "#capabilities"]] },
-  { title: "Paid Media", links: [["Google Ads", "#capabilities"], ["Meta Ads", "#capabilities"], ["Microsoft Ads", "#capabilities"], ["LinkedIn Ads", "#capabilities"], ["TikTok Ads", "#capabilities"], ["Criteo Ads", "#capabilities"]] },
-  { title: "Growth Operations", links: [["Social Media", "#capabilities"], ["EDM / Email Marketing", "#capabilities"], ["Influencer Marketing", "#capabilities"], ["Crowdfunding", "#capabilities"], ["CRO", "#capabilities"]] },
+  { name: "Shopify", href: "https://www.shopify.com/partners/directory/partner/leadtopmedia4", image: "/leadtop/brands/shopify.svg", width: 180, height: 56 },
+  { name: "WordPress", image: "/leadtop/brands/wordpress.svg", width: 180, height: 56 },
 ];
 
 const systems = [
@@ -202,7 +150,6 @@ const teamRoles = [
 ];
 
 const faqs = [
-  ["Leadtop 是建站公司，还是广告代运营服务商？", "两者都不是完整定义。Leadtop 以独立站增长结果为目标，根据实际约束配置网站、广告、SEO / GEO、内容、CRO、用户运营和数据能力。"],
   ["为什么 B2B 与 DTC 需要两套不同的增长系统？", "B2B 关注匹配的销售线索与长决策周期信任，DTC 关注获客成本、转化、客单价、复购和利润质量，因此由 Polaris 与 Helios 分别承接。"],
   ["Google Ads、SEO / GEO 和网站改版应该从哪一项开始？", "实施顺序取决于现有基础与验证目标。Leadtop 会先判断主要约束，再确定渠道、页面与内容的先后顺序。"],
   ["Leadtop 如何判断项目是否真正取得进展？", "Polaris 关注询盘质量、MQL、CPL、页面 CVR、Pipeline 与自然流量；Helios 关注 MER、CAC、CVR、AOV、LTV 与复购。"],
