@@ -21,14 +21,14 @@ const navigation = [
     { title: "Explore Cases", links: [["By Industry", "#proof"], ["By Service", "#proof"], ["B2B Cases", "#proof"], ["B2C Cases", "#proof"]] },
   ] },
   { label: "Resources", intro: "面向出海团队的洞察、指南和可执行增长资产。", groups: [
-    { title: "Knowledge", links: [["Growth Insights", "#resources"], ["Guides", "#resources"], ["Reports", "#resources"]] },
+    { title: "Knowledge", links: [["Growth Insights", "/blog"], ["Guides", "/blog"], ["Reports", "/blog"]] },
     { title: "Practical Assets", links: [["Templates", "#resources"], ["Webinar", "#resources"], ["FAQ", "#faq"]] },
   ] },
   { label: "About", intro: "了解 Leadtop 的团队、合作生态与全球增长实践。", groups: [
     { title: "Company", links: [["About Leadtop", "/aboutus"], ["Our Team", "/aboutus"], ["Partners", "/aboutus"], ["Careers", "/aboutus"], ["News", "/aboutus"], ["Contact", "/contactus"]] },
   ] },
   { label: "Growth Hub", intro: "持续更新的增长知识中心，连接洞察、方法、工具与案例。", groups: [
-    { title: "Learn", links: [["Growth Insights", "#resources"], ["Playbooks", "#resources"], ["Academy", "#resources"], ["AI Marketing", "#resources"]] },
+    { title: "Learn", links: [["Growth Insights", "/blog"], ["Playbooks", "/blog"], ["Academy", "/blog"], ["AI Marketing", "/blog"]] },
     { title: "Use", links: [["Templates", "#resources"], ["Tools", "#resources"], ["Events", "#resources"], ["Customer Stories", "#proof"]] },
   ] },
 ];

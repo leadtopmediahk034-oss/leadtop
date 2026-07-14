@@ -65,6 +65,8 @@ final class Leadtop_Inquiries {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_' . self::POST_TYPE, array( $this, 'save_admin_fields' ) );
+		add_action( 'save_post_post', array( $this, 'notify_content_change' ), 20, 3 );
+		add_action( 'before_delete_post', array( $this, 'notify_content_deletion' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'admin_menu', array( $this, 'register_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
@@ -649,11 +651,13 @@ final class Leadtop_Inquiries {
 				'type'              => 'array',
 				'sanitize_callback' => function ( $input ) {
 					return array(
-						'notify'    => empty( $input['notify'] ) ? '0' : '1',
-						'recipients' => isset( $input['recipients'] ) ? $this->sanitize_recipient_list( $input['recipients'] ) : '',
+						'notify'             => empty( $input['notify'] ) ? '0' : '1',
+						'recipients'          => isset( $input['recipients'] ) ? $this->sanitize_recipient_list( $input['recipients'] ) : '',
+						'revalidate_url'      => isset( $input['revalidate_url'] ) ? esc_url_raw( $input['revalidate_url'] ) : '',
+						'revalidate_secret'   => isset( $input['revalidate_secret'] ) ? sanitize_text_field( $input['revalidate_secret'] ) : '',
 					);
 				},
-				'default'           => array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ) ),
+				'default'           => array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ), 'revalidate_url' => '', 'revalidate_secret' => '' ),
 			)
 		);
 	}
@@ -667,7 +671,7 @@ final class Leadtop_Inquiries {
 		if ( ! current_user_can( 'manage_leadtop_inquiries' ) ) {
 			return;
 		}
-		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ) ) );
+		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ), 'revalidate_url' => '', 'revalidate_secret' => '' ) );
 		?>
 		<div class="wrap leadtop-settings">
 			<h1>Leadtop 询盘设置</h1>
@@ -682,6 +686,14 @@ final class Leadtop_Inquiries {
 						<th scope="row"><label for="leadtop-recipients">通知邮箱</label></th>
 						<td><input class="regular-text" id="leadtop-recipients" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[recipients]" type="text" value="<?php echo esc_attr( $options['recipients'] ); ?>"><p class="description">多个邮箱请用英文逗号分隔。</p></td>
 					</tr>
+					<tr>
+						<th scope="row"><label for="leadtop-revalidate-url">博客刷新地址</label></th>
+						<td><input class="regular-text code" id="leadtop-revalidate-url" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[revalidate_url]" type="url" value="<?php echo esc_attr( $options['revalidate_url'] ); ?>" placeholder="https://example.com/api/revalidate"><p class="description">文章发布、更新、移入回收站或删除后通知 Next.js 清理缓存。</p></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="leadtop-revalidate-secret">博客刷新密钥</label></th>
+						<td><input class="regular-text" id="leadtop-revalidate-secret" name="<?php echo esc_attr( self::OPTION_KEY ); ?>[revalidate_secret]" type="password" value="<?php echo esc_attr( $options['revalidate_secret'] ); ?>" autocomplete="new-password"><p class="description">必须与 Next.js 的 WORDPRESS_REVALIDATE_SECRET 环境变量完全一致。</p></td>
+					</tr>
 				</table>
 				<?php submit_button(); ?>
 			</form>
@@ -691,6 +703,78 @@ final class Leadtop_Inquiries {
 			<p>该接口只接受已认证请求。建议创建一个角色为“Leadtop 询盘接口”的专用用户，为其生成 WordPress 应用密码，并仅在 Next.js 服务端保存凭据。</p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Notify Next.js when a public blog post changes.
+	 *
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 * @param bool    $update  Whether this is an update.
+	 * @return void
+	 */
+	public function notify_content_change( $post_id, $post, $update ) {
+		unset( $update );
+		if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+			return;
+		}
+
+		$this->send_revalidation_webhook(
+			array(
+				'action'  => 'publish' === $post->post_status ? 'upsert' : 'unpublish',
+				'post_id' => (int) $post_id,
+				'slug'    => $post->post_name,
+				'status'  => $post->post_status,
+			)
+		);
+	}
+
+	/**
+	 * Notify Next.js before a blog post is permanently deleted.
+	 *
+	 * @param int          $post_id Post ID.
+	 * @param WP_Post|null $post    Post object.
+	 * @return void
+	 */
+	public function notify_content_deletion( $post_id, $post ) {
+		if ( ! $post || 'post' !== $post->post_type ) {
+			return;
+		}
+
+		$this->send_revalidation_webhook(
+			array(
+				'action'  => 'delete',
+				'post_id' => (int) $post_id,
+				'slug'    => $post->post_name,
+				'status'  => 'deleted',
+			)
+		);
+	}
+
+	/**
+	 * Send an authenticated, non-blocking cache refresh request.
+	 *
+	 * @param array<string,mixed> $payload Webhook body.
+	 * @return void
+	 */
+	private function send_revalidation_webhook( $payload ) {
+		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'revalidate_url' => '', 'revalidate_secret' => '' ) );
+		if ( empty( $options['revalidate_url'] ) || empty( $options['revalidate_secret'] ) ) {
+			return;
+		}
+
+		wp_remote_post(
+			$options['revalidate_url'],
+			array(
+				'timeout'  => 3,
+				'blocking' => false,
+				'headers'  => array(
+					'Authorization' => 'Bearer ' . $options['revalidate_secret'],
+					'Content-Type'  => 'application/json',
+				),
+				'body'     => wp_json_encode( $payload ),
+			)
+		);
 	}
 
 	/**

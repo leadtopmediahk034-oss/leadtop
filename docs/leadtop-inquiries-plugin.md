@@ -47,12 +47,12 @@ Polaris 页面中的报价计算展示表单没有真实提交用途，因此不
 4. 在 Next.js 部署环境配置：
 
    ```text
-   WORDPRESS_API_URL=https://cms.example.com/wp-json
-   WORDPRESS_USERNAME=专用接口用户名
-   WORDPRESS_APPLICATION_PASSWORD=生成的应用密码
+   WORDPRESS_URL=https://cms.example.com
+   WP_API_USER=专用接口用户名
+   WP_APP_PASSWORD=生成的应用密码
    ```
 
-5. Next.js 服务端向 `${WORDPRESS_API_URL}/leadtop/v1/inquiries` 发起 Basic Auth POST 请求。
+5. Next.js 服务端向 `${WORDPRESS_URL}/wp-json/leadtop/v1/inquiries` 发起 Basic Auth POST 请求。
 6. 完成前端接口的字段映射、限流、蜜罐或 Turnstile 后，再做四个表单的端到端入库测试。
 
 ## 字段兼容约定
@@ -63,3 +63,9 @@ Polaris 页面中的报价计算展示表单没有真实提交用途，因此不
 - `source_page` 建议传路由，例如 `/contactus`、`/polaris`、`/helios`。
 - `landing_url` 和 `referrer` 传完整 URL；UTM 参数使用对应的 `utm_*` 字段。
 - `consent` 记录用户是否明确同意隐私条款，未传时保存为否。
+
+## 博客自动刷新（1.1.0）
+
+插件 1.1.0 可以在普通 WordPress 文章发布、更新、取消发布或删除时通知 Next.js 清理博客缓存。
+
+在“询盘管理 > 询盘设置”配置正式前台的 `/api/revalidate` 地址和共享密钥；共享密钥必须与 Vercel 的 `WORDPRESS_REVALIDATE_SECRET` 一致。未配置时不会发送请求，也不影响询盘功能。
