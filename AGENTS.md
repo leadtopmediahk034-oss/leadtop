@@ -31,6 +31,11 @@
 - Use the existing React, Next.js, CSS Modules, and Phosphor icon patterns.
 - Keep reference-alignment fixes scoped to the section named by the user.
 
+## Upload and deployment boundaries
+
+- Do not upload, install, deploy, publish, or send files or generated artifacts to WordPress, hosting platforms, CDNs, or any other external system unless the user explicitly requests that action.
+- A request to create or package an artifact authorizes local creation only; it does not authorize uploading or installing it.
+
 ## Task efficiency
 
 - Treat each task as one bounded objective. When the objective changes, recommend a new task instead of carrying unrelated context forward.
