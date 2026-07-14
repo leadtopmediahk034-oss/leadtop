@@ -24,6 +24,7 @@ import {
 
 import styles from "./LeadtopHomepage.module.css";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
+import { submitInquiry } from "../lib/inquiry-client";
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
@@ -216,7 +217,26 @@ function CtaArrow() {
 
 export default function LeadtopHomepage() {
   const [activeCapability, setActiveCapability] = useState(6);
+  const [formStatus, setFormStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const ActiveCapabilityIcon = capabilities[activeCapability].Icon;
+
+  async function handleInquirySubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setIsSubmitting(true);
+    setFormStatus({ type: "pending", message: "正在提交增长评估信息..." });
+
+    try {
+      const result = await submitInquiry(form, "growth_priority");
+      setFormStatus({ type: "success", message: result.message || "提交成功，我们会尽快与您联系。" });
+      form.reset();
+    } catch (error) {
+      setFormStatus({ type: "error", message: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   return (
     <main className={styles.page}>
@@ -325,9 +345,10 @@ export default function LeadtopHomepage() {
       <section className={styles.diagnosis} id="diagnosis" aria-labelledby="diagnosis-title">
         <div className={styles.diagnosisBackdrop} aria-hidden="true"><Image alt="" fill sizes="100vw" src={withAssetPrefix("/helios/assets/diagnosis.png")} /></div>
         <div className={styles.diagnosisCopy} data-reveal><span className={styles.eyebrow}>START WITH THE PRIMARY CONSTRAINT</span><h2 id="diagnosis-title">先识别主要增长约束，<br />再确定下一阶段投入</h2><p>Leadtop 将从流量、页面、信任、内容与数据五个维度进行初步判断。</p><div className={styles.diagnosisMap}><div>{["流量", "页面", "信任", "内容", "数据"].map((item) => <span key={item}><Check size={16} weight="bold" />{item}</span>)}</div><ArrowRight size={24} /><div>{["约束判断", "优先环节", "系统建议", "信息清单"].map((item) => <span key={item}>{item}</span>)}</div></div></div>
-        <form className={styles.form} onSubmit={(event) => event.preventDefault()} data-reveal>
+        <form className={styles.form} onSubmit={handleInquirySubmit} data-reveal>
           <h3>获取初步增长判断</h3>
           <div className={styles.formGrid}>
+            <input aria-hidden="true" autoComplete="off" hidden name="website_confirm" tabIndex={-1} type="text" />
             <label><span>姓名 <em>*</em></span><input name="name" autoComplete="name" required /></label>
             <label><span>公司名称 <em>*</em></span><input name="company" autoComplete="organization" required /></label>
             <label><span>联系方式 <em>*</em></span><input name="contact" autoComplete="tel" required /></label>
@@ -335,7 +356,8 @@ export default function LeadtopHomepage() {
             <label className={styles.formWide}><span>官网或店铺链接 <small>选填</small></span><input name="website" placeholder="https://" type="url" autoComplete="url" /></label>
             <label className={styles.formWide}><span>当前最需要解决的问题 <em>*</em></span><select name="problem" defaultValue="" required><option value="" disabled>请选择主要问题</option><option>B2B 询盘不足或质量不稳定</option><option>广告获客成本或 ROI 波动</option><option>独立站转化率偏低</option><option>SEO / GEO 尚未形成增长</option><option>复购与 LTV 不足</option><option>品牌内容与信任不足</option><option>数据追踪与归因不清</option></select></label>
           </div>
-          <button type="submit">评估我的增长优先级<CtaArrow /></button>
+          <button disabled={isSubmitting} type="submit">{isSubmitting ? "提交中..." : "评估我的增长优先级"}<CtaArrow /></button>
+          {formStatus && <output className={`${styles.formStatus} ${formStatus.type === "error" ? styles.formStatusError : ""}`} aria-live="polite">{formStatus.message}</output>}
           <p className={styles.formNote}><ShieldCheck size={16} weight="light" />提交信息不代表签约，相关信息仅用于本次业务判断与后续沟通。</p>
         </form>
       </section>

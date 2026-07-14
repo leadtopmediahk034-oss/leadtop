@@ -270,7 +270,7 @@
 .diagnosisMap span { display: flex; min-height: 45px; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: rgb(255 255 255 / .72); color: var(--ink); font-size: .76rem; }
 .diagnosisMap svg { color: var(--sun-strong); }
 .form { padding: 7px; border: 1px solid rgb(212 197 175 / .78); border-radius: calc(var(--radius) + 6px); background: rgb(224 210 191 / .25); box-shadow: 0 30px 90px rgb(103 79 43 / .13); }
-.form > h3, .formGrid, .form > button, .formNote { margin-inline: 34px; }
+.form > h3, .formGrid, .form > button, .formStatus, .formNote { margin-inline: 34px; }
 .form > h3 { margin-top: 32px; font-size: 1.65rem; }
 .formGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 14px; margin-top: 26px; }
 .formGrid label { display: grid; gap: 8px; }
@@ -281,7 +281,10 @@
 .formGrid input:focus, .formGrid select:focus { border-color: var(--sun); box-shadow: 0 0 0 3px rgb(236 148 30 / .16); }
 .formWide { grid-column: 1 / -1; }
 .form button { display: flex; width: calc(100% - 68px); min-height: 56px; align-items: center; justify-content: center; gap: 14px; margin-top: 20px; padding: 0 8px 0 20px; border: 0; border-radius: 28px; background: linear-gradient(180deg, #f7b54d, var(--sun)); color: #1c1a18; font-weight: 820; cursor: pointer; transition: transform 500ms var(--ease), box-shadow 500ms var(--ease); }
-.form button:hover { box-shadow: 0 18px 40px rgb(203 104 8 / .24); transform: translateY(-2px); }
+.form button:hover:not(:disabled) { box-shadow: 0 18px 40px rgb(203 104 8 / .24); transform: translateY(-2px); }
+.form button:disabled { cursor: wait; opacity: .7; }
+.formStatus { display: block; margin-top: 14px; color: #2f6d53; font-size: .76rem; line-height: 1.5; }
+.formStatusError { color: #a33a2b; }
 .formNote { display: flex; align-items: center; gap: 8px; margin-top: 15px; margin-bottom: 28px; font-size: .68rem; }
 .formNote svg { flex: 0 0 auto; color: var(--sun-strong); }
 .siteFooter { position: relative; padding: 92px max(24px, calc((100vw - var(--max)) / 2)) 28px; overflow: hidden; background: #112039; color: white; }
@@ -429,7 +432,7 @@
   .diagnosisMap { grid-template-columns: 1fr; gap: 12px; }
   .diagnosisMap > svg { justify-self: center; transform: rotate(90deg); }
   .form { margin-top: 42px; }
-  .form > h3, .formGrid, .form > button, .formNote { margin-inline: 20px; }
+  .form > h3, .formGrid, .form > button, .formStatus, .formNote { margin-inline: 20px; }
   .formGrid { grid-template-columns: 1fr; }
   .formWide { grid-column: auto; }
   .form button { width: calc(100% - 40px); }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
+import { submitInquiry } from "../lib/inquiry-client";
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || "";
 const withAssetPrefix = (path) => `${assetPrefix}${path}`;
@@ -338,6 +339,7 @@ export default function HeliosExperience() {
   const [activeMetric, setActiveMetric] = useState("ROAS");
   const [activePain, setActivePain] = useState("01");
   const [formStatus, setFormStatus] = useState("");
+  const [formStatusType, setFormStatusType] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -375,23 +377,24 @@ export default function HeliosExperience() {
   const currentQuarter = useMemo(() => quarters.find((quarter) => quarter.id === activeQuarter) ?? quarters[3], [activeQuarter]);
   const currentMetric = useMemo(() => metrics.find((metric) => metric.key === activeMetric) ?? metrics[0], [activeMetric]);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
     setIsSubmitting(true);
+    setFormStatusType("pending");
     setFormStatus("正在提交店铺信息...");
 
-    window.setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitInquiry(form, "helios_dtc_diagnosis");
+      setFormStatusType("success");
       setFormStatus("已收到，我们会根据店铺链接给出初步增长判断。");
       form.reset();
-    }, 700);
+    } catch (error) {
+      setFormStatusType("error");
+      setFormStatus(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -915,6 +918,7 @@ export default function HeliosExperience() {
 
           <form id="diagnosis-form" className="diagnosis-form" onSubmit={handleSubmit}>
             <h3>获取 DTC 独立站增长诊断</h3>
+            <input aria-hidden="true" autoComplete="off" hidden name="website_confirm" tabIndex={-1} type="text" />
             <label>
               <span>姓名</span>
               <input name="name" type="text" autoComplete="name" required />
@@ -938,7 +942,7 @@ export default function HeliosExperience() {
             <button className="btn btn-primary form-button" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "提交中..." : "提交店铺，评估增长空间"}
             </button>
-            <output className={formStatus.includes("已收到") ? "form-status is-success" : "form-status"} aria-live="polite">
+            <output className={`form-status${formStatusType === "success" ? " is-success" : ""}${formStatusType === "error" ? " is-error" : ""}`} aria-live="polite">
               {formStatus}
             </output>
           </form>

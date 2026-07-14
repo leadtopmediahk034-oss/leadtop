@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import {
   Browser,
   Calendar,
@@ -33,6 +36,7 @@ import {
 import styles from "./PolarisExperience.module.css";
 import SystemAdvantageExplorer from "./SystemAdvantageExplorer";
 import { SiteFooter, SiteHeader } from "./SiteChrome";
+import { submitInquiry } from "../lib/inquiry-client";
 
 const iconProps = { size: 34, weight: "regular", "aria-hidden": true };
 
@@ -443,6 +447,26 @@ function PreviewMaterial({ service }) {
 }
 
 export default function PolarisExperience() {
+  const [formStatus, setFormStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleInquirySubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setIsSubmitting(true);
+    setFormStatus({ type: "pending", message: "正在提交网站信息..." });
+
+    try {
+      const result = await submitInquiry(form, "polaris_b2b_diagnosis");
+      setFormStatus({ type: "success", message: result.message || "提交成功，我们会尽快与您联系。" });
+      form.reset();
+    } catch (error) {
+      setFormStatus({ type: "error", message: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <>
     <SiteHeader />
@@ -695,15 +719,17 @@ export default function PolarisExperience() {
       </section>
 
       <section id="diagnosis" className={`${styles.section} ${styles.diagnosis}`}>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleInquirySubmit}>
           <span className={styles.formMark} aria-hidden="true" />
           <h2>获取 B2B 独立站获客诊断</h2>
           <p>留下官网链接和当前问题，我们将从网站承接、广告结构、SEO/GEO、信任内容和询盘路径五个维度给出初步判断。</p>
-          <label><span>姓名</span><input name="name" type="text" placeholder="请输入姓名" /></label>
-          <label><span>手机 / 微信</span><input name="contact" type="text" placeholder="便于顾问联系你" /></label>
-          <label><span>官网链接</span><input name="website" type="text" placeholder="https://www.yourdomain.com" /></label>
+          <input aria-hidden="true" autoComplete="off" hidden name="website_confirm" tabIndex={-1} type="text" />
+          <label><span>姓名</span><input autoComplete="name" name="name" type="text" placeholder="请输入姓名" required /></label>
+          <label><span>手机 / 微信</span><input autoComplete="tel" name="contact" type="text" placeholder="便于顾问联系你" required /></label>
+          <label><span>官网链接</span><input autoComplete="url" name="website" type="url" placeholder="https://www.yourdomain.com" required /></label>
           <label><span>当前问题</span><textarea name="problem" rows="4" placeholder="尽量详细描述，帮助我们更准确诊断" /></label>
-          <button type="submit">提交网站，获取获客诊断</button>
+          <button disabled={isSubmitting} type="submit">{isSubmitting ? "提交中..." : "提交网站，获取获客诊断"}</button>
+          {formStatus && <output className={`${styles.formStatus} ${formStatus.type === "error" ? styles.formStatusError : ""}`} aria-live="polite">{formStatus.message}</output>}
           <small>提交后，Leadtop 将先判断关键问题，再与你沟通适合的增长优先级。</small>
           <aside>
             {diagnosisItems.map(({ label, Icon }) => (

@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle } from "@phosphor-icons/react";
 import { useState } from "react";
 
+import { submitInquiry } from "../lib/inquiry-client";
 import styles from "./CompanyPages.module.css";
 
 const fields = [
@@ -15,25 +16,24 @@ const fields = [
 ];
 
 export default function ContactForm() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = encodeURIComponent(`Leadtop 官网咨询 - ${data.get("company") || data.get("name")}`);
-    const body = encodeURIComponent([
-      `姓名：${data.get("name")}`,
-      `电话：${data.get("phone")}`,
-      `微信/QQ：${data.get("wechat") || "未填写"}`,
-      `邮箱：${data.get("email")}`,
-      `公司名称：${data.get("company") || "未填写"}`,
-      `网站：${data.get("website") || "未填写"}`,
-      `公司主营产品：${data.get("product") || "未填写"}`,
-      `其他需求：${data.get("needs") || "未填写"}`,
-    ].join("\n"));
+    const form = event.currentTarget;
+    setIsSubmitting(true);
+    setStatus({ type: "pending", message: "正在提交咨询信息..." });
 
-    setStatus("已为您整理咨询内容，请在邮件客户端中确认发送。");
-    window.location.href = `mailto:service@leadtopmedia.com?subject=${subject}&body=${body}`;
+    try {
+      const result = await submitInquiry(form, "contact_consultation");
+      setStatus({ type: "success", message: result.message || "提交成功，我们会尽快与您联系。" });
+      form.reset();
+    } catch (error) {
+      setStatus({ type: "error", message: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -45,6 +45,7 @@ export default function ContactForm() {
       </div>
 
       <div className={styles.formGrid}>
+        <input aria-hidden="true" autoComplete="off" hidden name="website_confirm" tabIndex={-1} type="text" />
         {fields.map((field) => (
           <label className={styles.field} key={field.id} htmlFor={field.id}>
             <span>{field.label}{field.required ? " *" : ""}</span>
@@ -74,13 +75,13 @@ export default function ContactForm() {
         </label>
       </div>
 
-      <button className={styles.submitButton} type="submit">
-        提交咨询
+      <button className={styles.submitButton} disabled={isSubmitting} type="submit">
+        {isSubmitting ? "提交中..." : "提交咨询"}
         <span><ArrowRight aria-hidden="true" size={17} weight="bold" /></span>
       </button>
 
-      <p className={styles.formNote}>提交后将打开您的邮件客户端，咨询内容会发送至 service@leadtopmedia.com。</p>
-      {status && <p className={styles.formStatus} role="status"><CheckCircle aria-hidden="true" size={18} weight="fill" />{status}</p>}
+      <p className={styles.formNote}>提交信息仅用于本次业务判断与后续沟通，我们会妥善保护您的联系方式。</p>
+      {status && <p className={`${styles.formStatus} ${status.type === "error" ? styles.formStatusError : ""}`} role="status"><CheckCircle aria-hidden="true" size={18} weight="fill" />{status.message}</p>}
     </form>
   );
 }

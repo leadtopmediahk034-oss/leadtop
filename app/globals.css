@@ -4152,6 +4152,10 @@ p {
   color: var(--sage-strong);
 }
 
+.form-status.is-error {
+  color: #b84535;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
