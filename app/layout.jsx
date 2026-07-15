@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Varela_Round } from "next/font/google";
 import InquiryAttribution from "../components/InquiryAttribution";
-import { Analytics } from "@vercel/analytics/next";
 
 const varelaRound = Varela_Round({
   subsets: ["latin"],
@@ -32,7 +31,6 @@ export default function RootLayout({ children }) {
       <body style={assetStyles}>
         <InquiryAttribution />
         {children}
-        <Analytics />
       </body>
     </html>
   );

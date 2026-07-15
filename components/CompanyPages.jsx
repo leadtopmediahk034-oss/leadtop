@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
 import {
   ArrowRight,
   Buildings,
@@ -149,6 +150,18 @@ const managementPrinciples = [
   ["长期陪跑", "重视客户生命周期价值，也重视员工的职业成长路径"],
 ];
 
+const partnerMarqueeItems = ["Google Ads", "Criteo Ads", "Shopify Plus", "Meta Ads", "Bing Ads", "Pinterest", "LinkedIn", "GA4", "CRO", "GEO"];
+
+function ScrubText({ children }) {
+  return (
+    <p data-scrub-text aria-label={children}>
+      {Array.from(children).map((character, index) => (
+        <span aria-hidden="true" key={`${character}-${index}`}>{character}</span>
+      ))}
+    </p>
+  );
+}
+
 function PageShell({ children }) {
   return (
     <div className={styles.page}>
@@ -161,9 +174,99 @@ function PageShell({ children }) {
 }
 
 export function AboutPage() {
+  const aboutRef = useRef(null);
+
+  useLayoutEffect(() => {
+    let context;
+    let cancelled = false;
+
+    async function initializeMotion() {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+
+      if (cancelled || !aboutRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      gsap.registerPlugin(ScrollTrigger);
+      context = gsap.context(() => {
+        gsap.utils.toArray("[data-motion-image]").forEach((frame) => {
+          const image = frame.querySelector("img");
+          if (!image) return;
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: frame,
+              start: "top 92%",
+              end: "bottom 8%",
+              scrub: 0.8,
+            },
+          })
+            .fromTo(image, { scale: 0.88, opacity: 0.42 }, { scale: 1, opacity: 1, duration: 0.48, ease: "none" })
+            .to(image, { scale: 1.035, opacity: 0.28, duration: 0.52, ease: "none" });
+        });
+
+        gsap.utils.toArray("[data-scrub-text]").forEach((paragraph) => {
+          gsap.fromTo(paragraph.children,
+            { opacity: 0.12 },
+            {
+              opacity: 1,
+              stagger: 0.035,
+              ease: "none",
+              scrollTrigger: {
+                trigger: paragraph,
+                start: "top 82%",
+                end: "bottom 48%",
+                scrub: 0.7,
+              },
+            });
+        });
+
+        gsap.fromTo(`.${styles.systemsYear}`,
+          { yPercent: 32, opacity: 0, scale: 0.88 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            scale: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: `.${styles.systemsSection}`,
+              start: "top 72%",
+              end: "top 32%",
+              scrub: 0.7,
+            },
+          });
+
+        gsap.utils.toArray(`.${styles.systemPanel}`).forEach((panel, index) => {
+          gsap.fromTo(panel,
+            { y: 90 + index * 28, rotate: index === 0 ? -1.4 : 1.4 },
+            {
+              y: 0,
+              rotate: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: `.${styles.systemsGrid}`,
+                start: "top 86%",
+                end: "top 28%",
+                scrub: 0.8,
+              },
+            });
+        });
+      }, aboutRef);
+
+      ScrollTrigger.refresh();
+    }
+
+    initializeMotion();
+    return () => {
+      cancelled = true;
+      context?.revert();
+    };
+  }, []);
+
   return (
     <PageShell>
-      <main className={styles.aboutMain} id="main-content">
+      <main className={styles.aboutMain} id="main-content" ref={aboutRef}>
         <section className={styles.aboutHero} aria-labelledby="about-title">
           <Image
             alt="Leadtop 团队在宁波办公室围绕全球增长项目协作"
@@ -171,11 +274,11 @@ export function AboutPage() {
             fill
             priority
             sizes="100vw"
-            src="/leadtop/about/team-workspace.jpg"
+            src="/leadtop/about/concepts/about-hero-effect.png"
           />
           <div className={styles.aboutHeroShade} />
           <div className={styles.heroCopy}>
-            <span className={styles.aboutKicker}>About Leadtop · 2016—2030</span>
+            <span className={styles.aboutKicker}>Leadtop · 2016—2030</span>
             <h1 id="about-title">从宁波出发，<br />陪中国品牌走向全球</h1>
             <p className={styles.heroStatement}>从海外营销服务商，到全球品牌增长伙伴</p>
             <p className={styles.heroIntro}>Leadtop 聚焦中国企业全球化增长，以数字营销、独立站、数据技术与用户运营能力，构建面向 B2B 与 B2C 的全链路增长体系。</p>
@@ -191,7 +294,7 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.originSection}`} id="history" aria-labelledby="origin-title">
           <div className={styles.sectionIntro}>
-            <span>01 / Origin</span>
+            <span>起点 Origin</span>
             <p>2016—2019</p>
             <h2 id="origin-title">扎根宁波，服务中国企业全球化第一阶段</h2>
           </div>
@@ -211,20 +314,20 @@ export function AboutPage() {
                 {["海外广告投放", "搜索营销", "外贸企业获客", "海外市场推广"].map((item) => <span key={item}>{item}</span>)}
               </div>
             </div>
-            <div className={styles.originVisual}>
-              <Image alt="Leadtop 团队开展海外数字营销工作" fill sizes="(max-width: 900px) 100vw, 50vw" src="/leadtop/about/team-collaboration.jpg" />
+            <div className={styles.originVisual} data-motion-image>
+              <Image alt="Leadtop 起步阶段办公室与宁波港" fill sizes="(max-width: 900px) 100vw, 50vw" src="/leadtop/about/concepts/about-origin-effect.png" />
               <div><span>Ningbo, China</span><strong>我们的起点</strong></div>
             </div>
           </div>
         </section>
 
         <section className={`${styles.aboutSection} ${styles.capabilitySection}`} aria-labelledby="capability-title">
-          <div className={styles.capabilityMedia}>
-            <Image alt="Leadtop 团队分析数字营销数据与增长路径" fill sizes="(max-width: 900px) 100vw, 55vw" src="/leadtop/about/growth-strategy.jpg" />
+          <div className={styles.capabilityMedia} data-motion-image>
+            <Image alt="Leadtop 团队分析数字营销数据与增长路径" fill sizes="(max-width: 900px) 100vw, 55vw" src="/leadtop/about/concepts/about-capability-effect.png" />
             <div className={styles.routeLine}><span>Ningbo</span><i /><i /><i /><strong>Global markets</strong></div>
           </div>
           <div className={styles.capabilityContent}>
-            <span className={styles.darkIndex}>02 / Capability</span>
+            <span className={styles.darkIndex}>能力进化 Capability</span>
             <h2 id="capability-title">2020—2022<small>从流量服务，走向技术驱动的增长服务</small></h2>
             <div className={styles.darkMilestones}>
               {capabilityMilestones.map((milestone) => (
@@ -244,7 +347,7 @@ export function AboutPage() {
         <section className={`${styles.aboutSection} ${styles.partnerSection}`} aria-labelledby="partner-title">
           <div className={styles.partnerHeader}>
             <div className={styles.sectionIntro}>
-              <span>03 / Partner ecosystem</span>
+              <span>全球伙伴 Partner ecosystem</span>
               <p>2022—2024</p>
               <h2 id="partner-title">链接全球领先平台，建立专业增长能力</h2>
             </div>
@@ -258,6 +361,11 @@ export function AboutPage() {
               </article>
             ))}
           </div>
+          <div className={styles.partnerMarquee} aria-label="Leadtop 全球增长能力生态">
+            <div>
+              {[...partnerMarqueeItems, ...partnerMarqueeItems].map((item, index) => <span aria-hidden={index >= partnerMarqueeItems.length} key={`${item}-${index}`}>{item}</span>)}
+            </div>
+          </div>
           <div className={styles.partnerStage}><ChartLineUp aria-hidden="true" size={28} weight="duotone" />从广告代理商，升级为独立站全链路增长服务商</div>
           <div className={styles.capabilityMatrix}>
             {capabilityMatrix.map(([title, copy]) => <div key={title}><strong>{title}</strong><p>{copy}</p></div>)}
@@ -267,8 +375,11 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.systemsSection}`} id="systems" aria-labelledby="systems-title">
           <div className={styles.systemsHeader}>
-            <div><span>04 / Growth systems · 2025</span><h2 id="systems-title">打造面向不同商业模式的增长解决方案</h2></div>
-            <p>基于多年服务 B2B 和 B2C 客户经验，Leadtop 正式打造两大增长体系。</p>
+            <div className={styles.systemsTitleLockup}>
+              <strong className={styles.systemsYear}>2025</strong>
+              <div><span>增长系统 Growth systems</span><h2 id="systems-title">打造面向不同商业模式的增长解决方案</h2></div>
+            </div>
+            <ScrubText>基于多年服务 B2B 和 B2C 客户经验，Leadtop 正式打造两大增长体系。</ScrubText>
           </div>
           <div className={styles.systemsGrid}>
             {growthSystems.map((system) => (
@@ -287,7 +398,7 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.roadmapSection}`} aria-labelledby="roadmap-title">
           <aside className={styles.validationPanel}>
-            <span>05 / Validation</span>
+            <span>规模验证 Validation</span>
             <h2>2026<small>从方法论验证，进入增长成果复制</small></h2>
             <h3>2026 H1</h3>
             <ul>
@@ -301,7 +412,7 @@ export function AboutPage() {
             </div>
           </aside>
           <div className={styles.futurePanel}>
-            <span>Future roadmap · 2026—2030</span>
+            <span>未来规划 · 2026—2030</span>
             <h2 id="roadmap-title">成为中国品牌全球增长领域领先服务平台</h2>
             <div className={styles.futureRoute}><i /><i /><i /><i /></div>
             <div className={styles.futurePillars}>
@@ -319,7 +430,7 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.businessSection}`} id="services" aria-labelledby="business-title">
           <div className={styles.businessIntro}>
-            <span>06 / Global growth</span>
+            <span>全球增长 Global growth</span>
             <h2 id="business-title">企业主要业务</h2>
             <p>围绕独立站、媒体投放、内容与用户运营，提供全球增长所需的核心能力。</p>
           </div>
@@ -334,7 +445,7 @@ export function AboutPage() {
               ))}
             </div>
             <aside className={styles.licensePanel}>
-              <div className={styles.licenseImage}><Image alt="Leadtop 团队规划全球增长项目" fill sizes="(max-width: 900px) 100vw, 38vw" src="/leadtop/about/growth-strategy.jpg" /></div>
+              <div className={styles.licenseImage} data-motion-image><Image alt="Leadtop 团队规划全球增长项目" fill sizes="(max-width: 900px) 100vw, 38vw" src="/leadtop/about/growth-strategy.jpg" /></div>
               <div className={styles.licenseContent}>
                 <span><Certificate aria-hidden="true" size={24} weight="duotone" />专业牌照</span>
                 {[["Google Partner", "官方合作伙伴"], ["Criteo Partner", "官方合作伙伴"], ["Shopify Plus Partner", "官方合作伙伴"]].map(([title, copy]) => <div key={title}><strong>{title}</strong><p>{copy}</p></div>)}
@@ -347,7 +458,7 @@ export function AboutPage() {
         <section className={`${styles.aboutSection} ${styles.cultureSection}`} id="culture" aria-labelledby="culture-title">
           <div className={styles.cultureVisual}>
             <Image alt="Leadtop 团队协作与企业文化" fill sizes="(max-width: 900px) 100vw, 42vw" src="/leadtop/about/team-collaboration.jpg" />
-            <span>07 / Culture</span>
+            <span>企业文化 Culture</span>
           </div>
           <div className={styles.cultureContent}>
             <h2 id="culture-title">Leadtop 文化</h2>
