@@ -144,7 +144,7 @@ const cultureValues = [
 ];
 
 const managementPrinciples = [
-  ["店小二", "不为‘看起来很忙’而努力，而是为客户效果、品牌影响力和真实增长负责"],
+  ["不内卷", "我们不是为“看起来很忙”而努力，而是为客户效果、品牌影响力、真实增长负责"],
   ["真分钱", "鼓励结果导向，对达成客户目标的团队和个人进行利润分享、奖金激励"],
   ["制度驱动", "奖罚分明、规则公平，构建一个靠贡献和能力说话的组织"],
   ["长期陪跑", "重视客户生命周期价值，也重视员工的职业成长路径"],
@@ -309,7 +309,25 @@ export function AboutPage() {
               ))}
             </div>
             <aside className={styles.licensePanel}>
-              <div className={styles.licenseImage}><Image alt="Leadtop 的 Google Partner、Criteo Partner 与 Shopify Plus Partner 专业牌照" fill sizes="(max-width: 900px) 100vw, 44vw" src="/leadtop/about/concepts/about-licenses-effect.png" /></div>
+              <div className={styles.licenseHeading}><span>Team credentials</span><h3>资质与证书</h3></div>
+              <div className={styles.licenseGallery}>
+                <figure className={styles.rankingCredential}>
+                  <div><Image alt="Leadtop 团队 Google 全国代理商专业认证考试排名第一" fill sizes="(max-width: 900px) 100vw, 42vw" src="/leadtop/about/credentials/google-certification-ranking.png" /></div>
+                  <figcaption>Google 全国代理商专业认证考试排名第一</figcaption>
+                </figure>
+                <figure>
+                  <div><Image alt="Leadtop 2023 谷歌出海大讲堂创意特训营广告学霸团队奖证书" fill sizes="(max-width: 900px) 50vw, 21vw" src="/leadtop/about/concepts/credential-google-academy-creative.png" /></div>
+                  <figcaption>广告学霸团队奖</figcaption>
+                </figure>
+                <figure>
+                  <div><Image alt="Leadtop 谷歌出海大讲堂代理商案例挑战赛最佳创新实践奖证书" fill sizes="(max-width: 900px) 50vw, 21vw" src="/leadtop/about/concepts/credential-google-academy-case.png" /></div>
+                  <figcaption>最佳创新实践奖</figcaption>
+                </figure>
+                <figure>
+                  <div><Image alt="Leadtop 团队专业资质与荣誉证书陈列" fill sizes="(max-width: 900px) 50vw, 21vw" src="/leadtop/about/credentials/team-credentials-wall.jpg" /></div>
+                  <figcaption>团队专业资质与荣誉</figcaption>
+                </figure>
+              </div>
             </aside>
           </div>
         </section>
@@ -337,7 +355,7 @@ export function AboutPage() {
               </div>
             </div>
             <div className={styles.originVisual} data-motion-image>
-              <Image alt="Leadtop 起步阶段办公室与宁波港" fill sizes="(max-width: 900px) 100vw, 50vw" src="/leadtop/about/concepts/about-origin-effect.png" />
+              <Image alt="Leadtop 宁波办公室品牌墙" fill sizes="(max-width: 900px) 100vw, 50vw" src="/leadtop/about/company-office.jpg" />
               <div><span>Ningbo, China</span><strong>我们的起点</strong></div>
             </div>
           </div>
@@ -345,7 +363,7 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.capabilitySection}`} aria-labelledby="capability-title">
           <div className={styles.capabilityMedia} data-motion-image>
-            <Image alt="Leadtop 团队分析数字营销数据与增长路径" fill sizes="(max-width: 900px) 100vw, 55vw" src="/leadtop/about/concepts/about-capability-effect.png" />
+            <Image alt="Leadtop 团队获得专业认证与荣誉" fill sizes="(max-width: 900px) 100vw, 55vw" src="/leadtop/about/capability-awards-team.jpg" />
             <div className={styles.routeLine}><span>Ningbo</span><i /><i /><i /><strong>Global markets</strong></div>
           </div>
           <div className={styles.capabilityContent}>
@@ -366,7 +384,7 @@ export function AboutPage() {
           </div>
         </section>
 
-        <section className={`${styles.aboutSection} ${styles.partnerSection}`} aria-labelledby="partner-title">
+        <section className={`${styles.aboutSection} ${styles.partnerSection}`} id="partner-credentials" aria-labelledby="partner-title">
           <div className={styles.partnerHeader}>
             <div className={styles.sectionIntro}>
               <span>全球伙伴 Partner ecosystem</span>
@@ -384,8 +402,19 @@ export function AboutPage() {
                 </article>
               ))}
             </div>
-            <div className={styles.partnerVisual}>
-              <Image alt="Leadtop 的 Google、Criteo 与 Shopify Plus 合作伙伴认证展示" fill sizes="(max-width: 900px) 100vw, 46vw" src="/leadtop/about/concepts/about-partner-effect.png" />
+            <div className={styles.partnerCredentials}>
+              <a href="https://partnersdirectory.withgoogle.com/partners/5115971347" rel="noreferrer" target="_blank">
+                <div><Image alt="Google Partners Directory 中的 Leadtop 官方合作伙伴页面截图" fill sizes="(max-width: 900px) 50vw, 23vw" src="/leadtop/about/credentials/google-partner-directory.png" /></div>
+                <span>Google Partner</span>
+              </a>
+              <a href="https://www.shopify.com/partners/directory/partner/leadtopmedia4" rel="noreferrer" target="_blank">
+                <div><Image alt="Shopify Partners Directory 中的 Leadtop Plus Partner 官方页面截图" fill sizes="(max-width: 900px) 100vw, 46vw" src="/leadtop/about/credentials/shopify-plus-partner-directory.png" /></div>
+                <span>Shopify Plus Partner</span>
+              </a>
+              <figure>
+                <div><Image alt="Leadtop Criteo Partner 2025 证书" fill sizes="(max-width: 900px) 50vw, 23vw" src="/leadtop/about/concepts/credential-criteo-2025.png" /></div>
+                <figcaption>Criteo Partner</figcaption>
+              </figure>
             </div>
           </div>
           <div className={styles.partnerMarquee} aria-label="Leadtop 全球增长能力生态">
@@ -456,7 +485,7 @@ export function AboutPage() {
 
         <section className={`${styles.aboutSection} ${styles.cultureSection}`} id="culture" aria-labelledby="culture-title">
           <div className={styles.cultureVisual}>
-            <Image alt="Leadtop 团队协作与企业文化" fill sizes="(max-width: 900px) 100vw, 42vw" src="/leadtop/about/team-collaboration.jpg" />
+            <Image alt="Leadtop 团队企业文化插画" fill sizes="(max-width: 900px) 100vw, 42vw" src="/leadtop/about/culture-team-art.png" />
             <span>企业文化 Culture</span>
           </div>
           <div className={styles.cultureContent}>

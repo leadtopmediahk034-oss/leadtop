@@ -138,8 +138,12 @@
 .partnerMilestones article > div { display: flex; align-items: baseline; gap: 22px; }
 .partnerMilestones article > div strong { color: #237157; font-size: var(--about-h1); }
 .partnerMilestones article > div span { color: var(--ink); font-weight: 780; }
-.partnerVisual { position: relative; overflow: hidden; aspect-ratio: 1580 / 1202; border: 1px solid #dfd7c9; border-radius: 26px 0 26px 0; background: #f4efe6; box-shadow: 0 28px 70px rgb(71 51 30 / .12); }
-.partnerVisual img { object-fit: cover; }
+.partnerCredentials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-self: start; }
+.partnerCredentials > * { min-width: 0; overflow: hidden; margin: 0; border: 1px solid #dfd7c9; border-radius: 16px; background: #fff; box-shadow: 0 16px 38px rgb(71 51 30 / .09); transition: transform 300ms var(--ease), box-shadow 300ms var(--ease); }
+.partnerCredentials > a:hover { box-shadow: 0 20px 44px rgb(71 51 30 / .15); transform: translateY(-4px); }
+.partnerCredentials > * > div { position: relative; overflow: hidden; aspect-ratio: 3 / 4; padding: 8px; border-bottom: 1px solid #ebe5d9; background: #f8f7f3; }
+.partnerCredentials img { object-fit: contain; }
+.partnerCredentials span, .partnerCredentials figcaption { display: block; min-height: 48px; padding: 13px 14px; color: #1e654f; font-size: .76rem; font-weight: 780; line-height: 1.35; }
 .partnerMarquee { position: relative; z-index: 1; overflow: hidden; margin-top: 34px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .partnerMarquee::before, .partnerMarquee::after { position: absolute; top: 0; bottom: 0; z-index: 2; width: 90px; content: ""; pointer-events: none; }
 .partnerMarquee::before { left: 0; background: linear-gradient(90deg, #fffdf7, transparent); }
@@ -222,12 +226,17 @@
 .serviceIndex article > span { color: #267058; font-weight: 820; }
 .serviceIndex svg { color: #2f7b5f; }
 .serviceIndex h3 { font-size: 1rem; font-weight: 700; }
-.licensePanel { overflow: hidden; border-radius: 18px; background: #133d31; box-shadow: 0 24px 65px rgb(48 48 36 / .12); }
-.licenseImage { position: relative; aspect-ratio: 1704 / 878; }
-.licenseImage img { object-fit: cover; }
+.licensePanel { display: flex; overflow: hidden; flex-direction: column; justify-content: center; padding: clamp(24px, 3vw, 38px); border: 1px solid #e0d8c8; border-radius: 18px; background: #fffaf0; box-shadow: 0 24px 65px rgb(48 48 36 / .1); }
+.licenseHeading span { color: #267058; font-size: .72rem; font-weight: 780; letter-spacing: .12em; text-transform: uppercase; }
+.licenseHeading h3 { margin-top: 10px; color: var(--ink); font-size: clamp(1.8rem, 3vw, 2.7rem); }
+.licenseGallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+.licenseGallery figure { min-width: 0; overflow: hidden; margin: 0; border: 1px solid #e0d8c8; border-radius: 14px; background: #fff; }
+.licenseGallery figure > div, .licenseGallery .rankingCredential > div { position: relative; aspect-ratio: 3 / 4; background: #f7f2e7; }
+.licenseGallery img { object-fit: contain; }
+.licenseGallery figcaption { padding: 12px 14px 14px; color: #1e654f; font-size: .76rem; font-weight: 760; line-height: 1.45; }
 
 .cultureSection { display: grid; grid-template-columns: minmax(420px, .78fr) minmax(0, 1.22fr); gap: clamp(40px, 6vw, 96px); align-items: start; background: #fffdf7; }
-.cultureVisual { position: relative; min-height: 760px; overflow: hidden; border-radius: 52px 0 52px 0; }
+.cultureVisual { position: relative; overflow: hidden; aspect-ratio: 1448 / 962; border-radius: 52px 0 52px 0; background: #fff4ef; }
 .cultureVisual::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgb(10 25 21 / .56)); content: ""; }
 .cultureVisual img { object-fit: cover; }
 .cultureVisual span { position: absolute; bottom: 28px; left: 30px; z-index: 1; color: white; font-size: .75rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
@@ -315,7 +324,8 @@
   .aboutHero { min-height: 760px; padding-bottom: 132px; }
   .heroCopy { width: 100%; }
   .originLayout, .capabilitySection, .partnerStoryLayout, .systemsGrid, .businessGrid, .cultureSection { grid-template-columns: 1fr; }
-  .originVisual, .cultureVisual { position: relative; top: auto; min-height: 520px; }
+  .originVisual, .cultureVisual { position: relative; top: auto; }
+  .originVisual { min-height: 520px; }
   .capabilityMedia { min-height: 560px; }
   .capabilityContent { padding: 72px 34px; }
   .systemsHeader { grid-template-columns: 1fr; gap: 20px; }
@@ -325,7 +335,7 @@
   .futurePillars { grid-template-columns: 1fr; }
   .futurePillars article + article { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
   .licensePanel { display: block; }
-  .cultureVisual { min-height: 600px; }
+  .cultureVisual { min-height: 0; }
   .cultureColumns { grid-template-columns: 1fr 1fr; }
   .contactAside { grid-template-columns: 1fr; }
   .asideHeading, .contactCards, .contactAsideImage { grid-column: 1; }
@@ -364,6 +374,9 @@
   .partnerMilestones article { grid-template-columns: 1fr; gap: 14px; }
   .partnerMilestones article > div { justify-content: space-between; }
   .partnerHeader > strong { top: -40px; }
+  .partnerCredentials, .licenseGallery { grid-auto-columns: min(78vw, 310px); grid-auto-flow: column; grid-template-columns: none; overflow-x: auto; padding: 2px 2px 16px; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .partnerCredentials > *, .licenseGallery > * { width: 100%; scroll-snap-align: start; }
+  .licenseGallery .rankingCredential { grid-column: auto; }
   .capabilityMatrix { grid-template-columns: 1fr; }
   .capabilityMatrix > div, .capabilityMatrix > div:nth-child(3) { min-height: 0; border-top: 1px solid #d6ded8; border-right: 0; }
   .capabilityMatrix > div:first-child { border-top: 0; }
@@ -380,8 +393,7 @@
   .businessGrid { margin-top: 42px; }
   .serviceIndex article { min-height: 116px; grid-template-columns: 44px 34px 1fr; }
   .licensePanel { display: block; }
-  .licenseImage { min-height: 0; }
-  .cultureVisual { min-height: 440px; border-radius: 34px 0; }
+  .cultureVisual { min-height: 0; border-radius: 34px 0; }
   .cultureColumns { grid-template-columns: 1fr; }
   .cultureColumns article { grid-template-columns: 90px 1fr; }
   .cultureCta { grid-template-columns: 1fr; }
