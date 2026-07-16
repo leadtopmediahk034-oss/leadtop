@@ -6,7 +6,6 @@ import { useLayoutEffect, useRef } from "react";
 import {
   ArrowRight,
   Buildings,
-  Certificate,
   ChartLineUp,
   CheckCircle,
   Code,
@@ -126,10 +125,11 @@ const futurePillars = [
 ];
 
 const coreServices = [
-  { title: "独立站全链路代运营（DTC）", Icon: Strategy },
+  { title: "DTC / B2B 独立站全链路代运营与获客转化", Icon: Strategy },
   { title: "Google、Meta、Bing、Pinterest、Criteo、Yandex、LinkedIn 等媒体广告代投放", Icon: Megaphone },
   { title: "KOL 红人营销及视频素材采集", Icon: UsersThree },
-  { title: "Shopify 高转化率建站服务（2C）、WordPress 高转化率建站服务（2B）", Icon: Code },
+  { title: "Shopify 高转化率建站服务（B2C）、WordPress 高转化率建站服务（B2B）", Icon: Code },
+  { title: "SEO / GEO 搜索增长与内容优化", Icon: GlobeHemisphereWest },
   { title: "社交媒体代运营", Icon: Handshake },
   { title: "EDM 营销", Icon: EnvelopeSimple },
 ];
@@ -292,6 +292,28 @@ export function AboutPage() {
           </div>
         </section>
 
+        <section className={`${styles.aboutSection} ${styles.businessSection}`} id="services" aria-labelledby="business-title">
+          <div className={styles.businessIntro}>
+            <span>全球增长 Global growth</span>
+            <h2 id="business-title">企业主要业务</h2>
+            <p>围绕独立站、媒体投放、内容与用户运营，提供全球增长所需的核心能力。</p>
+          </div>
+          <div className={styles.businessGrid}>
+            <div className={styles.serviceIndex}>
+              {coreServices.map(({ title, Icon }, index) => (
+                <article key={title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <Icon aria-hidden="true" size={23} weight="duotone" />
+                  <h3>{title}</h3>
+                </article>
+              ))}
+            </div>
+            <aside className={styles.licensePanel}>
+              <div className={styles.licenseImage}><Image alt="Leadtop 的 Google Partner、Criteo Partner 与 Shopify Plus Partner 专业牌照" fill sizes="(max-width: 900px) 100vw, 44vw" src="/leadtop/about/concepts/about-licenses-effect.png" /></div>
+            </aside>
+          </div>
+        </section>
+
         <section className={`${styles.aboutSection} ${styles.originSection}`} id="history" aria-labelledby="origin-title">
           <div className={styles.sectionIntro}>
             <span>起点 Origin</span>
@@ -353,13 +375,18 @@ export function AboutPage() {
             </div>
             <strong aria-hidden="true">24</strong>
           </div>
-          <div className={styles.partnerMilestones}>
-            {partnerMilestones.map((milestone) => (
-              <article key={milestone.year}>
-                <div><strong>{milestone.year}</strong><span>{milestone.partner}</span></div>
-                <ul>{milestone.items.map((item) => <li key={item}>{item}</li>)}</ul>
-              </article>
-            ))}
+          <div className={styles.partnerStoryLayout}>
+            <div className={styles.partnerMilestones}>
+              {partnerMilestones.map((milestone) => (
+                <article key={milestone.year}>
+                  <div><strong>{milestone.year}</strong><span>{milestone.partner}</span></div>
+                  <ul>{milestone.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                </article>
+              ))}
+            </div>
+            <div className={styles.partnerVisual}>
+              <Image alt="Leadtop 的 Google、Criteo 与 Shopify Plus 合作伙伴认证展示" fill sizes="(max-width: 900px) 100vw, 46vw" src="/leadtop/about/concepts/about-partner-effect.png" />
+            </div>
           </div>
           <div className={styles.partnerMarquee} aria-label="Leadtop 全球增长能力生态">
             <div>
@@ -370,7 +397,6 @@ export function AboutPage() {
           <div className={styles.capabilityMatrix}>
             {capabilityMatrix.map(([title, copy]) => <div key={title}><strong>{title}</strong><p>{copy}</p></div>)}
           </div>
-          <div className={styles.credentialNote}><Certificate aria-hidden="true" size={22} weight="duotone" /><span>合作身份以官方平台实际认证信息为准，本页不使用仿制证书或虚构平台标识。</span></div>
         </section>
 
         <section className={`${styles.aboutSection} ${styles.systemsSection}`} id="systems" aria-labelledby="systems-title">
@@ -425,33 +451,6 @@ export function AboutPage() {
               ))}
             </div>
             <div className={styles.futureGoal}><Target aria-hidden="true" size={28} weight="duotone" />成为帮助中国企业实现全球增长的长期战略伙伴。</div>
-          </div>
-        </section>
-
-        <section className={`${styles.aboutSection} ${styles.businessSection}`} id="services" aria-labelledby="business-title">
-          <div className={styles.businessIntro}>
-            <span>全球增长 Global growth</span>
-            <h2 id="business-title">企业主要业务</h2>
-            <p>围绕独立站、媒体投放、内容与用户运营，提供全球增长所需的核心能力。</p>
-          </div>
-          <div className={styles.businessGrid}>
-            <div className={styles.serviceIndex}>
-              {coreServices.map(({ title, Icon }, index) => (
-                <article key={title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <Icon aria-hidden="true" size={23} weight="duotone" />
-                  <h3>{title}</h3>
-                </article>
-              ))}
-            </div>
-            <aside className={styles.licensePanel}>
-              <div className={styles.licenseImage} data-motion-image><Image alt="Leadtop 团队规划全球增长项目" fill sizes="(max-width: 900px) 100vw, 38vw" src="/leadtop/about/growth-strategy.jpg" /></div>
-              <div className={styles.licenseContent}>
-                <span><Certificate aria-hidden="true" size={24} weight="duotone" />专业牌照</span>
-                {[["Google Partner", "官方合作伙伴"], ["Criteo Partner", "官方合作伙伴"], ["Shopify Plus Partner", "官方合作伙伴"]].map(([title, copy]) => <div key={title}><strong>{title}</strong><p>{copy}</p></div>)}
-                <small>仅使用文字陈述合作身份，不仿造任何平台 Logo 或证书图形。</small>
-              </div>
-            </aside>
           </div>
         </section>
 

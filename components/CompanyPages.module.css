@@ -132,11 +132,14 @@
 .partnerHeader { position: relative; display: grid; grid-template-columns: 1fr auto; }
 .partnerHeader > strong { position: absolute; top: -84px; right: -18px; color: #f1eadd; font-size: clamp(10rem, 22vw, 24rem); line-height: .82; letter-spacing: -.09em; }
 .partnerHeader .sectionIntro { position: relative; z-index: 1; }
-.partnerMilestones { position: relative; z-index: 1; max-width: 1120px; margin-top: 66px; border-top: 1px solid var(--line-strong); }
+.partnerStoryLayout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, .92fr) minmax(460px, 1.08fr); gap: clamp(36px, 5vw, 76px); align-items: start; margin-top: 66px; }
+.partnerMilestones { border-top: 1px solid var(--line-strong); }
 .partnerMilestones article { display: grid; min-height: 150px; grid-template-columns: minmax(220px, .46fr) 1fr; gap: 36px; align-items: center; padding: 25px 0; border-bottom: 1px solid var(--line); }
 .partnerMilestones article > div { display: flex; align-items: baseline; gap: 22px; }
 .partnerMilestones article > div strong { color: #237157; font-size: var(--about-h1); }
 .partnerMilestones article > div span { color: var(--ink); font-weight: 780; }
+.partnerVisual { position: relative; overflow: hidden; aspect-ratio: 1580 / 1202; border: 1px solid #dfd7c9; border-radius: 26px 0 26px 0; background: #f4efe6; box-shadow: 0 28px 70px rgb(71 51 30 / .12); }
+.partnerVisual img { object-fit: cover; }
 .partnerMarquee { position: relative; z-index: 1; overflow: hidden; margin-top: 34px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .partnerMarquee::before, .partnerMarquee::after { position: absolute; top: 0; bottom: 0; z-index: 2; width: 90px; content: ""; pointer-events: none; }
 .partnerMarquee::before { left: 0; background: linear-gradient(90deg, #fffdf7, transparent); }
@@ -152,8 +155,6 @@
 .capabilityMatrix > div:last-child { border-right: 0; }
 .capabilityMatrix strong { color: #1e654f; }
 .capabilityMatrix p { margin-top: 14px; font-size: .83rem; }
-.credentialNote { display: flex; align-items: center; gap: 10px; margin-top: 18px; color: var(--muted); font-size: .72rem; }
-.credentialNote svg { color: #2f7b5f; }
 
 .systemsSection { background: #f5f1e8; }
 .systemsHeader { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); gap: 60px; align-items: end; }
@@ -222,15 +223,8 @@
 .serviceIndex svg { color: #2f7b5f; }
 .serviceIndex h3 { font-size: 1rem; font-weight: 700; }
 .licensePanel { overflow: hidden; border-radius: 18px; background: #133d31; box-shadow: 0 24px 65px rgb(48 48 36 / .12); }
-.licenseImage { position: relative; min-height: 300px; }
-.licenseImage::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, #133d31); content: ""; }
+.licenseImage { position: relative; aspect-ratio: 1704 / 878; }
 .licenseImage img { object-fit: cover; }
-.licenseContent { padding: 18px 36px 36px; }
-.licenseContent > span { display: flex; gap: 10px; align-items: center; padding-bottom: 20px; border-bottom: 1px solid rgb(255 253 247 / .18); color: #fff8eb; font-size: 1.35rem; font-weight: 780; }
-.licenseContent > div { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgb(255 253 247 / .14); }
-.licenseContent strong { color: #fff8eb; }
-.licenseContent p { color: #9ec6b3; font-size: .78rem; }
-.licenseContent small { display: block; margin-top: 22px; color: rgb(255 253 247 / .54); font-size: .68rem; line-height: 1.6; }
 
 .cultureSection { display: grid; grid-template-columns: minmax(420px, .78fr) minmax(0, 1.22fr); gap: clamp(40px, 6vw, 96px); align-items: start; background: #fffdf7; }
 .cultureVisual { position: relative; min-height: 760px; overflow: hidden; border-radius: 52px 0 52px 0; }
@@ -320,7 +314,7 @@
   .contactHeroImage { min-height: 480px; }
   .aboutHero { min-height: 760px; padding-bottom: 132px; }
   .heroCopy { width: 100%; }
-  .originLayout, .capabilitySection, .systemsGrid, .businessGrid, .cultureSection { grid-template-columns: 1fr; }
+  .originLayout, .capabilitySection, .partnerStoryLayout, .systemsGrid, .businessGrid, .cultureSection { grid-template-columns: 1fr; }
   .originVisual, .cultureVisual { position: relative; top: auto; min-height: 520px; }
   .capabilityMedia { min-height: 560px; }
   .capabilityContent { padding: 72px 34px; }
@@ -330,8 +324,7 @@
   .systemPanel { min-height: 640px; }
   .futurePillars { grid-template-columns: 1fr; }
   .futurePillars article + article { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
-  .licensePanel { display: grid; grid-template-columns: .85fr 1.15fr; }
-  .licenseImage { min-height: 100%; }
+  .licensePanel { display: block; }
   .cultureVisual { min-height: 600px; }
   .cultureColumns { grid-template-columns: 1fr 1fr; }
   .contactAside { grid-template-columns: 1fr; }
@@ -387,8 +380,7 @@
   .businessGrid { margin-top: 42px; }
   .serviceIndex article { min-height: 116px; grid-template-columns: 44px 34px 1fr; }
   .licensePanel { display: block; }
-  .licenseImage { min-height: 260px; }
-  .licenseContent { padding: 12px 24px 28px; }
+  .licenseImage { min-height: 0; }
   .cultureVisual { min-height: 440px; border-radius: 34px 0; }
   .cultureColumns { grid-template-columns: 1fr; }
   .cultureColumns article { grid-template-columns: 90px 1fr; }
