@@ -29,11 +29,11 @@ const navigation = [
   ] },
 ];
 
-const footerServices = [
-  { title: "网站建设", links: [["WordPress 网站", "/services/websitedesign"], ["Shopify 独立站", "/services/websitedesign"], ["营销落地页", "/services/ui"]] },
-  { title: "搜索与内容", links: [["搜索引擎优化", "#capabilities"], ["生成式引擎优化", "#capabilities"], ["内容营销", "#capabilities"]] },
-  { title: "广告与媒体", links: [["媒体开户与充值", "/services/mediabuy"], ["搜索与社媒广告", "/services/ads"], ["效果投放运营", "/services/ads"]] },
-  { title: "增长运营", links: [["创意设计", "/services/ui"], ["社交媒体运营", "/services/socialmedia"], ["品牌孵化", "/services/incubation"], ["增长咨询", "/services/consultation"], ["转化率优化", "#capabilities"]] },
+const footerNavigation = [
+  { title: "服务与方案", links: [["Polaris B2B 增长系统", "/polaris"], ["Helios DTC 增长引擎", "/helios"], ["独立站建设与转化", "/services/websitedesign"], ["广告投放与媒体", "/services/ads"], ["SEO / GEO 与内容", "#capabilities"], ["社媒与品牌运营", "/services/socialmedia"]] },
+  { title: "案例与资源", links: [["B2B 出海案例", "#proof"], ["DTC 品牌案例", "#proof"], ["增长洞察", "/blog"], ["实战指南", "/blog"], ["常见问题", "#faq"]] },
+  { title: "关于 Leadtop", links: [["公司介绍", "/aboutus"], ["专业团队", "/aboutus"], ["合作伙伴", "/aboutus"], ["公司动态", "/aboutus"]] },
+  { title: "联系与合作", links: [["联系我们", "/contactus"], ["加入我们", "/aboutus"], ["获取增长方案", "/contactus"]] },
 ];
 
 const pageHref = (href, isHomepage) => href.startsWith("#") && !isHomepage ? `/${href}` : href;
@@ -104,11 +104,7 @@ export function SiteFooter({ isHomepage = false }) {
         <h2>让全球增长成为<br />可持续经营能力</h2>
         <p>连接独立站、媒体、内容、转化与数据，为 B2B 企业和 DTC 品牌建设长期增长系统。</p>
       </div>
-      <section className={styles.footerServices} id="resources" aria-labelledby="footer-services-title">
-        <div><span>服务能力</span><h3 id="footer-services-title">增长服务能力</h3><p>围绕增长目标整合建站、内容、媒体和运营能力。</p></div>
-        <nav aria-label="服务导航">{footerServices.map((group) => <div className={styles.footerServiceGroup} key={group.title}><strong>{group.title}</strong>{group.links.map(([label, link]) => <Link key={label} href={pageHref(link, isHomepage)}>{label}</Link>)}</div>)}</nav>
-      </section>
-      <nav className={styles.footerNav} aria-label="页脚导航">{navigation.map((item) => <section key={item.label}><h3>{item.label}</h3>{item.groups.map((group) => <div className={styles.footerGroup} key={group.title}>{item.groups.length > 1 && <strong>{group.title}</strong>}{group.links.map(([label, link]) => <Link key={`${group.title}-${label}`} href={pageHref(link, isHomepage)}>{label}</Link>)}</div>)}</section>)}</nav>
+      <nav className={styles.footerNav} id="resources" aria-label="页脚导航">{footerNavigation.map((group) => <section key={group.title}><h3>{group.title}</h3><div className={styles.footerGroup}>{group.links.map(([label, link]) => <Link key={label} href={pageHref(link, isHomepage)}>{label}</Link>)}</div></section>)}</nav>
       <div className={styles.footerBottom}><span>Leadtop © 2026</span><span>Polaris 增长系统 · Helios 增长引擎</span><div><Link href={href("#privacy")}>隐私政策</Link><Link href={href("#terms")}>使用条款</Link><Link href={href("#sitemap")}>网站地图</Link></div></div>
     </footer>
   );

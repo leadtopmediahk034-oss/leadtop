@@ -288,16 +288,7 @@
 .footerBrandLogo { display: block; width: clamp(178px, 16vw, 220px); height: auto; }
 .footerLead h2 { max-width: 900px; margin-top: 34px; color: var(--ink); font-size: clamp(2.35rem, 4vw, 4.4rem); line-height: 1.04; }
 .footerLead > p { max-width: 56ch; margin-top: 24px; color: #4f3b22; font-size: .86rem; }
-.footerServices { position: relative; display: grid; grid-template-columns: 240px 1fr; gap: 54px; padding: 42px 0; border-top: 1px solid rgb(255 255 255 / .14); }
-.footerServices > div > span { color: var(--sun); font-size: .62rem; font-weight: 820; letter-spacing: .12em; }
-.footerServices h3 { margin-top: 12px; color: white; font-size: 1.25rem; }
-.footerServices p { margin-top: 12px; color: #8f9bad; font-size: .68rem; }
-.footerServices > nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
-.footerServiceGroup { display: flex; flex-direction: column; gap: 8px; }
-.footerServiceGroup strong { padding-bottom: 12px; border-bottom: 1px solid rgb(255 255 255 / .12); color: #aeb7c5; font-size: .69rem; }
-.footerServiceGroup a { width: fit-content; color: #d2d8e1; font-size: .7rem; line-height: 1.45; transition: color 240ms var(--ease), transform 240ms var(--ease); }
-.footerServiceGroup a:hover { color: var(--sun); transform: translateX(3px); }
-.footerNav { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; padding: 42px 0 58px; border-top: 1px solid rgb(255 255 255 / .14); }
+.footerNav { position: relative; display: grid; grid-template-columns: 1.45fr 1fr 1fr .9fr; gap: 48px; padding: 48px 0 58px; border-top: 1px solid rgb(255 255 255 / .14); }
 .footerNav section { min-width: 0; }
 .footerNav h3 { padding-bottom: 14px; border-bottom: 1px solid rgb(255 255 255 / .12); color: var(--sun); font-size: .76rem; }
 .footerGroup { display: grid; gap: 8px; margin-top: 16px; }
@@ -323,8 +314,7 @@
   .caseGrid { grid-template-columns: 1fr; }
   .casePrimary, .caseSecondary { grid-template-columns: 1fr; grid-template-rows: 420px 1fr; }
   .methodLayout { grid-template-columns: 1fr; }
-  .footerServices { grid-template-columns: 1fr; gap: 30px; }
-  .footerNav { grid-template-columns: repeat(3, 1fr); row-gap: 44px; }
+  .footerNav { grid-template-columns: repeat(2, 1fr); row-gap: 44px; }
 }
 
 @media (max-width: 900px) {
@@ -431,9 +421,6 @@
   .siteFooter { padding: 72px 18px 24px; }
   .footerLead { margin-top: -72px; padding: 72px 18px 52px; }
   .footerLead > p { margin-top: 20px; }
-  .footerServices { padding: 34px 0; }
-  .footerServices > nav { grid-template-columns: 1fr 1fr; gap: 30px 22px; }
-  .footerServiceGroup a { font-size: .72rem; }
   .footerNav { grid-template-columns: 1fr 1fr; gap: 38px 22px; padding: 38px 0 48px; }
   .footerGroup a { font-size: .72rem; }
   .footerBottom { grid-template-columns: 1fr; gap: 13px; }
