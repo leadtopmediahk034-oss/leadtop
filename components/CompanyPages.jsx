@@ -520,7 +520,7 @@ export function ContactPage() {
   const contacts = [
     {
       title: "电话",
-      lines: ["全国咨询：17815956889", "华南区：+86 150 5889 8105", "华东华北区：+86 137 3216 5859"],
+      lines: ["15058898105"],
       Icon: Phone,
     },
     { title: "地址", lines: ["浙江省宁波市宁波中心 A 座"], Icon: MapPin },
