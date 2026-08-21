@@ -13,6 +13,8 @@ final class Leadtop_Inquiries {
 	const POST_TYPE   = 'leadtop_inquiry';
 	const API_ROLE    = 'leadtop_inquiry_api';
 	const OPTION_KEY  = 'leadtop_inquiries_options';
+	const OPTION_VERSION_KEY = 'leadtop_inquiries_options_version';
+	const DEFAULT_NOTIFICATION_RECIPIENT = 'leadtopmediahk@gmail.com';
 	const REST_NS     = 'leadtop/v1';
 	const REST_ROUTE  = '/inquiries';
 
@@ -69,6 +71,7 @@ final class Leadtop_Inquiries {
 		add_action( 'before_delete_post', array( $this, 'notify_content_deletion' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 		add_action( 'admin_menu', array( $this, 'register_settings_page' ) );
+		add_action( 'admin_init', array( $this, 'maybe_upgrade_settings' ), 5 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_post_leadtop_export_inquiries', array( $this, 'export_csv' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'render_status_filter' ) );
@@ -395,11 +398,26 @@ final class Leadtop_Inquiries {
 	 * @return void
 	 */
 	public function render_followup_box( $post ) {
-		$status = get_post_meta( $post->ID, '_leadtop_status', true );
-		$owner  = get_post_meta( $post->ID, '_leadtop_owner', true );
-		$notes  = get_post_meta( $post->ID, '_leadtop_notes', true );
+		$status              = get_post_meta( $post->ID, '_leadtop_status', true );
+		$owner               = get_post_meta( $post->ID, '_leadtop_owner', true );
+		$notes               = get_post_meta( $post->ID, '_leadtop_notes', true );
+		$notification_status = get_post_meta( $post->ID, '_leadtop_notification_status', true );
+		$notification_time   = get_post_meta( $post->ID, '_leadtop_notification_attempted_at', true );
+		$notification_labels = array(
+			'sent'                  => '已发送',
+			'failed'                => '发送失败',
+			'skipped_disabled'      => '通知已关闭',
+			'skipped_no_recipient'  => '未配置有效收件邮箱',
+		);
 		wp_nonce_field( 'leadtop_save_inquiry', 'leadtop_inquiry_nonce' );
 		?>
+		<p>
+			<strong>邮件通知</strong><br>
+			<?php echo esc_html( isset( $notification_labels[ $notification_status ] ) ? $notification_labels[ $notification_status ] : '暂无记录' ); ?>
+			<?php if ( $notification_time ) : ?>
+				<br><small><?php echo esc_html( get_date_from_gmt( $notification_time, 'Y-m-d H:i:s' ) ); ?></small>
+			<?php endif; ?>
+		</p>
 		<p>
 			<label for="leadtop-status"><strong>处理状态</strong></label><br>
 			<select class="widefat" id="leadtop-status" name="leadtop_status">
@@ -657,9 +675,31 @@ final class Leadtop_Inquiries {
 						'revalidate_secret'   => isset( $input['revalidate_secret'] ) ? sanitize_text_field( $input['revalidate_secret'] ) : '',
 					);
 				},
-				'default'           => array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ), 'revalidate_url' => '', 'revalidate_secret' => '' ),
+				'default'           => array( 'notify' => '1', 'recipients' => $this->default_recipient_list(), 'revalidate_url' => '', 'revalidate_secret' => '' ),
 			)
 		);
+	}
+
+	/**
+	 * Preserve existing settings and append the new notification mailbox once.
+	 *
+	 * @return void
+	 */
+	public function maybe_upgrade_settings() {
+		if ( LEADTOP_INQUIRIES_VERSION === get_option( self::OPTION_VERSION_KEY ) ) {
+			return;
+		}
+
+		$options = wp_parse_args(
+			get_option( self::OPTION_KEY, array() ),
+			array( 'notify' => '1', 'recipients' => '', 'revalidate_url' => '', 'revalidate_secret' => '' )
+		);
+		$options['recipients'] = $this->sanitize_recipient_list(
+			implode( ', ', array_filter( array( $options['recipients'], self::DEFAULT_NOTIFICATION_RECIPIENT ) ) )
+		);
+
+		update_option( self::OPTION_KEY, $options );
+		update_option( self::OPTION_VERSION_KEY, LEADTOP_INQUIRIES_VERSION );
 	}
 
 	/**
@@ -671,7 +711,7 @@ final class Leadtop_Inquiries {
 		if ( ! current_user_can( 'manage_leadtop_inquiries' ) ) {
 			return;
 		}
-		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ), 'revalidate_url' => '', 'revalidate_secret' => '' ) );
+		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => $this->default_recipient_list(), 'revalidate_url' => '', 'revalidate_secret' => '' ) );
 		?>
 		<div class="wrap leadtop-settings">
 			<h1>Leadtop 询盘设置</h1>
@@ -789,6 +829,15 @@ final class Leadtop_Inquiries {
 	}
 
 	/**
+	 * Get the notification recipients used for a new installation.
+	 *
+	 * @return string
+	 */
+	private function default_recipient_list() {
+		return $this->sanitize_recipient_list( get_option( 'admin_email' ) . ', ' . self::DEFAULT_NOTIFICATION_RECIPIENT );
+	}
+
+	/**
 	 * Send a concise notification after a successful insert.
 	 *
 	 * @param int                  $post_id Inquiry ID.
@@ -796,13 +845,19 @@ final class Leadtop_Inquiries {
 	 * @return void
 	 */
 	private function send_notification( $post_id, $data ) {
-		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => get_option( 'admin_email' ) ) );
-		if ( '1' !== $options['notify'] || empty( $options['recipients'] ) ) {
+		$options = wp_parse_args( get_option( self::OPTION_KEY, array() ), array( 'notify' => '1', 'recipients' => $this->default_recipient_list() ) );
+		if ( '1' !== $options['notify'] ) {
+			update_post_meta( $post_id, '_leadtop_notification_status', 'skipped_disabled' );
+			return;
+		}
+		if ( empty( $options['recipients'] ) ) {
+			update_post_meta( $post_id, '_leadtop_notification_status', 'skipped_no_recipient' );
 			return;
 		}
 
 		$recipients = array_filter( array_map( 'sanitize_email', preg_split( '/[;,\s]+/', $options['recipients'] ) ) );
 		if ( empty( $recipients ) ) {
+			update_post_meta( $post_id, '_leadtop_notification_status', 'skipped_no_recipient' );
 			return;
 		}
 
@@ -814,9 +869,17 @@ final class Leadtop_Inquiries {
 			}
 		}
 		$lines[] = '';
+		$lines[] = '提交时间：' . get_post_time( 'Y-m-d H:i:s', false, $post_id );
 		$lines[] = '后台查看：' . admin_url( 'post.php?post=' . $post_id . '&action=edit' );
 
-		wp_mail( $recipients, $subject, implode( "\n", $lines ) );
+		$headers = array();
+		if ( ! empty( $data['email'] ) && is_email( $data['email'] ) ) {
+			$headers[] = 'Reply-To: ' . sanitize_text_field( $data['name'] ) . ' <' . sanitize_email( $data['email'] ) . '>';
+		}
+
+		$sent = wp_mail( $recipients, $subject, implode( "\n", $lines ), $headers );
+		update_post_meta( $post_id, '_leadtop_notification_status', $sent ? 'sent' : 'failed' );
+		update_post_meta( $post_id, '_leadtop_notification_attempted_at', current_time( 'mysql', true ) );
 	}
 
 	/**
