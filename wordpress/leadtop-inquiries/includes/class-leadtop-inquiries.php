@@ -14,7 +14,7 @@ final class Leadtop_Inquiries {
 	const API_ROLE    = 'leadtop_inquiry_api';
 	const OPTION_KEY  = 'leadtop_inquiries_options';
 	const OPTION_VERSION_KEY = 'leadtop_inquiries_options_version';
-	const DEFAULT_NOTIFICATION_RECIPIENT = 'leadtopmediahk@gmail.com';
+	const DEFAULT_NOTIFICATION_RECIPIENT = 'leadtopmediahk034@gmail.com';
 	const REST_NS     = 'leadtop/v1';
 	const REST_ROUTE  = '/inquiries';
 
@@ -681,7 +681,7 @@ final class Leadtop_Inquiries {
 	}
 
 	/**
-	 * Preserve existing settings and append the new notification mailbox once.
+	 * Migrate notification delivery to the current sole recipient once.
 	 *
 	 * @return void
 	 */
@@ -694,9 +694,7 @@ final class Leadtop_Inquiries {
 			get_option( self::OPTION_KEY, array() ),
 			array( 'notify' => '1', 'recipients' => '', 'revalidate_url' => '', 'revalidate_secret' => '' )
 		);
-		$options['recipients'] = $this->sanitize_recipient_list(
-			implode( ', ', array_filter( array( $options['recipients'], get_option( 'admin_email' ), self::DEFAULT_NOTIFICATION_RECIPIENT ) ) )
-		);
+		$options['recipients'] = self::DEFAULT_NOTIFICATION_RECIPIENT;
 
 		update_option( self::OPTION_KEY, $options );
 		update_option( self::OPTION_VERSION_KEY, LEADTOP_INQUIRIES_VERSION );
@@ -834,7 +832,7 @@ final class Leadtop_Inquiries {
 	 * @return string
 	 */
 	private function default_recipient_list() {
-		return $this->sanitize_recipient_list( get_option( 'admin_email' ) . ', ' . self::DEFAULT_NOTIFICATION_RECIPIENT );
+		return self::DEFAULT_NOTIFICATION_RECIPIENT;
 	}
 
 	/**
