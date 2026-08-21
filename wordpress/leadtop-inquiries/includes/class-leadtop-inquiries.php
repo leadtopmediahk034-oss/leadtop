@@ -695,7 +695,7 @@ final class Leadtop_Inquiries {
 			array( 'notify' => '1', 'recipients' => '', 'revalidate_url' => '', 'revalidate_secret' => '' )
 		);
 		$options['recipients'] = $this->sanitize_recipient_list(
-			implode( ', ', array_filter( array( $options['recipients'], self::DEFAULT_NOTIFICATION_RECIPIENT ) ) )
+			implode( ', ', array_filter( array( $options['recipients'], get_option( 'admin_email' ), self::DEFAULT_NOTIFICATION_RECIPIENT ) ) )
 		);
 
 		update_option( self::OPTION_KEY, $options );

@@ -3,7 +3,7 @@
  * Plugin Name: Leadtop 询盘管理
  * Plugin URI:  https://leadtopmedia.com/
  * Description: 管理 Leadtop 官网询盘，并在文章发布、更新或删除时通知 Next.js 自动刷新博客。
- * Version:     1.1.1
+ * Version:     1.1.2
  * Author:      Leadtop
  * Text Domain: leadtop-inquiries
  * Requires at least: 6.4
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LEADTOP_INQUIRIES_VERSION', '1.1.1' );
+define( 'LEADTOP_INQUIRIES_VERSION', '1.1.2' );
 define( 'LEADTOP_INQUIRIES_FILE', __FILE__ );
 define( 'LEADTOP_INQUIRIES_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LEADTOP_INQUIRIES_URL', plugin_dir_url( __FILE__ ) );
