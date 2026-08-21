@@ -4,7 +4,7 @@ Tags: inquiries, leads, headless wordpress, crm
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 License: GPLv2 or later
 
 接收 Leadtop 官网表单，并在 WordPress 后台统一管理询盘。
@@ -28,7 +28,7 @@ License: GPLv2 or later
 3. 创建一个专用 WordPress 用户，将角色设为“Leadtop 询盘接口”。
 4. 在该用户资料页创建应用密码。
 5. 将 WordPress REST API 地址、用户名和应用密码配置在 Next.js 服务端环境变量中。
-6. 在“询盘管理 > 询盘设置”中配置通知邮箱。默认且升级后的通知收件人为 leadtopmediahk034@gmail.com。
+6. 在“询盘管理 > 询盘设置”中配置通知邮箱。默认包含 WordPress 管理员邮箱和 leadtopmediahk@gmail.com，升级时会保留原收件人并自动追加这两个地址。
 7. 如需文章即时同步，在同一设置页填写 Next.js 刷新地址和共享密钥。
 
 == REST API ==
@@ -50,6 +50,9 @@ Helios 表单当前使用的 site 字段也会自动归一为 website。
 插件会保存表单中提交的个人联系方式。站点运营方应在隐私政策中说明用途、保存期限和删除方式，并仅向确有需要的后台人员开放询盘管理权限。
 
 == Changelog ==
+
+= 1.1.4 =
+* 恢复正式询盘通知的管理员邮箱、原收件人和 leadtopmediahk@gmail.com 配置；测试邮箱不写入正式收件人。
 
 = 1.1.3 =
 * 将新询盘通知收件人统一为 leadtopmediahk034@gmail.com。
