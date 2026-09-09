@@ -903,7 +903,7 @@ final class Leadtop_Inquiries {
 
 		$subject = sprintf( '[Leadtop 新询盘] %s%s', isset( $data['name'] ) ? $data['name'] : '未知联系人', empty( $data['company'] ) ? '' : ' · ' . $data['company'] );
 		$lines   = array( 'Leadtop 官网收到一条新询盘：', '' );
-		foreach ( array( 'name', 'company', 'contact', 'phone', 'wechat', 'email', 'website', 'business_type', 'problem', 'needs', 'form_type', 'source_page' ) as $field ) {
+		foreach ( array( 'name', 'company', 'contact', 'phone', 'wechat', 'email', 'website', 'business_type', 'problem', 'needs', 'form_type', 'source_page', 'landing_url', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content' ) as $field ) {
 			if ( ! empty( $data[ $field ] ) ) {
 				$lines[] = $this->field_labels[ $field ] . '：' . $data[ $field ];
 			}
