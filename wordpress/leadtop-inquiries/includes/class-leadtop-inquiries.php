@@ -580,6 +580,7 @@ final class Leadtop_Inquiries {
 	 * @return array<string,string>
 	 */
 	public function register_bulk_actions( $actions ) {
+		$actions['leadtop_resend_notification'] = '重新发送邮件通知';
 		foreach ( $this->statuses() as $key => $label ) {
 			$actions[ 'leadtop_status_' . $key ] = '设为：' . $label;
 		}
@@ -595,6 +596,18 @@ final class Leadtop_Inquiries {
 	 * @return string
 	 */
 	public function handle_bulk_actions( $redirect_url, $action, $post_ids ) {
+		if ( 'leadtop_resend_notification' === $action ) {
+			$count = 0;
+			foreach ( $post_ids as $post_id ) {
+				if ( current_user_can( 'edit_leadtop_inquiry', $post_id ) ) {
+					$this->queue_notification( $post_id );
+					++$count;
+				}
+			}
+
+			return add_query_arg( 'leadtop_notifications_queued', $count, $redirect_url );
+		}
+
 		if ( 0 !== strpos( $action, 'leadtop_status_' ) ) {
 			return $redirect_url;
 		}
@@ -621,6 +634,10 @@ final class Leadtop_Inquiries {
 	 * @return void
 	 */
 	public function bulk_action_notice() {
+		if ( isset( $_GET['leadtop_notifications_queued'] ) ) {
+			$count = absint( $_GET['leadtop_notifications_queued'] );
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( sprintf( '已将 %d 条询盘通知加入重新发送队列。', $count ) ) . '</p></div>';
+		}
 		if ( empty( $_GET['leadtop_updated'] ) ) {
 			return;
 		}
