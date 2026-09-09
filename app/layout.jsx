@@ -20,6 +20,9 @@ const assetStyles = {
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://leadtopmedia.com"),
+  verification: {
+    google: "-k4hvPiX4jJsS29k3daakqwgPneaiKfVDaBr0RDNrlw",
+  },
   title: "Leadtop Helios Growth Engine",
   description:
     "Leadtop Helios Growth Engine 是面向 B2C 品牌打造的独立站全链路增长解决方案，聚焦 GMV 与 ROI 的规模化增长。",
