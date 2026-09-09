@@ -4,7 +4,7 @@ Tags: inquiries, leads, headless wordpress, crm
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 
 接收 Leadtop 官网表单，并在 WordPress 后台统一管理询盘。
@@ -50,6 +50,10 @@ Helios 表单当前使用的 site 字段也会自动归一为 website。
 插件会保存表单中提交的个人联系方式。站点运营方应在隐私政策中说明用途、保存期限和删除方式，并仅向确有需要的后台人员开放询盘管理权限。
 
 == Changelog ==
+
+= 1.1.5 =
+* 新询盘邮件改为 WordPress 后台异步发送，避免 SMTP 延迟导致官网提交超时。
+* 后台增加排队中及加入队列失败状态。
 
 = 1.1.4 =
 * 恢复正式询盘通知的管理员邮箱、原收件人和 leadtopmediahk@gmail.com 配置；测试邮箱不写入正式收件人。

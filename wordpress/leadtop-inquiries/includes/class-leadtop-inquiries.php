@@ -65,6 +65,7 @@ final class Leadtop_Inquiries {
 	private function __construct() {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		add_action( 'leadtop_send_inquiry_notification', array( $this, 'send_scheduled_notification' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post_' . self::POST_TYPE, array( $this, 'save_admin_fields' ) );
 		add_action( 'save_post_post', array( $this, 'notify_content_change' ), 20, 3 );
@@ -339,7 +340,7 @@ final class Leadtop_Inquiries {
 		update_post_meta( $post_id, '_leadtop_status', 'new' );
 		update_post_meta( $post_id, '_leadtop_consent', $request->get_param( 'consent' ) ? '1' : '0' );
 
-		$this->send_notification( $post_id, $data );
+		$this->queue_notification( $post_id );
 
 		return new WP_REST_Response(
 			array(
@@ -404,8 +405,10 @@ final class Leadtop_Inquiries {
 		$notification_status = get_post_meta( $post->ID, '_leadtop_notification_status', true );
 		$notification_time   = get_post_meta( $post->ID, '_leadtop_notification_attempted_at', true );
 		$notification_labels = array(
+			'queued'                => '排队发送中',
 			'sent'                  => '已发送',
 			'failed'                => '发送失败',
+			'failed_to_queue'       => '加入发送队列失败',
 			'skipped_disabled'      => '通知已关闭',
 			'skipped_no_recipient'  => '未配置有效收件邮箱',
 		);
@@ -835,6 +838,43 @@ final class Leadtop_Inquiries {
 	 */
 	private function default_recipient_list() {
 		return $this->sanitize_recipient_list( get_option( 'admin_email' ) . ', ' . self::DEFAULT_NOTIFICATION_RECIPIENT );
+	}
+
+	/**
+	 * Queue notification delivery so SMTP latency never delays the inquiry API.
+	 *
+	 * @param int $post_id Inquiry ID.
+	 * @return void
+	 */
+	private function queue_notification( $post_id ) {
+		update_post_meta( $post_id, '_leadtop_notification_status', 'queued' );
+		$scheduled = wp_schedule_single_event( time(), 'leadtop_send_inquiry_notification', array( (int) $post_id ), true );
+		if ( is_wp_error( $scheduled ) || ! $scheduled ) {
+			update_post_meta( $post_id, '_leadtop_notification_status', 'failed_to_queue' );
+		}
+	}
+
+	/**
+	 * Load the stored inquiry and deliver its queued email notification.
+	 *
+	 * @param int $post_id Inquiry ID.
+	 * @return void
+	 */
+	public function send_scheduled_notification( $post_id ) {
+		$post = get_post( $post_id );
+		if ( ! $post || self::POST_TYPE !== $post->post_type ) {
+			return;
+		}
+
+		$data = array();
+		foreach ( array_keys( $this->field_labels ) as $field ) {
+			$value = get_post_meta( $post_id, '_leadtop_' . $field, true );
+			if ( '' !== $value ) {
+				$data[ $field ] = $value;
+			}
+		}
+
+		$this->send_notification( $post_id, $data );
 	}
 
 	/**
