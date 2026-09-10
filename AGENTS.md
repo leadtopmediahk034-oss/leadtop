@@ -36,6 +36,16 @@
 - Do not upload, install, deploy, publish, or send files or generated artifacts to WordPress, hosting platforms, CDNs, or any other external system unless the user explicitly requests that action.
 - A request to create or package an artifact authorizes local creation only; it does not authorize uploading or installing it.
 
+## Production SSH and WordPress paths
+
+- Use the existing SSH alias `seo-workbench-production` for the production host. It resolves to `root@8.145.54.254` on port `31079` and uses the configured project machine key.
+- The production server runs Debian 12 with Nginx.
+- Main-site WordPress root: `/www/wwwroot/leadtopmedia.com`.
+- Headless CMS WordPress root: `/www/wwwroot/cms.leadtopmedia.com`.
+- BaoTa Nginx virtual-host configuration: `/www/server/panel/vhost/nginx/`.
+- For CMS content operations, run WP-CLI against `/www/wwwroot/cms.leadtopmedia.com` and resolve the exact post/media IDs before updates or deletion.
+- Do not write SSH private keys, passwords, application passwords, cookies, or tokens into this repository.
+
 ## Task efficiency
 
 - Treat each task as one bounded objective. When the objective changes, recommend a new task instead of carrying unrelated context forward.
