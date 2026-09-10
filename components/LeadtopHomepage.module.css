@@ -213,6 +213,135 @@
 .caseCopy > a { margin-top: auto; padding-top: 28px; }
 .caseDisclaimer { position: relative; z-index: 2; max-width: 760px; margin-top: 20px; font-size: .7rem; }
 
+.stories { position: relative; overflow: clip; padding: 40px 0; background: #f5f6f8; scroll-margin-top: 102px; }
+.storiesHeading { position: relative; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 0; padding: 0 max(20px, calc((100vw - var(--max)) / 2)); pointer-events: none; }
+.page .stories .storiesHeading h2 { margin: 0; font-size: 42px; line-height: 1.15; letter-spacing: 0; font-weight: 500; }
+.storiesHeading h2 > span { display: block; margin-top: 8px; color: var(--sun-strong); font-size: 32px; font-weight: 650; }
+.storiesActions { display: flex; flex-shrink: 0; gap: 16px; margin-top: 0; }
+.storiesActions a, .storiesActions button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 52px; padding: 0 28px; border: 1px solid #e5e8eb; border-radius: 28px; background: white; color: #202b32; font: inherit; font-size: 16px; cursor: pointer; pointer-events: auto; }
+.storiesActions a { background: var(--sun); border-color: var(--sun); }
+.storiesActions a:hover, .storiesActions button:hover { background: #f9d38c; }
+.storiesActions a:focus-visible, .storiesActions button:focus-visible { outline: 2px solid #aa6814; outline-offset: 4px; }
+.storiesIntro { padding-bottom: 4px; }
+.storiesIntro p { font-size: 14px; }
+.storiesIntro a { margin-top: 18px; }
+.storiesPreview { max-width: var(--max); margin: 24px auto 0; padding: 0 24px; color: #72777d; font-size: 12px; line-height: 1.7; }
+.storiesStage { position: relative; display: grid; grid-template-columns: minmax(0, 680px); justify-content: center; margin-top: 24px; isolation: isolate; touch-action: pan-y; }
+.storiesStage:focus-visible { outline: 2px solid var(--sun-strong); outline-offset: -8px; }
+.storiesOrbit { position: absolute; top: 100px; left: 50%; width: 1100px; height: 800px; border: 1px solid #dce0e4; border-radius: 50%; transform: translateX(-50%); z-index: -1; }
+.storyCard { position: relative; grid-area: 1 / 1; align-self: start; width: 100%; border-radius: 8px; background: white; box-shadow: 0 18px 54px rgb(28 39 48 / .09); transform-origin: 50% 150%; transition: transform 600ms cubic-bezier(.22,.68,.2,1), opacity 600ms; }
+.storyActive { z-index: 3; transform: translateY(0) rotate(0); opacity: 1; }
+.storyPrevious { z-index: 1; transform: translate(-680px, 110px) rotate(-24deg) scale(.84); opacity: .26; pointer-events: none; }
+.storyNext { z-index: 1; transform: translate(680px, 110px) rotate(24deg) scale(.84); opacity: .26; pointer-events: none; }
+.storyImage { position: relative; height: clamp(260px, 30vh, 320px); border-radius: 8px 8px 0 0; overflow: hidden; }
+.storyImage img { object-fit: cover; }
+.storyImageLabel { position: absolute; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; background: rgb(255 255 255 / .94); color: #222e35; font-size: 14px; font-weight: 650; }
+.storyImageLabel span:last-child { color: #72777d; font-size: 11px; }
+.storyBody { padding: 24px 30px; }
+.storyTags { display: flex; gap: 16px; color: #8c560e; font-size: 11px; }
+.storyTags span + span { color: #72777d; }
+.storyBody h3 { margin-top: 14px; font-size: 24px; line-height: 1.45; letter-spacing: 0; }
+.storyBody p { margin-top: 12px; font-size: 13px; line-height: 1.85; color: #646e75; }
+.storyBody a { display: inline-flex; align-items: center; gap: 16px; margin-top: 22px; color: #a56312; font-size: 13px; font-weight: 650; }
+.storyBody a:hover { color: #3e555e; }
+.storyMetrics { position: absolute; top: 62px; left: calc(100% + 26px); display: grid; gap: 14px; width: 165px; opacity: 0; transform: translateY(18px); transition: opacity 350ms, transform 500ms; }
+.storyActive .storyMetrics { opacity: 1; transform: translateY(0); }
+.storyMetrics > div { padding: 17px 20px; border: 1px solid rgb(255 255 255 / .95); border-radius: 8px; background: rgb(255 255 255 / .94); box-shadow: 0 12px 30px rgb(28 39 48 / .05); }
+.storyMetrics strong { display: block; color: #344f5b; font-size: 29px; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.storyMetrics span { display: block; margin-top: 8px; font-size: 11px; color: #69757c; }
+.storyMetrics small { margin-left: 6px; font-size: 9px; color: #92999d; }
+.storiesControls { margin-top: 20px; position: relative; z-index: 4; display: flex; justify-content: center; align-items: center; gap: 24px; }
+.storiesControls button { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 48px; border: 1px solid #d9dde0; border-radius: 50%; background: white; color: #263840; cursor: pointer; transition: background 200ms, transform 200ms; }
+.storiesControls button:first-child svg { transform: rotate(180deg); }
+.storiesControls button:hover { background: #f7bb51; border-color: #f7bb51; }
+.storiesControls button:active { transform: scale(.94); }
+.storiesControls button:focus-visible, .storyBody a:focus-visible { outline: 2px solid #aa6814; outline-offset: 4px; }
+.storiesControls p { display: flex; gap: 8px; align-items: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.storiesControls p strong { color: #263840; font-size: 19px; }
+.storiesCurrent { width: 140px; margin-left: 14px; color: #68747c; }
+@media (max-width: 1050px) {
+  .storiesStage { grid-template-columns: minmax(0, 600px); padding: 0 20px; }
+  .page .stories .storiesHeading h2 { font-size: 36px; }
+  .storyMetrics { position: relative; top: auto; left: auto; width: 100%; padding: 0 20px 20px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .storyMetrics > div { padding: 15px 12px; }
+  .storyMetrics strong { font-size: 26px; }
+}
+@media (max-width: 760px) {
+  .stories { padding: 36px 0; scroll-margin-top: 86px; }
+  .storiesHeading { display: block; padding: 0 14px; }
+  .page .stories .storiesHeading h2 { font-size: 32px; word-break: normal; overflow-wrap: normal; }
+  .storiesHeading h2 > span { font-size: 20px; }
+  .storiesActions { gap: 12px; margin-top: 18px; }
+  .storiesActions a, .storiesActions button { padding: 0 20px; gap: 16px; font-size: 14px; min-height: 46px; }
+  .storiesIntro { margin-top: 24px; }
+  .storiesIntro p { font-size: 13px; }
+  .storiesPreview { padding: 0 22px; font-size: 10px; }
+  .storiesStage { grid-template-columns: minmax(0, 430px); padding: 0 20px; margin-top: 24px; }
+  .storyCard { transform-origin: 50% 140%; }
+  .storyActive { transform: translateX(0); }
+  .storyPrevious { transform: translate(-100%, 55px) rotate(-16deg) scale(.85); }
+  .storyNext { transform: translate(100%, 55px) rotate(16deg) scale(.85); }
+  .storyImage { height: 220px; }
+  .storyImageLabel { padding: 14px; font-size: 12px; }
+  .storyImageLabel span:last-child { font-size: 9px; }
+  .storyBody { padding: 22px; }
+  .storyBody h3 { font-size: 21px; }
+  .storyBody p { font-size: 12px; }
+  .storyMetrics { padding: 0 12px 16px; gap: 5px; }
+  .storyMetrics > div { padding: 14px 7px; }
+  .storyMetrics strong { font-size: 22px; }
+  .storyMetrics span { font-size: 9px; }
+  .storyMetrics small { display: block; margin: 3px 0 0; }
+  .storiesControls { gap: 16px; }
+  .storiesCurrent { display: none; }
+}
+@media (max-width: 360px) {
+  .storyBody { padding: 18px; }
+  .storyBody h3 { font-size: 19px; }
+  .storyMetrics strong { font-size: 19px; }
+  .storiesActions a, .storiesActions button { padding: 0 16px; }
+}
+/* Desktop stories keep the heading inside the same content rails as adjacent sections. */
+@media (min-width: 1051px) {
+  .stories {
+    --story-card-width: clamp(560px, 38vw, 640px);
+    padding: 56px 0 48px;
+    scroll-margin-top: 102px;
+  }
+  .storiesHeading {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: flex;
+    width: min(calc(100% - 40px), var(--max));
+    align-items: flex-start;
+    margin-inline: auto;
+    padding: 0;
+  }
+  .page .stories .storiesHeading h2 { font-size: clamp(36px, 2.6vw, 44px); }
+  .storiesHeading h2 > span { margin-top: 8px; font-size: clamp(28px, 2vw, 34px); }
+  .storiesActions { flex-wrap: wrap; gap: 12px; margin-top: 2px; }
+  .storiesActions a, .storiesActions button { min-height: 48px; padding: 0 20px; gap: 14px; font-size: 14px; }
+  .storiesStage { grid-template-columns: minmax(0, var(--story-card-width)); margin-top: -54px; }
+  .storyImage { height: clamp(250px, 25vw, 300px); }
+  .storyBody { min-height: 0; padding: 22px 30px 24px; }
+  .storyPrevious { transform: translate(-106%, 95px) rotate(-24deg) scale(.84); }
+  .storyNext { transform: translate(106%, 95px) rotate(24deg) scale(.84); }
+  .storiesControls { margin-top: 18px; }
+}
+@media (min-width: 1051px) and (max-height: 800px) {
+  .stories { padding-top: 42px; padding-bottom: 36px; }
+  .storiesStage { margin-top: -62px; }
+  .storyImage { height: 230px; }
+  .storyBody { padding: 18px 28px 20px; }
+  .storyBody h3 { margin-top: 10px; }
+  .storyBody p { margin-top: 8px; line-height: 1.7; }
+  .storyBody a { margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .storyCard, .storyMetrics, .storiesControls button { transition: none; }
+}
+
 .method { background: var(--paper); }
 .methodHeading { max-width: 900px; margin-inline: auto; text-align: center; }
 .methodHeading > p { margin-inline: auto; }

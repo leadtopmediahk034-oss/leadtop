@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -149,6 +149,31 @@ const teamRoles = [
   ["数据分析", Database],
 ];
 
+// Fictional design fixtures. Replace copy and metrics with approved case evidence before publishing.
+const successStories = [
+  {
+    name: "精密制造企业", category: "B2B · 工业制造", market: "欧美市场", number: "01",
+    title: "让专业制造能力，成为海外采购的优先选择",
+    copy: "重构产品与应用场景页面，连接高意向搜索广告与询盘筛选，让采购需求从第一次访问进入销售跟进。",
+    image: "/polaris/assets/hero-command-center.png", href: "/polaris", link: "了解 B2B 增长方案",
+    metrics: [["150%", "有效询盘增长"], ["38.6%", "MQL 占比"], ["24.7%", "获客成本降低"]],
+  },
+  {
+    name: "智能家居品牌", category: "DTC · 智能家居", market: "德国市场", number: "02",
+    title: "从新品冷启动，到品牌独立站的持续增长",
+    copy: "围绕生活场景组织创意素材，协同广告测试、商品页优化与再营销，把产品关注转化为购买行动。",
+    image: "/helios/assets/revenue.png", href: "/helios", link: "了解 DTC 增长方案",
+    metrics: [["200%", "首销目标达成率"], ["5.0", "广告投入产出比"], ["260%", "重点单品销量增长"]],
+  },
+  {
+    name: "户外生活方式品牌", category: "品牌出海 · 运动户外", market: "全球市场", number: "03",
+    title: "用真实生活场景，让品牌走进海外用户日常",
+    copy: "以场景内容和达人创意打开认知，连接社媒传播与独立站承接，让一次曝光成为理解品牌的开始。",
+    image: "/helios/sections/proof.png", href: "/services/socialmedia", link: "了解品牌社媒方案",
+    metrics: [["1.38亿+", "累计内容曝光"], ["906万+", "内容互动量"], ["150%", "阶段销量增长"]],
+  },
+];
+
 const faqs = [
   ["为什么 B2B 与 DTC 需要两套不同的增长系统？", "B2B 关注匹配的销售线索与长决策周期信任，DTC 关注获客成本、转化、客单价、复购和利润质量，因此由 Polaris 与 Helios 分别承接。"],
   ["Google Ads、SEO / GEO 和网站改版应该从哪一项开始？", "实施顺序取决于现有基础与验证目标。Leadtop 会先判断主要约束，再确定渠道、页面与内容的先后顺序。"],
@@ -265,15 +290,7 @@ export default function LeadtopHomepage() {
         <a className={styles.textLink} href="#diagnosis">评估当前需要优先配置的能力<ArrowRight size={17} weight="bold" /></a>
       </section>
 
-      <section className={styles.proof} id="proof" aria-labelledby="proof-title">
-        <div className={styles.proofHeading} data-reveal><h2 id="proof-title">以项目过程与业务结果<br />验证增长方法</h2><p>左侧展示 Polaris 的项目推进结构；右侧展示既有项目 PPT 中可公开使用的阶段成果数据。</p></div>
-        <span className={styles.proofNumber} aria-hidden="true">05</span>
-        <div className={styles.caseGrid}>
-          <article className={styles.casePrimary} data-reveal><div className={styles.caseMedia}><Image alt="Polaris B2B 增长项目推进场景" fill sizes="(max-width: 760px) 100vw, 52vw" src={withAssetPrefix("/polaris/assets/hero-command-center.png")} /></div><div className={styles.caseCopy}><div className={styles.caseMeta}><span>POLARIS / B2B INQUIRY</span></div><h3>从搜索点击到值得销售跟进的海外询盘</h3><EvidenceRows rows={[["业务起点", "已有官网与搜索投放，但询盘质量缺少稳定判断"], ["核心约束", "搜索意图、页面承接与采购信任没有形成闭环"], ["推进结构", "诊断关键词与页面，再用真实询盘反馈持续校准"]]} /><CaseMetrics metrics={[["有效询盘", "+146%"], ["MQL 占比", "38.6%"], ["CPL", "-24.7%"], ["Pipeline", "$1.26M"]]} /><Link href="/polaris">查看 Polaris 项目方法<ArrowRight size={16} /></Link></div></article>
-          <article className={styles.caseSecondary} data-reveal><div className={styles.caseCopy}><div className={styles.caseMeta}><span>HELIOS / DTC REVENUE</span></div><h3>从广告效率修复到 GMV 与单品增长</h3><EvidenceRows rows={[["项目阶段", "既有独立站项目的阶段复盘"], ["增长目标", "改善广告效率，并验证 GMV 与重点商品的放大空间"], ["协同方向", "围绕投放、页面承接与商品策略持续迭代"]]} /><CaseMetrics metrics={[["ROI", "1.5 → 2.5+"], ["单月 GMV", "+300%"], ["连续增长", "3 个月"], ["单品销量", "+260%"]]} /><Link href="/helios">查看 Helios 项目方法<ArrowRight size={16} /></Link></div><div className={styles.caseMedia}><Image alt="Helios DTC 项目阶段增长场景" fill sizes="(max-width: 760px) 100vw, 35vw" src={withAssetPrefix("/helios/assets/revenue.png")} /></div></article>
-        </div>
-        <p className={styles.caseDisclaimer}>左侧询盘、MQL、CPL 与 Pipeline 为案例排版模拟数据；右侧 ROI、GMV 与单品销量来自特定项目阶段的历史复盘。不同项目结果会因基础、预算、产品和市场条件而异。</p>
-      </section>
+      <SuccessStories />
 
       <section className={styles.method} id="method" aria-labelledby="method-title">
         <div className={styles.methodHeading} data-reveal><h2 id="method-title">从增长约束出发，<br />以阶段治理保障持续交付</h2><p>每一项投入都有验证假设，每一轮复盘都形成下一步决策。</p></div>
@@ -314,12 +331,35 @@ export default function LeadtopHomepage() {
   );
 }
 
-function EvidenceRows({ rows }) {
-  return <dl>{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>;
-}
-
-function CaseMetrics({ metrics }) {
-  return <div className={styles.caseMetrics}>{metrics.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>;
+function SuccessStories() {
+  const [active, setActive] = useState(0);
+  const touchStart = useRef(null);
+  const move = (direction) => setActive((current) => (current + direction + successStories.length) % successStories.length);
+  return (
+    <section className={styles.stories} id="proof" aria-labelledby="stories-title" aria-roledescription="轮播">
+      <div className={styles.storiesHeading}>
+        <h2 id="stories-title">Success Stories<span>成功案例</span></h2>
+        <div className={styles.storiesActions}><a href="#diagnosis">联系我们<ArrowRight size={18} /></a><Link href="/cases">更多案例<ArrowRight size={18} /></Link></div>
+      </div>
+      <div className={styles.storiesStage} tabIndex={0} aria-label="案例轮播，使用左右方向键切换"
+        onKeyDown={(event) => { if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1); } }}
+        onTouchStart={(event) => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }}
+        onTouchEnd={(event) => { if (!touchStart.current) return; const dx = event.changedTouches[0].clientX - touchStart.current.x; const dy = event.changedTouches[0].clientY - touchStart.current.y; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1); touchStart.current = null; }}
+        onTouchCancel={() => { touchStart.current = null; }}>
+        <div className={styles.storiesOrbit} aria-hidden="true" />
+        {successStories.map((story, index) => {
+          const offset = (index - active + successStories.length) % successStories.length;
+          const selected = offset === 0;
+          return <article key={story.number} className={`${styles.storyCard} ${selected ? styles.storyActive : offset === 1 ? styles.storyNext : styles.storyPrevious}`} aria-hidden={!selected} inert={!selected} aria-roledescription="幻灯片" aria-label={`${index + 1} / 3：${story.name}`}>
+            <div className={styles.storyImage}><Image src={withAssetPrefix(story.image)} alt={`${story.name}模拟案例场景`} fill sizes="(max-width: 760px) 85vw, 680px" /><div className={styles.storyImageLabel}><span>{story.name}</span><span>DEMO / {story.number}</span></div></div>
+            <div className={styles.storyBody}><div className={styles.storyTags}><span>{story.category}</span><span>{story.market}</span></div><h3>{story.title}</h3><p>{story.copy}</p><Link href={story.href}>{story.link}<ArrowRight size={18} /></Link></div>
+            <div className={styles.storyMetrics}>{story.metrics.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}<small>模拟</small></span></div>)}</div>
+          </article>;
+        })}
+      </div>
+      <div className={styles.storiesControls}><button type="button" onClick={() => move(-1)} aria-label="上一个案例"><ArrowRight size={21} /></button><p aria-live="polite" aria-atomic="true"><strong>0{active + 1}</strong><span>/ 03</span><span className={styles.storiesCurrent}>{successStories[active].name}</span></p><button type="button" onClick={() => move(1)} aria-label="下一个案例"><ArrowRight size={21} /></button></div>
+    </section>
+  );
 }
 
 function PartnerLogo({ partner }) {
