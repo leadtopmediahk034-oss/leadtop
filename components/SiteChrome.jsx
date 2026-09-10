@@ -18,7 +18,7 @@ const navigation = [
     { title: "B2C 行业", links: [["家居家具", "#systems"], ["运动户外", "#systems"], ["时尚服饰", "#systems"], ["美妆个护", "#systems"], ["生活方式", "#systems"], ["宠物用品", "#systems"]] },
   ] },
   { label: "客户案例", intro: "从业务问题、关键动作到结果口径，查看增长如何发生。", groups: [
-    { title: "案例分类", links: [["B2B 出海案例", "#proof"], ["DTC 品牌案例", "#proof"], ["按行业查看", "#proof"]] },
+    { title: "案例分类", links: [["B2B 出海案例", "/cases"], ["DTC 品牌案例", "/cases"], ["按行业查看", "/cases"]] },
   ] },
   { label: "资源中心", intro: "面向出海团队的洞察、指南和可执行增长资产。", groups: [
     { title: "增长知识", links: [["增长洞察", "/blog"], ["实战指南", "/blog"], ["行业报告", "/blog"]] },
@@ -31,7 +31,7 @@ const navigation = [
 
 const footerNavigation = [
   { title: "服务与方案", links: [["Polaris B2B 增长系统", "/polaris"], ["Helios DTC 增长引擎", "/helios"], ["独立站建设与转化", "/services/websitedesign"], ["广告投放与媒体", "/services/ads"], ["SEO / GEO 与内容", "#capabilities"], ["社媒与品牌运营", "/services/socialmedia"]] },
-  { title: "案例与资源", links: [["B2B 出海案例", "#proof"], ["DTC 品牌案例", "#proof"], ["增长洞察", "/blog"], ["实战指南", "/blog"], ["常见问题", "#faq"]] },
+  { title: "案例与资源", links: [["B2B 出海案例", "/cases"], ["DTC 品牌案例", "/cases"], ["增长洞察", "/blog"], ["实战指南", "/blog"], ["常见问题", "#faq"]] },
   { title: "关于 Leadtop", links: [["公司介绍", "/aboutus"], ["专业团队", "/aboutus"], ["合作伙伴", "/aboutus"], ["公司动态", "/aboutus"]] },
   { title: "联系与合作", links: [["联系我们", "/contactus"], ["加入我们", "/aboutus"], ["获取增长方案", "/contactus"]] },
 ];
