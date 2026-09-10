@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import styles from "../Blog.module.css";
 
-export function ArticleToc({ headings }) {
+export function ArticleToc({ headings, mobile = false }) {
   const [activeId, setActiveId] = useState(headings[0]?.id || "");
 
   useEffect(() => {
@@ -48,20 +48,25 @@ export function ArticleToc({ headings }) {
     </a>
   ));
 
-  return (
-    <>
-      <nav aria-label="文章目录" className={styles.tocDesktop}>
-        <strong>文章目录</strong>
-        <div>{links}</div>
-      </nav>
-      <details className={styles.tocMobile} open>
+  if (mobile) {
+    return (
+      <details className={styles.tocMobile}>
         <summary>
           <span>文章目录</span>
           <CaretDown aria-hidden="true" size={18} weight="bold" />
         </summary>
         <nav aria-label="移动端文章目录">{links}</nav>
       </details>
-    </>
+    );
+  }
+
+  return (
+    <aside className={styles.tocRail}>
+      <nav aria-label="文章目录" className={styles.tocDesktop}>
+        <strong>文章目录</strong>
+        <div>{links}</div>
+      </nav>
+    </aside>
   );
 }
 

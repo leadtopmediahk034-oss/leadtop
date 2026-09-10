@@ -85,6 +85,12 @@ export default async function BlogArticlePage({ params }) {
 
           {post.featuredImage && <div className={styles.articleImage}><img alt={post.featuredImageAlt} src={post.featuredImage} /></div>}
 
+          {post.headings.length >= 2 && (
+            <div className={styles.mobileTocShell}>
+              <ArticleToc headings={post.headings} mobile />
+            </div>
+          )}
+
           <div className={styles.articleLayout}>
             <ArticleToc headings={post.headings} />
             <div className={styles.articleMain}>
@@ -101,13 +107,6 @@ export default async function BlogArticlePage({ params }) {
               <Link href="/contactus">联系我们 <span aria-hidden="true">→</span></Link>
             </aside>
           </div>
-
-          <section className={styles.articleCta}>
-            <span>Let&apos;s talk</span>
-            <h2>让下一次全球增长<br />更清晰</h2>
-            <p>无论你正处于出海的哪个阶段，Leadtop 都愿意成为你的长期伙伴，用全球视野与本地经验走向更大的市场。</p>
-            <Link href="/contactus">联系我们 <span aria-hidden="true">→</span></Link>
-          </section>
 
           {nextPost && (
             <Link className={styles.nextArticle} href={`/blog/${nextPost.slug}`}>

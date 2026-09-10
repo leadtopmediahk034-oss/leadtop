@@ -60,16 +60,51 @@ function CtaArrow() {
 
 export function SiteHeader({ isHomepage = false }) {
   const [activeMenu, setActiveMenu] = useState(null);
+  const [headerHidden, setHeaderHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef(null);
+  const lastScrollY = useRef(0);
+  const scrollFrame = useRef(null);
   const cancelClose = () => { if (closeTimer.current) window.clearTimeout(closeTimer.current); closeTimer.current = null; };
-  const openMenu = (label) => { cancelClose(); setActiveMenu(label); };
+  const openMenu = (label) => { cancelClose(); setHeaderHidden(false); setActiveMenu(label); };
   const scheduleClose = () => { cancelClose(); closeTimer.current = window.setTimeout(() => setActiveMenu(null), 180); };
   useEffect(() => () => cancelClose(), []);
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+    const handleScroll = () => {
+      if (scrollFrame.current !== null) return;
+      scrollFrame.current = window.requestAnimationFrame(() => {
+        const currentScrollY = Math.max(window.scrollY, 0);
+        const scrollDelta = currentScrollY - lastScrollY.current;
+
+        if (mobileOpen || activeMenu || currentScrollY < 96) {
+          setHeaderHidden(false);
+        } else if (scrollDelta > 5) {
+          setHeaderHidden(true);
+        } else if (scrollDelta < -5) {
+          setHeaderHidden(false);
+        }
+
+        lastScrollY.current = currentScrollY;
+        scrollFrame.current = null;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollFrame.current !== null) window.cancelAnimationFrame(scrollFrame.current);
+      scrollFrame.current = null;
+    };
+  }, [activeMenu, mobileOpen]);
+  useEffect(() => {
+    document.documentElement.dataset.siteHeaderHidden = headerHidden ? "true" : "false";
+    return () => { delete document.documentElement.dataset.siteHeaderHidden; };
+  }, [headerHidden]);
 
   return (
     <>
-      <header className={styles.header}>
+      <header className={`${styles.header} ${headerHidden ? styles.headerHidden : ""}`} onFocusCapture={() => setHeaderHidden(false)}>
         <Link className={styles.brand} href="/" aria-label="Leadtop 首页"><BrandLogo /></Link>
         <nav className={styles.nav} aria-label="主导航" onKeyDown={(event) => event.key === "Escape" && setActiveMenu(null)} onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
           {navigation.map((item) => (
@@ -83,7 +118,7 @@ export function SiteHeader({ isHomepage = false }) {
           ))}
         </nav>
         <Link className={styles.headerCta} href={isHomepage ? "#diagnosis" : "/contactus"}>免费获取方案<CtaArrow /></Link>
-        <button className={styles.menuButton} type="button" aria-expanded={mobileOpen} aria-label={mobileOpen ? "关闭导航" : "打开导航"} onClick={() => setMobileOpen((value) => !value)}>{mobileOpen ? <X size={22} /> : <List size={22} />}</button>
+        <button className={styles.menuButton} type="button" aria-expanded={mobileOpen} aria-label={mobileOpen ? "关闭导航" : "打开导航"} onClick={() => { setHeaderHidden(false); setMobileOpen((value) => !value); }}>{mobileOpen ? <X size={22} /> : <List size={22} />}</button>
       </header>
       <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ""}`} aria-hidden={!mobileOpen}>
         <div className={styles.mobileMenuInner}>
