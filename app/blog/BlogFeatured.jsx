@@ -18,10 +18,12 @@ export default function BlogFeatured({ posts }) {
     <section
       aria-label="重点新闻"
       className={styles.featured}
+      id="featured-news"
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") selectPost(activeIndex - 1);
         if (event.key === "ArrowRight") selectPost(activeIndex + 1);
       }}
+      style={{ scrollMarginTop: "110px" }}
       tabIndex={0}
     >
       <article className={styles.featuredCard} aria-live="polite">

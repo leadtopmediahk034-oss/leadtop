@@ -23,13 +23,14 @@ function formatDate(value) {
   return new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value));
 }
 
-function blogUrl({ page = 1, category = "", search = "" } = {}) {
+function blogUrl({ page = 1, category = "", search = "", anchor = "" } = {}) {
   const query = new URLSearchParams();
   if (category) query.set("category", category);
   if (search) query.set("search", search);
   if (page > 1) query.set("page", String(page));
   const suffix = query.toString();
-  return suffix ? `/blog?${suffix}#news-list` : "/blog#news-list";
+  const hash = anchor ? `#${anchor}` : "";
+  return suffix ? `/blog?${suffix}${hash}` : `/blog${hash}`;
 }
 
 export default async function BlogPage({ searchParams }) {
@@ -40,8 +41,12 @@ export default async function BlogPage({ searchParams }) {
   const categories = (await getCategories()).filter((category) => category.slug !== "uncategorized").slice(0, 4);
   const activeCategory = categories.find((category) => category.slug === categorySlug);
   const { posts, total, totalPages } = await getPosts({ page, categoryId: activeCategory?.id, search });
-  const featuredPosts = page === 1 && !categorySlug && !search
-    ? posts.slice(0, 3).map((post) => ({ ...post, dateLabel: formatDate(post.date) }))
+  const showFeatured = page === 1 && !search;
+  const featuredSource = showFeatured && categorySlug
+    ? (await getPosts({ page: 1, perPage: 3 })).posts
+    : posts;
+  const featuredPosts = showFeatured
+    ? featuredSource.slice(0, 3).map((post) => ({ ...post, dateLabel: formatDate(post.date) }))
     : [];
   const hasQuery = Boolean(categorySlug || search);
 
@@ -60,12 +65,12 @@ export default async function BlogPage({ searchParams }) {
           <h2 className={styles.srOnly} id="latest-insights">新闻列表</h2>
           <div className={styles.tools}>
             <nav className={styles.categories} aria-label="新闻分类">
-              <Link aria-current={!categorySlug ? "page" : undefined} className={!categorySlug ? styles.categoryActive : ""} href={blogUrl({ search })}>全部</Link>
+              <Link aria-current={!categorySlug ? "page" : undefined} className={!categorySlug ? styles.categoryActive : ""} href={blogUrl({ search, anchor: "featured-news" })}>全部</Link>
               {categories.map((category) => (
                 <Link
                   aria-current={category.slug === categorySlug ? "page" : undefined}
                   className={category.slug === categorySlug ? styles.categoryActive : ""}
-                  href={blogUrl({ category: category.slug, search })}
+                  href={blogUrl({ category: category.slug, search, anchor: "featured-news" })}
                   key={category.id}
                 >
                   {category.name}
@@ -101,7 +106,7 @@ export default async function BlogPage({ searchParams }) {
             <div className={styles.empty}>
               <strong>{hasQuery ? "没有找到匹配的新闻" : "第一篇增长洞察即将发布"}</strong>
               <p>{hasQuery ? "请调整分类或搜索关键词后再试。" : "在 WordPress 后台发布文章后，这里会自动同步显示。"}</p>
-              {hasQuery && <Link href="/blog#news-list">查看全部新闻</Link>}
+              {hasQuery && <Link href="/blog">查看全部新闻</Link>}
             </div>
           )}
 

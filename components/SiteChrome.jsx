@@ -20,9 +20,9 @@ const navigation = [
   { label: "客户案例", intro: "从业务问题、关键动作到结果口径，查看增长如何发生。", groups: [
     { title: "案例分类", links: [["B2B 出海案例", "/cases"], ["DTC 品牌案例", "/cases"], ["按行业查看", "/cases"]] },
   ] },
-  { label: "资源中心", intro: "面向出海团队的洞察、指南和可执行增长资产。", groups: [
-    { title: "增长知识", links: [["增长洞察", "/blog"], ["实战指南", "/blog"], ["行业报告", "/blog"]] },
-    { title: "实用资源", links: [["方法模板", "#resources"], ["线上研讨会", "#resources"], ["常见问题", "#faq"]] },
+  { label: "新闻资讯", intro: "关注出海行业动态、增长方法与真实合作实践。", groups: [
+    { title: "增长知识", links: [["行业洞察", "/blog?category=行业洞察#featured-news"], ["出海营销", "/blog?category=出海营销#featured-news"]] },
+    { title: "合作与案例", links: [["品牌合作", "/blog?category=品牌合作#featured-news"], ["增长案例", "/blog?category=增长案例#featured-news"]] },
   ] },
   { label: "关于我们", intro: "了解 Leadtop 的团队、合作生态与全球增长实践。", groups: [
     { title: "了解 Leadtop", links: [["公司介绍", "/aboutus"], ["专业团队", "/aboutus"], ["合作伙伴", "/aboutus"], ["加入我们", "/aboutus"], ["公司动态", "/aboutus"], ["联系我们", "/contactus"]] },
