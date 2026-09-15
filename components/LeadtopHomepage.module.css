@@ -214,7 +214,7 @@
 .caseCopy > a { margin-top: auto; padding-top: 28px; }
 .caseDisclaimer { position: relative; z-index: 2; max-width: 760px; margin-top: 20px; font-size: .7rem; }
 
-.stories { position: relative; overflow: clip; padding: 40px 0; background: #f5f6f8; scroll-margin-top: 102px; }
+.stories { position: relative; overflow: clip; padding: 64px 0 72px; background: #f5f6f8; scroll-margin-top: 102px; }
 .storiesHeading { position: relative; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 0; padding: 0 max(20px, calc((100vw - var(--max)) / 2)); pointer-events: none; }
 .page .stories .storiesHeading h2 { margin: 0; font-size: 42px; line-height: 1.15; letter-spacing: 0; font-weight: 500; }
 .storiesHeading h2 > span { display: block; margin-top: 8px; color: var(--sun-strong); font-size: 32px; font-weight: 650; }
@@ -234,10 +234,9 @@
 .storyActive { z-index: 3; transform: translateY(0) rotate(0); opacity: 1; }
 .storyPrevious { z-index: 1; transform: translate(-680px, 110px) rotate(-24deg) scale(.84); opacity: .26; pointer-events: none; }
 .storyNext { z-index: 1; transform: translate(680px, 110px) rotate(24deg) scale(.84); opacity: .26; pointer-events: none; }
-.storyImage { position: relative; height: clamp(260px, 30vh, 320px); border-radius: 8px 8px 0 0; overflow: hidden; }
+.storyImage { position: relative; height: clamp(260px, 30vh, 320px); border-radius: 0; overflow: hidden; }
 .storyImage img { object-fit: cover; }
-.storyImageLabel { position: absolute; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; background: rgb(255 255 255 / .94); color: #222e35; font-size: 14px; font-weight: 650; }
-.storyImageLabel span:last-child { color: #72777d; font-size: 11px; }
+.storyImageLabel { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; padding: 16px 22px; border-radius: 8px 8px 0 0; background: white; color: #222e35; font-size: 14px; font-weight: 650; }
 .storyBody { padding: 24px 30px; }
 .storyTags { display: flex; gap: 16px; color: #8c560e; font-size: 11px; }
 .storyTags span + span { color: #72777d; }
@@ -250,7 +249,6 @@
 .storyMetrics > div { padding: 17px 20px; border: 1px solid rgb(255 255 255 / .95); border-radius: 8px; background: rgb(255 255 255 / .94); box-shadow: 0 12px 30px rgb(28 39 48 / .05); }
 .storyMetrics strong { display: block; color: #344f5b; font-size: 29px; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .storyMetrics span { display: block; margin-top: 8px; font-size: 11px; color: #69757c; }
-.storyMetrics small { margin-left: 6px; font-size: 9px; color: #92999d; }
 .storiesControls { margin-top: 20px; position: relative; z-index: 4; display: flex; justify-content: center; align-items: center; gap: 24px; }
 .storiesControls button { display: grid; place-items: center; width: 48px; height: 48px; flex: 0 0 48px; border: 1px solid #d9dde0; border-radius: 50%; background: white; color: #263840; cursor: pointer; transition: background 200ms, transform 200ms; }
 .storiesControls button:first-child svg { transform: rotate(180deg); }
@@ -284,7 +282,6 @@
   .storyNext { transform: translate(100%, 55px) rotate(16deg) scale(.85); }
   .storyImage { height: 220px; }
   .storyImageLabel { padding: 14px; font-size: 12px; }
-  .storyImageLabel span:last-child { font-size: 9px; }
   .storyBody { padding: 22px; }
   .storyBody h3 { font-size: 21px; }
   .storyBody p { font-size: 12px; }
@@ -292,7 +289,6 @@
   .storyMetrics > div { padding: 14px 7px; }
   .storyMetrics strong { font-size: 22px; }
   .storyMetrics span { font-size: 9px; }
-  .storyMetrics small { display: block; margin: 3px 0 0; }
   .storiesControls { gap: 16px; }
   .storiesCurrent { display: none; }
 }
@@ -306,7 +302,8 @@
 @media (min-width: 1051px) {
   .stories {
     --story-card-width: clamp(560px, 38vw, 640px);
-    padding: 56px 0 48px;
+    min-height: 100svh;
+    padding: clamp(72px, 8vh, 104px) 0 72px;
     scroll-margin-top: 102px;
   }
   .storiesHeading {
@@ -323,7 +320,7 @@
   .storiesHeading h2 > span { margin-top: 8px; font-size: clamp(28px, 2vw, 34px); }
   .storiesActions { flex-wrap: wrap; gap: 12px; margin-top: 2px; }
   .storiesActions a, .storiesActions button { min-height: 48px; padding: 0 20px; gap: 14px; font-size: 14px; }
-  .storiesStage { grid-template-columns: minmax(0, var(--story-card-width)); margin-top: -54px; }
+  .storiesStage { grid-template-columns: minmax(0, var(--story-card-width)); margin-top: clamp(38px, 6vh, 70px); }
   .storyImage { height: clamp(250px, 25vw, 300px); }
   .storyBody { min-height: 0; padding: 22px 30px 24px; }
   .storyPrevious { transform: translate(-106%, 95px) rotate(-24deg) scale(.84); }
@@ -331,8 +328,8 @@
   .storiesControls { margin-top: 18px; }
 }
 @media (min-width: 1051px) and (max-height: 800px) {
-  .stories { padding-top: 42px; padding-bottom: 36px; }
-  .storiesStage { margin-top: -62px; }
+  .stories { padding-top: 58px; padding-bottom: 54px; }
+  .storiesStage { margin-top: 34px; }
   .storyImage { height: 230px; }
   .storyBody { padding: 18px 28px 20px; }
   .storyBody h3 { margin-top: 10px; }

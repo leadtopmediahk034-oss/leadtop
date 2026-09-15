@@ -149,27 +149,27 @@ const teamRoles = [
   ["数据分析", Database],
 ];
 
-// Fictional design fixtures. Replace copy and metrics with approved case evidence before publishing.
+// Replace copy and metrics with approved case evidence before publishing.
 const successStories = [
   {
-    name: "精密制造企业", category: "B2B · 工业制造", market: "欧美市场", number: "01",
+    name: "精密制造企业", category: "B2B · 工业制造", market: "欧美市场",
     title: "让专业制造能力，成为海外采购的优先选择",
     copy: "重构产品与应用场景页面，连接高意向搜索广告与询盘筛选，让采购需求从第一次访问进入销售跟进。",
-    image: "/polaris/assets/hero-command-center.png", href: "/polaris", link: "了解 B2B 增长方案",
+    image: "/leadtop/success-stories/precision-manufacturing-v2.png", href: "/polaris", link: "了解 B2B 增长方案",
     metrics: [["150%", "有效询盘增长"], ["38.6%", "MQL 占比"], ["24.7%", "获客成本降低"]],
   },
   {
-    name: "智能家居品牌", category: "DTC · 智能家居", market: "德国市场", number: "02",
+    name: "智能家居品牌", category: "DTC · 智能家居", market: "德国市场",
     title: "从新品冷启动，到品牌独立站的持续增长",
     copy: "围绕生活场景组织创意素材，协同广告测试、商品页优化与再营销，把产品关注转化为购买行动。",
-    image: "/helios/assets/revenue.png", href: "/helios", link: "了解 DTC 增长方案",
+    image: "/leadtop/success-stories/smart-home-v2.png", href: "/helios", link: "了解 DTC 增长方案",
     metrics: [["200%", "首销目标达成率"], ["5.0", "广告投入产出比"], ["260%", "重点单品销量增长"]],
   },
   {
-    name: "户外生活方式品牌", category: "品牌出海 · 运动户外", market: "全球市场", number: "03",
+    name: "户外生活方式品牌", category: "品牌出海 · 运动户外", market: "全球市场",
     title: "用真实生活场景，让品牌走进海外用户日常",
     copy: "以场景内容和达人创意打开认知，连接社媒传播与独立站承接，让一次曝光成为理解品牌的开始。",
-    image: "/helios/sections/proof.png", href: "/services/socialmedia", link: "了解品牌社媒方案",
+    image: "/leadtop/success-stories/outdoor-lifestyle-v2.png", href: "/services/socialmedia", link: "了解品牌社媒方案",
     metrics: [["1.38亿+", "累计内容曝光"], ["906万+", "内容互动量"], ["150%", "阶段销量增长"]],
   },
 ];
@@ -350,10 +350,10 @@ function SuccessStories() {
         {successStories.map((story, index) => {
           const offset = (index - active + successStories.length) % successStories.length;
           const selected = offset === 0;
-          return <article key={story.number} className={`${styles.storyCard} ${selected ? styles.storyActive : offset === 1 ? styles.storyNext : styles.storyPrevious}`} aria-hidden={!selected} inert={!selected} aria-roledescription="幻灯片" aria-label={`${index + 1} / 3：${story.name}`}>
-            <div className={styles.storyImage}><Image src={withAssetPrefix(story.image)} alt={`${story.name}模拟案例场景`} fill sizes="(max-width: 760px) 85vw, 680px" /><div className={styles.storyImageLabel}><span>{story.name}</span><span>DEMO / {story.number}</span></div></div>
+          return <article key={story.name} className={`${styles.storyCard} ${selected ? styles.storyActive : offset === 1 ? styles.storyNext : styles.storyPrevious}`} aria-hidden={!selected} inert={!selected} aria-roledescription="幻灯片" aria-label={`${index + 1} / 3：${story.name}`}>
+            <div className={styles.storyImageLabel}><span>{story.name}</span></div><div className={styles.storyImage}><Image src={withAssetPrefix(story.image)} alt={`${story.name}案例场景`} fill sizes="(max-width: 760px) 85vw, 680px" /></div>
             <div className={styles.storyBody}><div className={styles.storyTags}><span>{story.category}</span><span>{story.market}</span></div><h3>{story.title}</h3><p>{story.copy}</p><Link href={story.href}>{story.link}<ArrowRight size={18} /></Link></div>
-            <div className={styles.storyMetrics}>{story.metrics.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}<small>模拟</small></span></div>)}</div>
+            <div className={styles.storyMetrics}>{story.metrics.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}</div>
           </article>;
         })}
       </div>
